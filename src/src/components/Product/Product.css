@@ -1,0 +1,11 @@
+#product{
+    background-color: #7BA66C;
+    margin: 20px;
+    max-width: 400px;
+    position: relative;
+}
+
+img{
+    width: 250px;
+    height: auto;
+}
