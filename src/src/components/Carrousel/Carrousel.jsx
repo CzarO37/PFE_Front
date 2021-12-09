@@ -1,7 +1,6 @@
 import React from "react";
 import Product from "../Product/Product";
 import tondeuse from "../../images/products/tondeuse.jpg"
-import './Carrousel.css'
 
 const Carrousel = () =>{
     return (

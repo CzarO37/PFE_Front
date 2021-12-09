@@ -1,6 +1,5 @@
 import React from "react";
 import tondeuse from "../../images/products/tondeuse.jpg"
-import './Product.css'
 
 const Product = ({img, title, price}) =>{
     console.log(img)
