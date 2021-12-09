@@ -1,17 +1,10 @@
 import React from "react";
-import Carrousel from "../Carrousel/Carrousel";
-import Navbar from "../Navbar/Navbar";
-import Presentation from "../Presentation/Presentation";
-import Container from "@mui/material/Container"
+import IndexPage from "../IndexPage/IndexPage";
 const App = () => {
     return(
-        <div>
-            <Container maxWidth="xl">
-                <Navbar/>
-                <Carrousel/>
-                <Presentation/>
-            </Container>
-        </div>
+        <>
+          <IndexPage/>  
+        </>
     )
 }
 
