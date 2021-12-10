@@ -25,4 +25,4 @@ yarn-error.log*
 # others
 .eslintcache
 package-lock.json
-.idea
+*.idea
