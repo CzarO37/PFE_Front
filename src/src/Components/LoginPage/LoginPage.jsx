@@ -1,13 +1,9 @@
 import {React,useState} from 'react'
 import usersService from '../../services/users.js'
-
 import {Grid,Paper,Avatar,Container,Typography,TextField,Button} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import './login.css';
 import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
-
-import axios from 'axios'
 
 const LoginPage = () => {
 
@@ -26,35 +22,16 @@ const LoginPage = () => {
         setPassword(newPassword)
     }
 
-    const getUser = (id) => {
-        usersService.getById(id).then(() => {
-            console.log((user) => user)
-        })
-      }
-
-    const handleClick = (e) => {
-        //e.preventDefault()
-        // const user = {
-        //     email: email,
-        //     password: password,
-        // }
-        // login(user);
-    }
-
-    const testGet = () => {
-        axios.get('/api/users/1')
-        .then(response => {
-            console.log(response.json)
-        })
-    }
-
-    const login = (req) => {
+    const handleLogin = (event) => {
+        event.preventDefault()
         const user = {
-            email: req.email,
-            password: req.password
+            email: email,
+            password: password
         }
-        usersService.login(user)
+        usersService.loginUser(user)
+        .then(response => console.log(response))
     }
+
     const backgroundStyle= {
         position: 'fixed',
         bottom: 0,
@@ -106,7 +83,7 @@ const LoginPage = () => {
     return (
         
     <>
-        <form onSubmit={login}>
+        <form onSubmit={handleLogin}>
         <Paper style={backgroundStyle}>
             <Container>
                 <Grid container marginTop="20vh">
