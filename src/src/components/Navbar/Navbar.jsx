@@ -12,7 +12,7 @@ const Navbar = () =>{
                 <Image src={logo_vinci} width="300px" height="auto"/>
             </Grid>
             <Grid item>        
-                <Button variant="contained" >Se connecter</Button>
+                <Button variant="contained" style={{background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}>Se connecter</Button>
             </Grid>  
         </Grid>
         </>
