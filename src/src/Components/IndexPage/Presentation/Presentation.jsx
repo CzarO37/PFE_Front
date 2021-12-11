@@ -34,29 +34,35 @@ const Presentation = () => {
             </Grid>
             <Grid item xs={8} justifyContent="flex-start">
                 <Image src={second_hand} sx={{maxWidth : "450px"}}/>
-                <Typography sx={{textAlign: 'center', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Acheter en seconde main</Typography>
+                
             </Grid>
-            <Grid xs={4}></Grid>
-            <Grid xs={4}></Grid>
+            <Grid xs={4} sx={{display: "flex",flexDirection: "column",justifyContent: "center"}}>
+                <Typography sx={{fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Acheter en seconde main</Typography>
+            </Grid>
+            <Grid xs={4} sx={{display: "flex",flexDirection: "column",justifyContent: "center"}}>
+                <Typography sx={{textAlign: 'right', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Créer des liens</Typography>
+            </Grid>
             <Grid item xs={8}>
                 <Image src={liens} sx={{maxWidth : "450px"}}/>
-                <Typography sx={{textAlign: 'center', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Créer des liens</Typography>
             </Grid>
             <Grid item xs={8}>
                 <Image src={recuperation} sx={{maxWidth : "450px"}}/>
-                <Typography sx={{textAlign: 'center', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Privilégier la récupération</Typography>
             </Grid>
-            <Grid xs={4}></Grid>
-            <Grid xs={4}></Grid>
-            <Grid item xs={8}>
+            <Grid xs={4} sx={{display: "flex",flexDirection: "column",justifyContent: "center"}}>
+                <Typography sx={{fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Privilégier la récupération</Typography>
+            </Grid>
+            <Grid xs={5} sx={{display: "flex",flexDirection: "column",justifyContent: "center"}}>
+                <Typography sx={{textAlign: 'right', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Respecter notre environnement</Typography>
+            </Grid>
+            <Grid item xs={7}>
                 <Image src={environnement} sx={{maxWidth : "450px"}}/>
-                <Typography sx={{textAlign: 'center', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Respecter notre environnement</Typography>
             </Grid>
             <Grid item xs={8} >
                 <Image src={economiser} sx={{maxWidth : "450px"}}/>
-                <Typography sx={{textAlign: 'center', fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Economiser</Typography>
             </Grid>
-            <Grid xs={4}></Grid>
+            <Grid xs={4} sx={{display: "flex",flexDirection: "column",justifyContent: "center"}}>
+                <Typography sx={{ fontSize:'40px', color:'#8CB17E', fontWeight:'bold'}}>Economiser</Typography>
+            </Grid>
         </Grid>
         </Grid>
     )
