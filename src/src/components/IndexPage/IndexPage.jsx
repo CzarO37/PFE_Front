@@ -1,7 +1,7 @@
 import React from 'react'
-import Carrousel from '../Carrousel/Carrousel'
+import Carrousel from './Carrousel/Carrousel'
 import Navbar from '../Navbar/Navbar'
-import Presentation from '../Presentation/Presentation'
+import Presentation from './Presentation/Presentation'
 
 const IndexPage = () => {
     return (
