@@ -1,13 +1,12 @@
 import { Grid, Typography } from '@mui/material'
-import { grid } from '@mui/system'
-import { Image } from 'mui-image'
 import React from 'react'
 import vinci_logo from '../../images/icon_logos/vinci_logo.png'
 import liens from '../../images/icon_logos/creer_lien.png'
-import economiser from '../../images/icon_logos/economiser.jpg'
-import environnement from '../../images/icon_logos/Respecter_environnement.jpg'
-import recuperation from '../../images/icon_logos/privilegier_recuperation.jpg'
-import second_hand from '../../images/icon_logos/seconde_main.jpg'
+import economiser from '../../images/icon_logos/economiser.png'
+import environnement from '../../images/icon_logos/Respecter_environnement.png'
+import recuperation from '../../images/icon_logos/privilegier_recuperation.png'
+import second_hand from '../../images/icon_logos/seconde_main.png'
+import Image from 'mui-image'
 
 const Presentation = () => {
     return (

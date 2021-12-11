@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import LoginPage from '../LoginPage/LoginPage'
-import IndexPage from '../IndexPage/IndexPage'
 
 const App = () => {
   const initialLoad = () => {
@@ -10,7 +9,7 @@ const App = () => {
   useEffect(initialLoad, [])
   
   return (
-    <IndexPage></IndexPage>
+    <LoginPage></LoginPage>
   );
 
 }
