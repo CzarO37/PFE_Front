@@ -6,7 +6,7 @@ import logo_vinci from "../../images/icon_logos/logo_vinci2hand.png"
 const Navbar = () =>{
     return(
         <>
-        <Grid container justifyContent="space-between" alignItems="center">
+        <Grid container justifyContent="space-between" alignItems="center" marginBottom="50px">
             <Grid item>
                 <img src={logo_vinci} width="300px" height="auto"/>
             </Grid>
