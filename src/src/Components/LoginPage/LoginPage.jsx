@@ -55,11 +55,7 @@ const LoginPage = () => {
     }
 
     const logoStyle = {
-        'marginTop':'25px'
-    }
-
-    const containerStyle = {
-        margin: '140px auto',
+        'marginTop':'7vh'
     }
 
     const lockIconStyle = {
@@ -67,26 +63,37 @@ const LoginPage = () => {
     }
 
     const formStyle = {
-        'marginTop':'30px'
+        'marginTop':'8vh'
     }
 
     const submitStyle = {
-        'marginTop':'50px',
-        width:'200px',
+        'marginTop':'8vh',
+        width:'45%',
         'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'
     }
 
     const inputStyle = {
-        width:'350px'
+        width:'70%'
+    }
+
+    const signUpStyle = {
+        marginTop: '2vh',
+        padding: '20px'
+    }
+
+    const signUpButtonStyle = {
+        'marginTop':'10px',
+        width:'200px',
+        'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
     }
 
     return (
         
     <>
-        <form onSubmit={handleLogin}>
+        
         <Paper style={backgroundStyle}>
             <Container>
-                <Grid container marginTop="20vh">
+                <Grid container marginTop="13vh">
                     <Grid item xs={6}>
                         
                         <Paper style={loginFormStyle}>
@@ -94,6 +101,7 @@ const LoginPage = () => {
                                 <Avatar style={lockIconStyle}><LockOutlinedIcon/></Avatar>
                                 <Typography variant="h5">Connexion</Typography>
                             </Grid>
+                            <form onSubmit={handleLogin}>
                             <Grid align="center" style={formStyle}>
                                 <TextField style={inputStyle}
                                     required
@@ -115,7 +123,7 @@ const LoginPage = () => {
                                 <br/>
                                 <Button type="submit" variant="contained" style={submitStyle}>Se connecter</Button>
                             </Grid>
-                            
+                            </form>
                         </Paper>
                         
                     </Grid>
@@ -124,17 +132,24 @@ const LoginPage = () => {
                         <Paper>
                             <Paper style={logoPaperStyle}>
                                 <Grid item style={logoStyle}>
-                                    <img src={logo} width="500px" height="auto"/>
+                                    <img src={logo} width="100%" height="auto"/>
                                 </Grid>
                                 
                             </Paper>
                         </Paper>
                     </Grid>
                 </Grid>
+                <Paper style={signUpStyle}>
+                    <Grid align="center">
+                        <Typography variant="h4">Nouveau ici? Crée ton compte en un clic!</Typography>
+                        <Button variant="contained" style={signUpButtonStyle}>S'inscrire</Button>
+                    </Grid>
+                </Paper>
+                
             </Container>
                 
         </Paper>
-        </form>
+        
     </>)
 };
  
