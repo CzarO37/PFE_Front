@@ -91,11 +91,11 @@ const Carrousel = (props) =>{
             responsive={responsive}
             ssr={true} // means to render carousel on server-side.
             infinite={true}
-            autoPlay={false}
-            autoPlaySpeed={2000}
+            autoPlay={true}
+            autoPlaySpeed={8000}
             keyBoardControl={true}
             customTransition="transform 5000ms ease-in-out"
-            transitionDuration={500}
+            transitionDuration={5000}
             containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile"]}
             dotListClass="custom-dot-list-style"
@@ -159,6 +159,32 @@ const Carrousel = (props) =>{
                     <CardMedia
                         component="img"
                         image={tondeuse}
+                        style={cardStyle}
+                    />
+                    <CardContent style={cardContentStyle}>
+                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography style={typoStyle}>250€</Typography>
+                    </CardContent>
+                </Card>
+            </div>
+            <div>
+                <Card style={cardStyle}>
+                    <CardMedia
+                        component="img"
+                        image={house}
+                        style={cardStyle}
+                    />
+                    <CardContent style={cardContentStyle}>
+                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography style={typoStyle}>250€</Typography>
+                    </CardContent>
+                </Card>
+            </div>
+            <div>
+                <Card style={cardStyle}>
+                    <CardMedia
+                        component="img"
+                        image={house}
                         style={cardStyle}
                     />
                     <CardContent style={cardContentStyle}>
