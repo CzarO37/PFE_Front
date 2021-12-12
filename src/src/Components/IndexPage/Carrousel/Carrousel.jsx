@@ -6,17 +6,21 @@ import house from "../../../images/products/house.jpg"
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { minHeight } from "@mui/system";
 
 const Carrousel = (props) =>{
-    const gridContainerStyle = {
-    
+    const styleDiv = {
+        marginLeft : '10px',
+        marginRight : '10px'
     }
     
     const cardStyle = {
-        height: 'auto',
-        maxHeight: '400px',
-        width: 'auto',
-        maxWidth: '420px'
+        maxWidth: '400px'
+    }
+
+    const imgCardStyle = {
+        minWidth: '400px',
+	    minHeight: '350px'
     }
     
     const cardContentStyle = {
@@ -102,12 +106,12 @@ const Carrousel = (props) =>{
             additionalTransfrom={-20 * 5} 
         >
             
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={house}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
@@ -115,12 +119,12 @@ const Carrousel = (props) =>{
                     </CardContent>
                 </Card>
             </div>
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={tondeuse}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
@@ -128,12 +132,12 @@ const Carrousel = (props) =>{
                     </CardContent>
                 </Card>
             </div>
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={house}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
@@ -141,12 +145,12 @@ const Carrousel = (props) =>{
                     </CardContent>
                 </Card>
             </div>
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={vetements}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
@@ -154,12 +158,12 @@ const Carrousel = (props) =>{
                     </CardContent>
                 </Card>
             </div>
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={tondeuse}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
@@ -167,12 +171,12 @@ const Carrousel = (props) =>{
                     </CardContent>
                 </Card>
             </div>
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={house}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
@@ -180,12 +184,12 @@ const Carrousel = (props) =>{
                     </CardContent>
                 </Card>
             </div>
-            <div>
+            <div style={styleDiv}>
                 <Card style={cardStyle}>
                     <CardMedia
                         component="img"
                         image={house}
-                        style={cardStyle}
+                        style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
                         <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
