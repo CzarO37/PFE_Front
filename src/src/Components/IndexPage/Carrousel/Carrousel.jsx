@@ -6,7 +6,7 @@ import house from "../../../images/products/house.jpg"
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { minHeight } from "@mui/system";
+import { fontSize, minHeight } from "@mui/system";
 
 const Carrousel = (props) =>{
     const styleDiv = {
@@ -25,11 +25,17 @@ const Carrousel = (props) =>{
     
     const cardContentStyle = {
         background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 68%, rgba(5,90,120,1) 100%)',
-        
+        justify: 'space-between'
     }
     
     const typoStyle = {
-        color : 'white'
+        color : 'white',
+        fontSize: '20px'
+    }
+
+    const priceTextStyle = {
+        color : 'white',
+        fontSize : '25px'
     }
     
     const responsive = {
@@ -114,8 +120,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -127,8 +133,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -140,8 +146,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -153,8 +159,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -166,8 +172,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -179,8 +185,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -192,8 +198,8 @@ const Carrousel = (props) =>{
                         style={imgCardStyle}
                     />
                     <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
+                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
+                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
                     </CardContent>
                 </Card>
             </div>
