@@ -5,7 +5,7 @@ import {Grid, Paper, Avatar, Container, Typography, TextField, Button} from '@mu
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
-import './login.css'
+//import './login.css'
 
 const LoginPage = () => {
 
