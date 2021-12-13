@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import usersService from '../../services/users.js'
 import {Grid, Paper, Avatar, Container, Typography, TextField, Button, FormGroup, FormControlLabel, Checkbox, FormControl, RadioGroup, FormLabel, Radio} from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import 'fontsource-roboto';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import SchoolIcon from '@mui/icons-material/School';
@@ -87,7 +87,7 @@ const SignUpPage = () => {
         height: "auto",
     }
 
-    const lockIconStyle = {
+    const registerIconStyle = {
         'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'
     }
 
@@ -111,7 +111,7 @@ const SignUpPage = () => {
             <Paper>
                 <Grid container justifyContent="space-around" style={signUpFormStyle}>
                     <Grid xs={12} sm={12} md={6} xl={6} align="center">
-                        <Avatar style={lockIconStyle}><LockOutlinedIcon/></Avatar>
+                        <Avatar style={registerIconStyle}><BorderColorOutlinedIcon/></Avatar>
                         <Typography variant="h5">Inscription</Typography>
                         <form onSubmit={handleSignUp}>
                             <Grid align="center" style={formStyle}>
