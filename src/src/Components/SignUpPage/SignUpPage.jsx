@@ -1,4 +1,5 @@
-import {React,useState} from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import usersService from '../../services/users.js'
 import {Grid,Paper,Avatar,Container,Typography,TextField,Button,FormGroup,FormControlLabel,Checkbox,FormControl,RadioGroup,FormLabel,Radio} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -106,7 +107,7 @@ const SignUpPage = () => {
 
     return (
         
-    <>
+
         
             <Container style={containerStyle}>
                 <Paper>
@@ -174,12 +175,14 @@ const SignUpPage = () => {
                             </form>
                         </Grid>
                         <Grid xs={12} sm={6} md={6} xl={6} align="center">
-                            <Avatar src={logo} style={logoStyle}></Avatar>
+                            <Link to="/">
+                                <Avatar src={logo} style={logoStyle}></Avatar>
+                            </Link>
                         </Grid>
                     </Grid>
                 </Paper>
             </Container>
-    </>)
+    )
 };
  
 export default SignUpPage;
