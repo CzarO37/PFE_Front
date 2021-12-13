@@ -1,14 +1,14 @@
 import { Card, CardContent, CardMedia, Container, Grid, Paper, Typography } from '@mui/material'
-import React, {useState, useEffects} from 'react'
+import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
 import house from '../../images/products/house.jpg'
 import './ProductPage.css'
 
-const ProductsPage = () => {
+const ProductsPage = (props) => {
     
     const [productList, setProductList] = useState([])
 
-    useEffects(()=>{
+    useEffect(()=>{
         annoncementsService.getAll().then((response)=>setProductList(response))
     }, [])
 
@@ -19,12 +19,11 @@ const ProductsPage = () => {
     }
 
     const gridStyle = {
-        paddingBottom: '20px',
+        paddingBottom: '1vh',
         padding:'1vh'
     }
 
     const cardStyle = {
-        //padding: '10px',
         borderColor: 'red',
         borderRadius: 0,
         background: 'linear-gradient(90deg, rgba(198, 223, 186, 0.5) 0%, rgba(152, 200, 135, 0.5) 100%)'
@@ -55,6 +54,7 @@ const ProductsPage = () => {
                             <CardContent>
                                 <Typography variant="h4">{product.name}</Typography>
                                 <Typography>{product.description}</Typography>
+                                <Typography>{product.price} €</Typography>
                             </CardContent>
                         </Card>
                     </Paper>
@@ -74,7 +74,7 @@ const ProductsPage = () => {
                         <Typography>Filtres</Typography>
                     </Grid>
                     <Grid container justifyContent="space-between" align="center">
-                        
+                        {productsRender()}
                     </Grid>
                 </Grid> 
             </Container>
