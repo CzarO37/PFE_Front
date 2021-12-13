@@ -3,7 +3,7 @@
   "name": "Vinci 2nd Hand",
   "icons": [
     {
-      "src": "vinci2ndhand_logo.png",
+      "src": "vinci2ndhand_logoImage.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     }
