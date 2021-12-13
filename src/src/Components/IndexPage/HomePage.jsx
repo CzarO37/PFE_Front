@@ -3,8 +3,9 @@ import Carrousel from './Carrousel/Carrousel'
 import Navbar from '../Navbar/Navbar'
 import Presentation from './Presentation/Presentation'
 import { Container } from '@mui/material'
+import './home.css'
 
-const IndexPage = () => {
+const HomePage = () => {
     return (
         <>
             <Container maxWidth="xl">
@@ -16,4 +17,4 @@ const IndexPage = () => {
     )
 }
 
-export default IndexPage
+export default HomePage

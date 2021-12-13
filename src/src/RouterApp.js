@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, useRouteMatch, Link } from 'react-router-dom'
 
-import IndexPage from "./Components/IndexPage/IndexPage";
+import HomePage from "./Components/IndexPage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import SignUpPage from "./Components/SignUpPage/SignUpPage";
 
@@ -17,7 +17,7 @@ const RouterApp = () => {
                     <SignUpPage />
                 </Route>
                 <Route path={"/"}>
-                    <IndexPage />
+                    <HomePage />
                 </Route>
             </Switch>
         </div>
