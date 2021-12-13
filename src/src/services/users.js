@@ -9,8 +9,14 @@ const getAll = () => {
 }
 
 const loginUser = (user) => {
-    console.log("User in personsService: ",user)
+    console.log("User in usersService: ",user)
     const request = axios.post(`${baseUrl}/login`,user)
+    return request.then(response => response.data)
+}
+
+const signUpUser = (user) => {
+    console.log("User in usersService: ",user)
+    const request = axios.post(baseUrl,user)
     return request.then(response => response.data)
 }
 
@@ -47,4 +53,4 @@ const update = (id, newObject) => {
         })
 }
 
-export default {getAll, create, del, update, loginUser, getById}
+export default {getAll, create, del, update, loginUser, getById, signUpUser}
