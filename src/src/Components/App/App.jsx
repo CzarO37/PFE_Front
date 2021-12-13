@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import LoginPage from '../LoginPage/LoginPage'
+import SignUpPage from '../SignUpPage/SignUpPage'
 
 const App = () => {
   const initialLoad = () => {
@@ -9,7 +10,8 @@ const App = () => {
   useEffect(initialLoad, [])
   
   return (
-    <LoginPage></LoginPage>
+    //<LoginPage></LoginPage>
+    <SignUpPage></SignUpPage>
   );
 
 }
