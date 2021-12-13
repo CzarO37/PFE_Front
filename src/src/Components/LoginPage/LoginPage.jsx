@@ -1,4 +1,5 @@
-import {React,useState} from 'react'
+import React, { useState} from 'react'
+import { Link } from 'react-router-dom'
 import usersService from '../../services/users.js'
 import {Grid,Paper,Avatar,Container,Typography,TextField,Button} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -132,7 +133,9 @@ const LoginPage = () => {
                         <Paper>
                             <Paper style={logoPaperStyle}>
                                 <Grid item style={logoStyle}>
-                                    <img src={logo} width="100%" height="auto"/>
+                                    <Link to="/">
+                                        <img src={logo} width="100%" height="auto"/>
+                                    </Link>
                                 </Grid>
                                 
                             </Paper>
@@ -142,7 +145,7 @@ const LoginPage = () => {
                 <Paper style={signUpStyle}>
                     <Grid align="center">
                         <Typography variant="h4">Nouveau ici? Crée ton compte en un clic!</Typography>
-                        <Button variant="contained" style={signUpButtonStyle}>S'inscrire</Button>
+                        <Button href={"/signup"} variant="contained" style={signUpButtonStyle}>S'inscrire</Button>
                     </Grid>
                 </Paper>
                 
