@@ -25,10 +25,6 @@ yarn-error.log*
 # others
 src/.eslintcache
 package-lock.json
-<<<<<<< HEAD
 *.idea
 src/.env
-=======
 src/package-lock.json
-*.idea
->>>>>>> 90b2e175b53cd970403ed9e974eb6cd7a19733ad

@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Container, Grid, List ,ListItem, ListItemText, Paper, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardMedia, Container, Grid, List ,ListItem, ListItemText, Paper, Typography } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import house from '../../images/categories/house.jpg'
 import vetements from '../../images/categories/vetements.jpg'
@@ -6,7 +6,7 @@ import loisir from '../../images/categories/loisir.jpg'
 import famille from '../../images/categories/famille.jpg'
 import electronique from '../../images/categories/electronics.jpg'
 import categorieService from '../../services/categories.js'
-import { useLocation} from 'react-router-dom'
+import { useLocation, Link} from 'react-router-dom'
 
 const CategoriePage = () => {
 
@@ -24,9 +24,7 @@ const CategoriePage = () => {
             category.categoryId == categoryId).map(filteredCategory => 
                 filteredCategory.children.map((catego) =>(
                     <ListItem>
-                        <ListItemText
-                            primary={catego.name}
-                        />
+                        <Link style={{textDecoration: 'none', color: 'black'}} to={`/products?categoryId=${catego.categoryId}`}><ListItemText primary={catego.name}/></Link>
                     </ListItem>
                 ) 
             ))
@@ -65,7 +63,6 @@ const CategoriePage = () => {
 
     return (
         <div>
-            {console.log(category)}
             <Container maxWidth="xl">
                 <Grid container>
                     <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
@@ -83,7 +80,7 @@ const CategoriePage = () => {
                                             alt = "House and garden"
                                         />
                                         <CardContent>
-                                            <Typography variant="h4">Maison et Jardin</Typography>
+                                        <Link style={{textDecoration: 'none', color: 'black'}} to="/products?categoryId=1"><Typography variant="h4">Maison et Jardin</Typography></Link>
                                             <List>
                                                 {generate(1)}
                                             </List>
@@ -103,7 +100,7 @@ const CategoriePage = () => {
                                             alt = "House and garden"
                                         />
                                         <CardContent>
-                                            <Typography variant="h4">Famille</Typography>
+                                        <Link style={{textDecoration: 'none', color: 'black'}} to="/products?categoryId=2"><Typography variant="h4">Famille</Typography></Link>
                                             <List>
                                                 {generate(2)}
                                             </List>
@@ -123,7 +120,7 @@ const CategoriePage = () => {
                                             alt = "House and garden"
                                         />
                                         <CardContent>
-                                            <Typography variant="h4">Vêtements et accessoires</Typography>
+                                        <Link style={{textDecoration: 'none', color: 'black'}} to="/products?categoryId=3"><Typography variant="h4">Vêtements et accessoires</Typography></Link>
                                             <List>
                                                 {generate(3)}
                                             </List>
@@ -143,7 +140,7 @@ const CategoriePage = () => {
                                             alt = "House and garden"
                                         />
                                         <CardContent>
-                                            <Typography variant="h4">Loisir - hobbys</Typography>
+                                        <Link style={{textDecoration: 'none', color: 'black'}} to="/products?categoryId=4"><Typography variant="h4">Loisir - hobbys</Typography></Link>
                                             <List>
                                                 {generate(4)}
                                             </List>
@@ -163,7 +160,7 @@ const CategoriePage = () => {
                                             alt = "House and garden"
                                         />
                                         <CardContent>
-                                            <Typography variant="h4">Electronique</Typography>
+                                        <Link style={{textDecoration: 'none', color: 'black'}} to="/products?categoryId=5"><Typography variant="h4">Electronique</Typography></Link>
                                             <List>
                                                 {generate(5)}
                                             </List>

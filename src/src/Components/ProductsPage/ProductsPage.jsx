@@ -1,10 +1,12 @@
-import { Card, CardContent, CardMedia, Container, Grid, Paper, Typography } from '@mui/material'
+import { Button,Card, CardContent, CardMedia, Container, Grid, Paper, Typography } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
 import house from '../../images/products/house.jpg'
 import './ProductPage.css'
 import { Link, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
+
 
 const ProductsPage = (props) => {
 
@@ -102,15 +104,11 @@ const ProductsPage = (props) => {
     return (
         <div>
             <Container maxWidth="xl">
-                <Grid container
-                        spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
-                        style={{ minHeight: '100vh' }}>
+                <Grid container>
                     <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
                         <Typography style={titleStyle}>{categoryName}</Typography>
                     </Grid>
+                    <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>                    
                     <Grid item xs ={12} align="end">
                         <Typography>Filtres</Typography>
                     </Grid>

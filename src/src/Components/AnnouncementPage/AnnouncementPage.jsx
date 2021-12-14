@@ -123,7 +123,7 @@ const AnnouncementPage = () => {
     return (
             <Container>
                 <Typography variant="h3" textAlign={"center"} style={{color:'#7BA66C',fontWeight:'bold'}}>{announcement.name}</Typography>
-                <Link to="/login"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
+                <Link to="/products"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
                 
                 <Paper elevation={6} style={framesStyle}>
                     <Paper style={sectionsStyle}>
