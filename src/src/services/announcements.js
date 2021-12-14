@@ -7,4 +7,10 @@ const getAll = () =>{
     return request.then(response=>response.data)
 }
 
-export default {getAll}
+
+const getProductByCategoryId = (categoryId) =>{
+    const request = axios.get(baseUrl+'?category='+categoryId)
+    return request.then(response=>response.data)
+}
+
+export default {getAll, getProductByCategoryId}
