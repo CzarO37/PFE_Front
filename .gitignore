@@ -26,3 +26,4 @@ yarn-error.log*
 src/.eslintcache
 package-lock.json
 *.idea
+src/.env
