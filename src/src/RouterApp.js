@@ -2,6 +2,7 @@
 import React from 'react'
 import { Switch, Route, useRouteMatch, Link} from 'react-router-dom'
 
+import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import ProductsPage from './Components/ProductsPage/ProductsPage';
 import SignUpPage from "./Components/SignUpPage/SignUpPage";
@@ -28,6 +29,9 @@ const RouterApp = () => {
                 </Route>
                 <Route path={"/categories"}>
                     <CategoriePage/>
+                </Route>
+                <Route path={"/"}>
+                    <HomePage />
                 </Route>
             </Switch>
         </div>
