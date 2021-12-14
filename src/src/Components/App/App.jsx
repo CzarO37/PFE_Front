@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import LoginPage from '../LoginPage/LoginPage'
 import SignUpPage from '../SignUpPage/SignUpPage'
+import AnnouncementPage from '../AnnouncementPage/AnnouncementPage'
 
 const App = () => {
   const initialLoad = () => {
@@ -11,7 +12,8 @@ const App = () => {
   
   return (
     //<LoginPage></LoginPage>
-    <SignUpPage></SignUpPage>
+    //<SignUpPage></SignUpPage>
+    <AnnouncementPage></AnnouncementPage>
   );
 
 }
