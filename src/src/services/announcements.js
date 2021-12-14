@@ -22,4 +22,9 @@ const getDetails = (id,token) => {
     return request.then(response => response.data)
 }
 
-export default {getAll, getById, getDetails}
+const getProductByCategoryId = (categoryId) =>{
+    const request = axios.get(baseUrl+'?category='+categoryId)
+    return request.then(response=>response.data)
+}
+
+export default {getAll, getById, getDetails, getProductByCategoryId}

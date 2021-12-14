@@ -7,7 +7,7 @@ import 'fontsource-roboto';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import SchoolIcon from '@mui/icons-material/School';
 import logo from '../../images/vinci2ndhand.png'
-import './signup.css'
+//import './signup.css'
 
 
 const SignUpPage = () => {
