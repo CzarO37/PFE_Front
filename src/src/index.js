@@ -1,15 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
-import App from './Components/App/App'
+import RouterApp from './RouterApp'
 require('dotenv').config()
 
 
 
 const documentElem = document.getElementById('root');
 
-const componentElem = React.createElement(App);
+//const componentElem = React.createElement(App);
 ReactDOM.render(
-    componentElem,
+    <Router>
+        <RouterApp />
+    </Router>,
+    //componentElem,
     documentElem,
 )
