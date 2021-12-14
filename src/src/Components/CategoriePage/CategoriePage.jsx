@@ -1,6 +1,5 @@
 import { Card, CardContent, CardMedia, Container, Grid, List ,ListItem, ListItemText, Paper, Typography } from '@mui/material'
 import React, {useState, useEffect} from 'react'
-import Navbar from '../Navbar/Navbar'
 import house from '../../images/categories/house.jpg'
 import vetements from '../../images/categories/vetements.jpg'
 import loisir from '../../images/categories/loisir.jpg'
@@ -60,7 +59,6 @@ const CategoriePage = () => {
     return (
         <div>
             <Container maxWidth="xl">
-                <Navbar></Navbar>
                 <Grid container>
                     <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
                         <Typography style={titleStyle}>Les Categories</Typography>
