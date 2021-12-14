@@ -15,29 +15,7 @@ const CategoriePage = () => {
     useEffect(() => {
         categorieService.getAll().then((response)=>setList(response))
     }, [])
-   // categorieService.getAll().then((response)=>setList(response))
-
-    //list.map((category)=>(console.log(category)))
-    //list.filter(category=> category.categoryId == 1).map(filteredCategory =>(console.log(filteredCategory.children)))
-    //list.filter(category=> category.categoryId == 1).map(filteredCategory => filteredCategory.children.map(children => console.log(children.name)))
-    
-    /*function generate(element) {
-        return [0, 1, 2].map((value) =>
-          React.cloneElement(element, {
-            key: value,
-            primary: "hello"
-          }),
-        );
-    }*/
-
-    /*const generate = (element,categoryId) => {
-        return list.filter(category=> 
-            category.categoryId == categoryId).map(filteredCategory => filteredCategory.children.map(category=>{
-                React.cloneElement(element,{
-                    key: category.name,
-                })
-            }))
-    }*/
+   
 
    const generate = (categoryId) => {
         return list.filter(category=> 
@@ -52,15 +30,10 @@ const CategoriePage = () => {
             ))
     }
     
-
     const titleStyle = {
         color : '#7BA66C',
         fontSize: '30px',
         fontWeight: 'bold'
-    }
-
-    const gridContainerStyle = {
-
     }
 
     const gridStyle = {
@@ -69,7 +42,6 @@ const CategoriePage = () => {
     }
 
     const cardStyle = {
-        //padding: '10px',
         borderColor: 'red',
         borderRadius: 0,
         background: 'linear-gradient(90deg, rgba(198, 223, 186, 0.5) 0%, rgba(152, 200, 135, 0.5) 100%)'
@@ -89,7 +61,7 @@ const CategoriePage = () => {
         <div>
             <Container maxWidth="xl">
                 <Navbar></Navbar>
-                <Grid container style={gridContainerStyle}>
+                <Grid container>
                     <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
                         <Typography style={titleStyle}>Les Categories</Typography>
                     </Grid>
