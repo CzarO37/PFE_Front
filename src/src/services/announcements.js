@@ -11,4 +11,15 @@ const getById = (id) => {
     return request.then(response => response.data)
 }
 
-export default {getAll, getById}
+const getDetails = (id,token) => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    const bodyParameters = {
+       key: "userId"
+    };
+    const request = axios.get(`${baseUrl}/detail/${id}`,bodyParameters,config)
+    return request.then(response => response.data)
+}
+
+export default {getAll, getById, getDetails}

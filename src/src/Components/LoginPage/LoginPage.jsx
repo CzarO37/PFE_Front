@@ -31,7 +31,7 @@ const LoginPage = () => {
             password: password
         }
         usersService.loginUser(user)
-            .then(response => console.log(response))
+            .then(response => localStorage.setItem('user', response.token))
     }
 
     const containerStyle = {

@@ -9,20 +9,17 @@ const getAll = () => {
 }
 
 const loginUser = (user) => {
-    console.log("User in usersService: ",user)
     const request = axios.post(`${baseUrl}/login`,user)
     return request.then(response => response.data)
 }
 
 const signUpUser = (user) => {
-    console.log("User in usersService: ",user)
     const request = axios.post(baseUrl,user)
     return request.then(response => response.data)
 }
 
 const getById = (id) => {
     const request = axios.get(`${baseUrl}/${id}`)
-    request.then(response => console.log(response.data))
     return request.then(response => response.data)
 }
 

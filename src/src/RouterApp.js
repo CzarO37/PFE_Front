@@ -1,11 +1,13 @@
 import React from 'react'
-import { Switch, Route, useRouteMatch, Link } from 'react-router-dom'
+import { Switch, Route, useRouteMatch, Link} from 'react-router-dom'
 
 import LoginPage from "./Components/LoginPage/LoginPage";
 import SignUpPage from "./Components/SignUpPage/SignUpPage";
+import AnnouncementPage from './Components/AnnouncementPage/AnnouncementPage';
 
 const RouterApp = () => {
 
+    
     return (
         <div>
             <Switch>
@@ -14,6 +16,9 @@ const RouterApp = () => {
                 </Route>
                 <Route path={"/signup"}>
                     <SignUpPage />
+                </Route>
+                <Route path={`/announcement/:id`}>
+                    <AnnouncementPage/>
                 </Route>
             </Switch>
         </div>
