@@ -3,6 +3,7 @@ import { Switch, Route, useRouteMatch, Link } from 'react-router-dom'
 
 import LoginPage from "./Components/LoginPage/LoginPage";
 import SignUpPage from "./Components/SignUpPage/SignUpPage";
+import CategoriePage from './Components/CategoriePage/CategoriePage';
 
 const RouterApp = () => {
 
@@ -14,6 +15,9 @@ const RouterApp = () => {
                 </Route>
                 <Route path={"/signup"}>
                     <SignUpPage />
+                </Route>
+                <Route path={"/categories"}>
+                    <CategoriePage/>
                 </Route>
             </Switch>
         </div>
