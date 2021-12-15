@@ -47,7 +47,7 @@ const createOne = (token, report) => {
 }
 
 const block = (token, reportId) => {
-    const request = axios.put(`${baseUrl}/block/${reportId}`, {
+    const request = axios.put(`${baseUrl}/block/${reportId}`,  {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data).catch(err => {
@@ -56,7 +56,7 @@ const block = (token, reportId) => {
 }
 
 const close = (token, reportId) => {
-    const request = axios.put(`${baseUrl}/unblock/${reportId}`, {
+    const request = axios.put(`${baseUrl}/close/${reportId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data).catch(err => {
