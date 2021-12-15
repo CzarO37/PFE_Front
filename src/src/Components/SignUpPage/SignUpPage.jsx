@@ -8,7 +8,6 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import SchoolIcon from '@mui/icons-material/School';
 import logo from '../../images/vinci2ndhand.png'
 import './signup.css'
-import styled from 'styled-components'
 
 
 const SignUpPage = () => {
