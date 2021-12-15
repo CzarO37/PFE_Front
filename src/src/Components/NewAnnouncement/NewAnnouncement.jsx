@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {
     Grid,
@@ -41,6 +41,8 @@ const NewAnnouncement = () => {
             name: "Electronique",
         },
     ];
+    const [parentCategoryId, setParentCategoryId] = useState([])
+    const [catList, setCatList] = useState([])
 
     const [booleanProduct, setBooleanProduct] = useState('')
     const [name, setName] = useState('')
@@ -48,6 +50,40 @@ const NewAnnouncement = () => {
     const [categoryId, setCategoryId] = useState('')
     const [tag, setTag] = useState('')
     const [description, setDescription] = useState('')
+
+    useEffect(() => {
+        categoriesService.getAll().then((response)=>setCatList(response))
+    }, [])
+
+
+    const generateCatItems = (categoryId) => {
+        return catList.filter(category=>
+            category.categoryId === categoryId).map(filteredCategory =>
+            filteredCategory.children.map((cat) =>(
+                    <MenuItem key={cat.categoryId} value={cat.categoryId}>
+                        {cat.name}
+                    </MenuItem>
+                )
+            ))
+    }
+
+    const generateChildCatSelect = () => {
+        if (parentCategoryId > 0)
+            return (
+                <TextField style={inputStyle}
+                           id="child-category"
+                           select
+                           label="Sous catégorie"
+                           helperText="Pour plus de précision, sélectionnez une sous-catégorie"
+                           variant="standard"
+                           onChange={handleChildCategoryChange}
+                >
+                    {generateCatItems(parentCategoryId)}
+                </TextField>
+            )
+        else
+            return( <br /> )
+    }
 
     const handleNameChange = (e) => {
         e.preventDefault()
@@ -67,8 +103,14 @@ const NewAnnouncement = () => {
         setBooleanProduct(boolean)
     }
 
-    //TODO: changer category en categoryId
     const handleCategoryChange = (e) => {
+        e.preventDefault()
+        const newCategory = e.target.value
+        setParentCategoryId(newCategory)
+        setCategoryId(newCategory)
+    }
+
+    const handleChildCategoryChange = (e) => {
         e.preventDefault()
         const newCategory = e.target.value
         setCategoryId(newCategory)
@@ -76,8 +118,8 @@ const NewAnnouncement = () => {
 
     const handleChangeDescription = (e) => {
         e.preventDefault()
-        const descrip = e.target.value
-        setDescription(descrip)
+        const des = e.target.value
+        setDescription(des)
     }
 
 
@@ -215,6 +257,7 @@ const NewAnnouncement = () => {
                                         </MenuItem>
                                     ))}
                                 </TextField>
+                                {generateChildCatSelect()}
                             </Grid>
                             <TextField align="center"
                                        fullWidth
