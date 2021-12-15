@@ -1,4 +1,4 @@
-import {Avatar, Button, Grid,Menu,MenuItem} from "@mui/material";
+import {Avatar, Button, Grid,Menu,MenuItem,Alert} from "@mui/material";
 import React from "react";
 import {Link} from 'react-router-dom'
 import logo from "../../images/vinci2ndhand.png";
@@ -16,6 +16,14 @@ const Navbar = () =>{
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const handleLogout = () => {
+        setAnchorEl(null)
+        storage.clearStorage()
+        return (
+            <Alert severity="info">Déconnecté avec succès!</Alert>
+        )
+    }
 
     const profil = () => {
         const user = storage.getUser()
@@ -47,7 +55,7 @@ const Navbar = () =>{
                     }}
                 >
                     <MenuItem onClick={handleClose}><Link to="/myAccount" style={{textDecoration:'none',color:'black'}}>Mon profil</Link></MenuItem>
-                    <MenuItem onClick={handleClose}>Déconnexion</MenuItem>
+                    <MenuItem onClick={handleLogout}><Link to="/" style={{textDecoration:'none',color:'black'}}>Déconnexion</Link></MenuItem>
                 </Menu>
             
             </>

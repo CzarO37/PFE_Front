@@ -32,11 +32,20 @@ const buttonStyle = {
 }
 
 const UserProfile = () => {
+
+    const noImage = () => {
+        return (
+            <Avatar>{user.firstname} {user.lastname}</Avatar>
+        )
+    }
+
+
     const token = storageService.getToken()
     const [user, setUser] = useState({campus: '', interests: []})
     const [myAnnouncements, setMyAnnouncements] = useState([])
     const [myOffers, setMyOffers] = useState([])
     const [loading, setLoading] = useState('true')
+    const [userPhoto, setUserPhoto] = useState(noImage)
 
     setTimeout(() => { 
         if (myAnnouncements!==[]&&myOffers!==[]) {
@@ -48,6 +57,7 @@ const UserProfile = () => {
         async function loadData() {
             await usersService.getMe(token).then(response => {
                 setUser(response)
+                console.log(response)
                 announcementsService.getMe(token).then(response => {
                     setMyAnnouncements(response)
                     offersService.getForMe(token).then(response => {
@@ -56,6 +66,10 @@ const UserProfile = () => {
                     })
                 })
             })
+            usersService.getPhoto(user.userId).then(responseUserPhoto => {
+                if (responseUserPhoto)
+                    setUserPhoto("data:image/png;base64, " + responseUserPhoto)
+            }) 
         }
         loadData()
     },[])
