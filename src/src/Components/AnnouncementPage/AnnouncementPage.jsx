@@ -11,6 +11,7 @@ import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
 import storageService from '../../services/storage.js'
 import mediasService from '../../services/medias.js'
+import offersService from '../../services/offers'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -35,8 +36,8 @@ const AnnouncementPage = () => {
     const [loading, setLoading] = useState('true')
     const [dialogOpening, setDialogOpening] = useState(false)
     const [title, setTitle] = useState('')
-    const [subtitle, setSubtitle] = useState('')
-    const [field, setField] = useState('')
+    const [popupContent, setPopupContent] = useState('')
+    const [proposedPrice, setProposedPrice] = useState(0)
 
     setTimeout(() => { 
         if (announcement!==''&&seller!==''&&campus!=='') {
@@ -61,7 +62,6 @@ const AnnouncementPage = () => {
                         setSeller(response)
                         campusesService.getById(response.campusId).then(response => {
                             setCampus(response)
-
                         })
                     })
                 })
@@ -78,17 +78,34 @@ const AnnouncementPage = () => {
         }
     }
 
+
     const handleTrocOpening = () => {
         setTitle("Proposition de troc")
-        setSubtitle("Le champ texte en-dessous est à ta disposition! Espérons que ta proposition plaira au vendeur.Bonne chance!")
-        setField("Salut! Ton produit me plait. Il se trouve que j'ai un autre produit qui pourrait te plaire. Serais-tu intéressé par un échange? [INFORMATIONS SUR LE PRODUITS]")
+        setPopupContent(<TextField
+                fullWidth
+                id="outlined-multiline-static"
+                multiline
+                rows={8}
+                cols={10}
+                defaultValue="Salut! Ton produit me plait. Il se trouve que j'ai un autre produit qui pourrait te plaire. Serais-tu intéressé par un échange? [INFORMATIONS SUR LE PRODUITS]"
+        />)
         handleDialogOpening()
     }
 
     const handleBuyOpening = () => {
         setTitle("Proposition d'achat")
-        setSubtitle("Le champ texte en-dessous est à ta disposition! Espérons que ta proposition plaira au vendeur.Bonne chance!")
-        setField("Salut! Ton produit me plait. J'aimerais l'acheter. Quand est-ce que nous pouvons nous voir?")
+        setPopupContent(<><p>Prix proposé</p>
+            <TextField
+            id="filled-number"
+            label="Number"
+            type="number"
+            InputLabelProps={{
+                shrink: true,
+            }}
+            variant="filled"
+            onChange={e => setProposedPrice(e.target.value)}
+            />
+        </>)
         handleDialogOpening()
     }
 
@@ -130,6 +147,11 @@ const AnnouncementPage = () => {
 
     const loadInterests = () => {
         
+    }
+
+    const handleBuy = () => {
+        offersService.postOffer(token, {price:parseInt(proposedPrice), announcementId: announcement.announcementId})
+        handleDialogOpening()
     }
 
     if (loading) {
@@ -212,20 +234,11 @@ const AnnouncementPage = () => {
                 <Dialog open={dialogOpening} onClose={handleDialogOpening}>
                     <DialogTitle>{title}</DialogTitle>
                     <DialogContent>
-                    <DialogContentText>
-                        {subtitle}
-                    </DialogContentText>
-                    <TextField
-                        fullWidth
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={7}
-                        defaultValue={field}
-                    />
+                        {popupContent}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleDialogOpening}>Retour</Button>
-                        <Button onClick={handleDialogOpening}>Envoyer</Button>
+                        <Button onClick={handleBuy}>Envoyer</Button>
                     </DialogActions>
                 </Dialog>
             </Container>
