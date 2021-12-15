@@ -25,6 +25,13 @@ const loginUser = (user, rememberMe) => {
     return request.then(response => response.data)
 }
 
+const loginViaRememberMe = (token) => {
+    const request = axios.get(`${baseUrl}/login`,{
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+}
+
 const signUpUser = (user) => {
     const request = axios.post(baseUrl,user)
     return request.then(response => response.data)
