@@ -56,4 +56,4 @@ const getXFirst = (numberOfFirstProducts) =>{
     return request.then(response => response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst, cancel}
+export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst, cancel, getMe}
