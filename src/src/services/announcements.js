@@ -27,14 +27,9 @@ const getProductByCategoryId = (categoryId) =>{
     return request.then(response=>response.data)
 }
 
-const getPhotos = (announcementId) => {
-            const request = axios.get(`http://localhost:3000/api/medias/announcement/${announcementId}`)
-    return request.then(response => response.data)
-}
-
 const getXFirst = (numberOfFirstProducts) =>{
     const request = axios.get(baseUrl+'/number?number='+numberOfFirstProducts)
     return request.then(response => response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId, getPhotos, getXFirst}
+export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst}

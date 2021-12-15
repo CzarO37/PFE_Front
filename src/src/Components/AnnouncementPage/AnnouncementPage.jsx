@@ -9,6 +9,7 @@ import SimpleMap from './GoogleMap';
 import { useParams, Link } from 'react-router-dom'
 import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
+import mediasService from '../../services/medias.js'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -44,7 +45,7 @@ const AnnouncementPage = () => {
         async function loadData() {
             await announcementsService.getById(id).then(response => {
                 setAnnouncement(response)
-                announcementsService.getPhotos(response.announcementId).then(responseAnnouncementPhotos => {
+                mediasService.getAnnouncementPhotosByUserId(response.announcementId).then(responseAnnouncementPhotos => {
                     if (responseAnnouncementPhotos.length !== 0) {
                         responseAnnouncementPhotos = responseAnnouncementPhotos.map(media => "data:image/png;base64, " + media.content)
                         setAnnouncementPhotos(responseAnnouncementPhotos)
