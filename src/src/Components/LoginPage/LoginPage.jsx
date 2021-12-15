@@ -36,7 +36,7 @@ const LoginPage = () => {
         }
         usersService.loginUser(user)
             .then(response => {
-                storageService.storeIntoSession(response.user, 'user')
+                storageService.storeUser(response.user)
                 storageService.storeToken(response.token)
             })
     }
