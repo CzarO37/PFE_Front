@@ -50,4 +50,9 @@ const update = (id, newObject) => {
         })
 }
 
-export default {getAll, create, del, update, loginUser, getById, signUpUser}
+const getPhoto = (userId) => {
+    const request = axios.get(`http://localhost:3000/api/userPhoto/${userId}`)
+    return request.then(response => response.data)
+}
+
+export default {getAll, create, del, update, loginUser, getById, signUpUser, getPhoto}
