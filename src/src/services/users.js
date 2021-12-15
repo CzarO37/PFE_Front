@@ -8,8 +8,27 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
-const loginUser = (user) => {
-    const request = axios.post(`${baseUrl}/login`,user)
+const getMe = (token) => {
+    const request = axios.get(`${baseUrl}/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+}
+
+const loginUser = (user, rememberMe) => {
+    let request
+    if(! rememberMe) {
+        request = axios.post(`${baseUrl}/login`,user)
+    } else {
+        request = axios.post(`${baseUrl}/login/remember`, user)
+    }
+    return request.then(response => response.data)
+}
+
+const loginViaRememberMe = (token) => {
+    const request = axios.get(`${baseUrl}/login`,{
+        headers: { Authorization: `Bearer ${token}` }
+    })
     return request.then(response => response.data)
 }
 
@@ -50,9 +69,50 @@ const update = (id, newObject) => {
         })
 }
 
+const addInterest = (categoryId, token) => {
+    const request = axios.post(`${baseUrl}/me/interests/${categoryId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const removeInterest = (categoryId, token) => {
+    const request = axios.delete(`${baseUrl}/me/interests/${categoryId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const ban = (userId, token) => {
+    const request = axios.put(`${baseUrl}/ban/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const unban = (userId, token) => {
+    const request = axios.put(`${baseUrl}/unban/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
 const getPhoto = (userId) => {
     const request = axios.get(`http://localhost:3000/api/userPhoto/${userId}`)
     return request.then(response => response.data)
 }
 
-export default {getAll, create, del, update, loginUser, getById, signUpUser, getPhoto}
+export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe,
+     getById, signUpUser, addInterest, removeInterest, ban, unban, getPhoto}

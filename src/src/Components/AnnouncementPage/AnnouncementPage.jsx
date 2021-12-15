@@ -9,6 +9,7 @@ import SimpleMap from './GoogleMap';
 import { useParams, Link } from 'react-router-dom'
 import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
+import storageService from '../../services/storage.js'
 import mediasService from '../../services/medias.js'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -18,12 +19,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 
 const AnnouncementPage = () => {
 
     let { id } = useParams()
-    const token = localStorage.getItem('user')
+    const token = storageService.getToken()
     const [announcement, setAnnouncement] = useState('')
     const [announcementPhotos, setAnnouncementPhotos] = useState(new Array(noImage))
     const [userPhoto, setUserPhoto] = useState(noImage)
@@ -135,6 +138,7 @@ const AnnouncementPage = () => {
       </Box>
     }
     return (
+        
             <Container>
                 <Typography variant="h3" textAlign={"center"} style={{color:'#7BA66C',fontWeight:'bold'}}>{announcement.name}</Typography>
                 <Link to="/products"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
@@ -225,6 +229,7 @@ const AnnouncementPage = () => {
                     </DialogActions>
                 </Dialog>
             </Container>
+            
     )
 }
 

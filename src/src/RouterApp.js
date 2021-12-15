@@ -8,6 +8,8 @@ import SignUpPage from "./Components/SignUpPage/SignUpPage";
 import AnnouncementPage from './Components/AnnouncementPage/AnnouncementPage';
 import CategoriePage from './Components/CategoriePage/CategoriePage';
 import Navbar from './Components/Navbar/Navbar';
+import UserProfile from './Components/UserProfile/UserProfile'
+import {Paper} from '@mui/material'
 
 const RouterApp = () => {
 
@@ -32,6 +34,10 @@ const RouterApp = () => {
                 <Route path={"/categories"}>
                     <Navbar/>
                     <CategoriePage/>
+                </Route>
+                <Route path={"/myAccount"}>
+                    <Navbar/>
+                    <UserProfile/>
                 </Route>
                 <Route path={"/"}>
                     <HomePage />

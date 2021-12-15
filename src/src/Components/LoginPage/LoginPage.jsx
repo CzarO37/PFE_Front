@@ -1,16 +1,22 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import usersService from '../../services/users.js'
-import {Grid, Paper, Avatar, Container, Typography, TextField, Button} from '@mui/material'
+import storageService from '../../services/storage.js'
+import {Grid, Paper, Avatar, Container, Typography, TextField, Button, FormGroup, FormControlLabel, Checkbox} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
-//import './login.css'
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import SchoolIcon from '@mui/icons-material/School';
+
+
 
 const LoginPage = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [rememberMe, setRememberMe] = useState(false)
+    let history = useHistory();
 
     const handleEmailChange = (e) => {
         e.preventDefault()
@@ -24,16 +30,39 @@ const LoginPage = () => {
         setPassword(newPassword)
     }
 
+    const handleRememberMeChange = (e) => {
+        setRememberMe(e.target.checked)
+    }
+
     const handleLogin = (event) => {
         event.preventDefault()
         const user = {
             email: email,
             password: password
         }
-        usersService.loginUser(user)
-            .then(response => localStorage.setItem('user', response.token))
+        usersService.loginUser(user, rememberMe)
+            .then(response => {
+                storageService.storeUser(response.user)
+                storageService.storeToken(response.token)
+                console.log("push history");
+                history.push("/")
+            }).catch((e) => {
+                console.log(e);
+            })
     }
 
+
+    const bodyStyle = {
+        background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 68%, rgba(5,90,120,1) 100%)',
+        position: 'fixed',
+        top: 0,
+        bottom:0,
+        left:0,
+        right:0,
+        overflowY: 'scroll',
+        overflowX: 'hidden'
+    }
+    
     const containerStyle = {
         height: '100%',
         //display: "flex",
@@ -83,6 +112,7 @@ const LoginPage = () => {
 
     return (
 
+        <Paper style={bodyStyle}>
         <Container style={containerStyle}>
             <Paper>
                 <Grid container justifyContent="space-around" style={loginFormStyle}>
@@ -107,6 +137,16 @@ const LoginPage = () => {
                                            variant="standard"
                                            onChange={handlePasswordChange}
                                 />
+                                <FormGroup>
+                                        <Grid>
+                                            <FormControlLabel 
+                                                control={
+                                                    <Checkbox 
+                                                        onChange={handleRememberMeChange} 
+                                            />} 
+                                                label="Se souvenir de moi" />
+                                        </Grid> 
+                                    </FormGroup>
                                 <Button type="submit" variant="contained" style={submitStyle}>Se connecter</Button>
                             </Grid>
                         </form>
@@ -129,6 +169,7 @@ const LoginPage = () => {
             </Paper>
 
         </Container>
+        </Paper>
     )
 };
 
