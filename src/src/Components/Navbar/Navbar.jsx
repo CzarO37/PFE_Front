@@ -6,17 +6,52 @@ import storage from '../../services/storage.js'
 import avatar from '../../images/avatar2.png'
 
 const Navbar = () =>{
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     const profil = () => {
         const user = storage.getUser()
         if (user !== null) {
             const alt = `${user.firstname} ${user.lastname}`
             return (
-                <Avatar
+                <>
+            <div>
+                <Button
+                    id="basic-button"
+                    aria-controls="basic-menu"
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                >
+                    <Avatar
                     alt={alt}
                     src={avatar}
                     sx={{ width: 56, height: 56 }}
                 />
+                </Button>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
+            </div>
+            </>
             )
         }
         return (
