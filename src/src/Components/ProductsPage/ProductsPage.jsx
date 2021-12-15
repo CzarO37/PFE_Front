@@ -19,6 +19,8 @@ const ProductsPage = () => {
     const categoryId = new URLSearchParams(search).get('categoryId')
 
     const [campusFilter, setCampusFilter] = useState('')
+    const [maxPrice, setMaxPrice] = useState(0)
+    const [priceFilter, setPriceFilter] = useState([0,1000])
 
     useEffect(()=>{
         
@@ -74,9 +76,12 @@ const ProductsPage = () => {
         console.log(campusFilter)
     }, [campusFilter])
 
+    
+
     const productsRender = (prodList) =>{
         return prodList
         .filter(product => campusFilter != "" ? product.seller.campusId == campusFilter : product)
+        
         .map(product => (
             
             <Grid item xs={12} md={6} xl={4} style={gridStyle}>
