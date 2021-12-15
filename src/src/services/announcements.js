@@ -32,4 +32,9 @@ const getPhotos = (announcementId) => {
     return request.then(response => response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId, getPhotos}
+const getXFirst = (numberOfFirstProducts) =>{
+    const request = axios.get(baseUrl+'/number?number='+numberOfFirstProducts)
+    return request.then(response => response.data)
+}
+
+export default {getAll, getById, getDetails, getProductByCategoryId, getPhotos, getXFirst}
