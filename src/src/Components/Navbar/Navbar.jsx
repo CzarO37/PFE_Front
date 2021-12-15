@@ -9,11 +9,11 @@ const Navbar = () =>{
 
     const profil = () => {
         const user = storage.getUser()
-        console.log(user)
         if (user !== null) {
+            const alt = `${user.firstname} ${user.lastname}`
             return (
                 <Avatar
-                    alt="Remy Sharp"
+                    alt={alt}
                     src={avatar}
                     sx={{ width: 56, height: 56 }}
                 />

@@ -2,10 +2,12 @@ import React, {useState} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import usersService from '../../services/users.js'
 import storageService from '../../services/storage.js'
-import {Grid, Paper, Avatar, Container, Typography, TextField, Button} from '@mui/material'
+import {Grid, Paper, Avatar, Container, Typography, TextField, Button, FormGroup, FormControlLabel, Checkbox} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import SchoolIcon from '@mui/icons-material/School';
 
 
 
@@ -13,6 +15,7 @@ const LoginPage = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [rememberMe, setRememberMe] = useState(false)
     let history = useHistory();
 
     const handleEmailChange = (e) => {
@@ -25,6 +28,10 @@ const LoginPage = () => {
         e.preventDefault()
         const newPassword = e.target.value
         setPassword(newPassword)
+    }
+
+    const handleRememberMeChange = (e) => {
+        setRememberMe(e.target.checked)
     }
 
     const handleLogin = (event) => {
@@ -130,6 +137,16 @@ const LoginPage = () => {
                                            variant="standard"
                                            onChange={handlePasswordChange}
                                 />
+                                <FormGroup>
+                                        <Grid>
+                                            <FormControlLabel 
+                                                control={
+                                                    <Checkbox 
+                                                        onChange={handleRememberMeChange} 
+                                            />} 
+                                                label="Se souvenir de moi" />
+                                        </Grid> 
+                                    </FormGroup>
                                 <Button type="submit" variant="contained" style={submitStyle}>Se connecter</Button>
                             </Grid>
                         </form>
