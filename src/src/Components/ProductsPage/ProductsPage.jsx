@@ -114,13 +114,6 @@ const ProductsPage = () => {
             
         ))
     }
-
-    // useEffect(()=>{
-    //     console.log("je vais filtrer")
-    //     productsRender(filteredList) 
-    //     console.log("j'ai filter")
-    // },[filteredList])
-
     return (
         <div>
             <Container maxWidth="xl">
