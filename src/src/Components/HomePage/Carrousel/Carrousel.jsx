@@ -1,43 +1,94 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import tondeuse from "../../../images/products/tondeuse.jpg"
 import velo from "../../../images/products/velo.jpg"
 import vetements from "../../../images/products/vetements.jpg"
 import house from "../../../images/products/house.jpg"
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Paper, Typography } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { fontSize, minHeight } from "@mui/system";
+import announcementsService from "../../../services/announcements";
+import { Link } from "react-router-dom";
 
-const Carrousel = (props) =>{
+const Carrousel = () =>{
+    
+    const [listProducts, setListProducts] = useState([])
+    const numberOfFirstProducts = 10;
+
+    useEffect(() => {
+        announcementsService.getXFirst(numberOfFirstProducts).then((response)=>setListProducts(response))
+    }, [])
+
+    setTimeout(()=>{console.log(listProducts)},10)
+
+   
     const styleDiv = {
-        marginLeft : '10px',
-        marginRight : '10px'
-    }
-    
-    const cardStyle = {
-        maxWidth: '400px'
+        marginLeft : '3vh',
+        marginRight : '3vh'
     }
 
-    const imgCardStyle = {
-        minWidth: '400px',
-	    minHeight: '350px'
+    const gridStyle = {
+        padding:'1vh'
     }
-    
-    const cardContentStyle = {
-        background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 68%, rgba(5,90,120,1) 100%)',
-        justify: 'space-between'
+
+    const cardStyle = {
+        borderColor: 'red',
+        borderRadius: 0,
+        background: 'linear-gradient(90deg, rgba(198, 223, 186, 0.5) 0%, rgba(152, 200, 135, 0.5) 100%)',
+        minWidth: '30vh',
+        minHeight: '50vh'
     }
-    
-    const typoStyle = {
-        color : 'white',
+
+    const borderStyle = {
+        background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
+        padding: '0.4vh',
+        borderRadius: 0
+    }
+
+    const backPaper = {
+        background: 'white'
+    }
+
+    const priceTyppo = {
+        float: 'right',
+        fontWeight: "bold",
         fontSize: '20px'
     }
 
-    const priceTextStyle = {
-        color : 'white',
-        fontSize : '25px'
+    const generationProductsToCarrousel = () =>{
+        return listProducts.map((product) => (
+            <div style={styleDiv}>
+            <Grid item style={gridStyle}>
+                <Paper style={borderStyle}>
+                    <Paper style={backPaper}>
+                        <Card style={cardStyle}>
+                            <CardMedia
+                                component="img"
+                                height={300}
+                                image={house}
+                                alt = "House and garden"
+                            />
+                            <CardContent>
+                                <Grid container display="flex" justify="space-between">
+                                    <Grid item xs={8}>
+                                    <Link style={{textDecoration: 'none', color: 'black'}} to={`/announcement/${product.announcementId}`}>
+                                        <Typography variant="h5" display="inline" align="left">{product.name}</Typography>
+                                    </Link>
+                                    </Grid>
+                                    <Grid item xs={4} >
+                                        <Typography display="inline" style={priceTyppo} >{product.price == 0? "A donner" : product.price + " €"}</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Typography>{product.description}</Typography>
+                            </CardContent>
+                        </Card>
+                    </Paper>
+                </Paper>
+            </Grid>
+            </div>
+        ))
     }
-    
+
     const responsive = {
         desktop: {
           breakpoint: { max: 3000, min: 1024 },
@@ -55,45 +106,8 @@ const Carrousel = (props) =>{
           slidesToSlide: 1 // optional, default to 1.
         }
     }
+
     return (
-        /*<Grid container style={gridContainerStyle}>
-            <Grid item xs={12} sm={4}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={tondeuse}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={tondeuse}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={tondeuse}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography style={typoStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
-        </Grid>*/
         <Carousel
             swipeable={true}
             draggable={false}
@@ -111,98 +125,7 @@ const Carrousel = (props) =>{
             dotListClass="custom-dot-list-style"
             additionalTransfrom={-20 * 5} 
         >
-            
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={house}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={tondeuse}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={house}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={vetements}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={tondeuse}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={house}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={styleDiv}>
-                <Card style={cardStyle}>
-                    <CardMedia
-                        component="img"
-                        image={house}
-                        style={imgCardStyle}
-                    />
-                    <CardContent style={cardContentStyle}>
-                        <Typography inline align='left' style={typoStyle}>Tondeuse Bosh 400x</Typography>
-                        <Typography inline align='right' style={priceTextStyle}>250€</Typography>
-                    </CardContent>
-                </Card>
-            </div>
+            {generationProductsToCarrousel()}
       </Carousel>
     )
 }
