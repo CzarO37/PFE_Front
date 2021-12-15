@@ -69,4 +69,45 @@ const update = (id, newObject) => {
         })
 }
 
-export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe, getById, signUpUser}
+const addInterest = (categoryId, token) => {
+    const request = axios.post(`${baseUrl}/me/interests/${categoryId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const removeInterest = (categoryId, token) => {
+    const request = axios.delete(`${baseUrl}/me/interests/${categoryId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const ban = (userId, token) => {
+    const request = axios.put(`${baseUrl}/ban/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+const unban = (userId, token) => {
+    const request = axios.put(`${baseUrl}/unban/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe,
+     getById, signUpUser, addInterest, removeInterest, ban, unban}
