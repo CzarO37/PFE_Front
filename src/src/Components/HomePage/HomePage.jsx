@@ -7,13 +7,11 @@ import './home.css'
 
 const HomePage = () => {
     return (
-        <Paper>
-            <Container maxWidth="xl">
-                <Navbar/>
-                <Carrousel/>
-                <Presentation/>
-            </Container>
-        </Paper>
+        <Container maxWidth="xl">
+            <Navbar/>
+            <Carrousel/>
+            <Presentation/>
+        </Container>
     )
 }
 

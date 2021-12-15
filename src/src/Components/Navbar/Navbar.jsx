@@ -1,4 +1,4 @@
-import {Avatar, Button, Grid} from "@mui/material";
+import {Avatar, Button, Grid,Menu,MenuItem} from "@mui/material";
 import React from "react";
 import {Link} from 'react-router-dom'
 import logo from "../../images/vinci2ndhand.png";
@@ -23,7 +23,7 @@ const Navbar = () =>{
             const alt = `${user.firstname} ${user.lastname}`
             return (
                 <>
-            <div>
+            
                 <Button
                     id="basic-button"
                     aria-controls="basic-menu"
@@ -46,11 +46,10 @@ const Navbar = () =>{
                     'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleClose}><Link to="/myAccount" style={{textDecoration:'none',color:'black'}}>Mon profil</Link></MenuItem>
+                    <MenuItem onClick={handleClose}>Déconnexion</MenuItem>
                 </Menu>
-            </div>
+            
             </>
             )
         }
