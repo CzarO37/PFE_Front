@@ -27,4 +27,9 @@ const getProductByCategoryId = (categoryId) =>{
     return request.then(response=>response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId}
+const getPhotos = (announcementId) => {
+            const request = axios.get(`http://localhost:3000/api/medias/announcement/${announcementId}`)
+    return request.then(response => response.data)
+}
+
+export default {getAll, getById, getDetails, getProductByCategoryId, getPhotos}
