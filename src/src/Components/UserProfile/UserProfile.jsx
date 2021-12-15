@@ -50,7 +50,7 @@ const UserProfile = () => {
     const [userPhoto, setUserPhoto] = useState('')
 
     setTimeout(() => { 
-        if (myAnnouncements!==[]&&myOffers!==[]&&userPhoto!=='') {
+        if (myAnnouncements!==[]&&myOffers!==[]&&userPhoto!==''&&myPurchases!==[]) {
             setLoading(false) 
         }
     }, 1);
@@ -87,6 +87,7 @@ const UserProfile = () => {
     const renderMyOffers = () => {
         if (myOffers.length !== 0) {
             return myOffers.map(offer => (
+                <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                     <Card sx={{ maxWidth: 345 }} key={offer.id}>
                         <CardMedia
                             component="img"
@@ -115,6 +116,7 @@ const UserProfile = () => {
                             <Button startIcon={<EmailOutlinedIcon/>} size="medium">Répondre</Button>
                         </CardActions>
                     </Card>
+                </Grid>
                 ))
             
         }
@@ -126,7 +128,8 @@ const UserProfile = () => {
     const renderMyAnnouncements = () => {
         if (myAnnouncements.length !== 0) {
             return myAnnouncements.map(announcement => (
-                <Card sx={{ maxWidth: 345 }}>
+                <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
+                <Card sx={{ maxWidth: 345 }} key={announcement.announcementId}>
                 <CardMedia
                     component="img"
                     height="190"
@@ -155,26 +158,63 @@ const UserProfile = () => {
                 </CardContent>
                 <CardActions style={{backgroundColor:'white'}}>
                     <Grid container>
-                        <Grid item xs={6} xl={6}>
-                            <Button startIcon={<EmailOutlinedIcon/>} size="medium">Répondre</Button>
-                        </Grid>
-                        <Grid item xs={6} xl={6} align={'right'}>
-                            <Button error startIcon={<RemoveCircleOutlineOutlinedIcon/>} size="medium" style={{color:'red'}}>Supprimer</Button>
-                        </Grid>
+                        {renderDeleteButtons(announcement.state, announcement.announcementId)}
                     </Grid>
                     
                 </CardActions>
             </Card>
+            </Grid>
                 ))
-            
         }
         else {
             return <Typography>Il n'y a pas de ventes à afficher</Typography>
         }
     }
 
-    const renderMyBoughts = () => {
+    const renderMyPurchases = () => {
+        if (myPurchases.length !== 0) {
+            return myPurchases.map(purchase => (
+                <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
+                <Card sx={{ maxWidth: 345 }} key={purchase.offerId}>
+                    <CardMedia
+                        component="img"
+                        height="190"
+                        image={velo}
+                        alt="image"
+                    />
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs={6} xl={6}>
+                                <Typography gutterBottom variant="h5" component="div">{purchase.announcement.name}</Typography>
+                            </Grid>
+                            <Grid item xs={6} xl={6} textAlign={'right'}>
+                                <Typography gutterBottom variant="h5" component="div">{purchase.price}€</Typography>
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                </Card>
+                </Grid>
+            ))
+        }
+        else {
+            return <Typography>Il n'y a pas d'achats à afficher</Typography>
+        }  
+    }
 
+    const renderDeleteButtons = (state,announcementId) => {
+        if (state === 'AVAILABLE') {
+            return (
+                <>
+                    <Button error startIcon={<RemoveCircleOutlineOutlinedIcon/>} size="medium" style={{color:'red'}}>Supprimer</Button>
+                
+                </>
+            )
+            
+        }
+        else {
+            return <Typography variant="h5" color={'red'}>Vendu</Typography>
+        }
+        
     }
 
 
@@ -202,7 +242,7 @@ const UserProfile = () => {
                         <Paper style={sectionsStyle}>
                             <Grid container padding={3}>
                                 <Grid item xs={5} xl={3} align={"center"}>
-                                    <Avatar style={noImageStyle}>{userPhoto}</Avatar>
+                                    <Avatar src={userPhoto} style={noImageStyle}/>
                                 </Grid>
                                 <Grid item xs={7} xl={4}>
                                     <Typography variant="h6" style={{fontWeight:'bold'}}>Compte: </Typography>
@@ -231,7 +271,7 @@ const UserProfile = () => {
                         <Paper style={sectionsStyle}>
                             <Grid container padding={3}>
                                 <Typography variant="h5" style={{fontWeight:'bold'}}>Offres en attente:</Typography>
-                                <Grid item xs={12} md={12} xl={12} marginTop={'1vh'}>
+                                <Grid container justifyContent={"space-between"}>
                                     {renderMyOffers()}
                                 </Grid>
                             </Grid>
@@ -245,13 +285,10 @@ const UserProfile = () => {
                                 <Grid item xs={12} xl={6}>
                                     <Typography variant="h5" style={{fontWeight:'bold'}}>Mes ventes:</Typography>
                                 </Grid>
-                                <Grid item xs={12} xl={6} textAlign={'right'}>
-                                    <Button variant="outlined" style={buttonStyle}>En vente</Button>
-                                    <Button variant="outlined" style={buttonStyle}>Vendus</Button>
-                                </Grid>
-                                <Grid item xs={12} md={12} xl={12} marginTop={'1vh'}>
+                                <Grid container justifyContent={"space-between"}>
                                     {renderMyAnnouncements()}
                                 </Grid>
+                                
                             </Grid>
                         </Paper>
                     </Paper>
@@ -261,25 +298,8 @@ const UserProfile = () => {
                         <Paper style={sectionsStyle}>
                             <Grid container padding={3}>
                                 <Typography variant="h5" style={{fontWeight:'bold'}}>Achats</Typography>
-                                <Grid item xs={12} md={12} xl={12} marginTop={'1vh'}>
-                                    <Card sx={{ maxWidth: 345 }}>
-                                        <CardMedia
-                                            component="img"
-                                            height="190"
-                                            image={velo}
-                                            alt="image"
-                                        />
-                                        <CardContent>
-                                            <Grid container>
-                                                <Grid item xs={6} xl={6}>
-                                                    <Typography gutterBottom variant="h5" component="div">NAME</Typography>
-                                                </Grid>
-                                                <Grid item xs={6} xl={6} textAlign={'right'}>
-                                                    <Typography gutterBottom variant="h5" component="div">PRICE</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </CardContent>
-                                    </Card>
+                                <Grid container justifyContent={"space-between"}>
+                                    {renderMyPurchases()}
                                 </Grid>
                             </Grid>
                         </Paper>

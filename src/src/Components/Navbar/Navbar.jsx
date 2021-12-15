@@ -1,13 +1,40 @@
 import {Avatar, Button, Grid,Menu,MenuItem,Alert} from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from 'react-router-dom'
 import logo from "../../images/vinci2ndhand.png";
-import storage from '../../services/storage.js'
+import storageService from '../../services/storage.js'
 import avatar from '../../images/avatar2.png'
+import usersService from '../../services/users.js'
 
 const Navbar = () =>{
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const userFromStorage = storageService.getUser()
+    const [userPhoto, setUserPhoto] = useState('')
+    const [userAvatar, setUserAvatar] = useState('')
+
+    const avatar = (photoPresent) => {
+        if (photoPresent) {
+            return <Avatar src={userPhoto} sx={{ width: 70, height: 70 }}></Avatar>
+        }
+        return <Avatar sx={{ width: 70, height: 70 }}>{userFromStorage.firstname.toUpperCase().charAt(0)}{userFromStorage.lastname.toUpperCase().charAt(0)}</Avatar>
+    }
+
+    useEffect(() => {
+        async function loadImage() {
+            await usersService.getPhoto(userFromStorage.userId).then(responseUserPhoto => {
+                if (responseUserPhoto) {
+                    setUserPhoto("data:image/png;base64, " + responseUserPhoto)
+                    setUserAvatar(avatar(true))
+                    
+                } 
+            }).catch(err => {
+                console.log("No image found")
+                setUserAvatar(avatar(false))
+            }) 
+        }
+        loadImage()
+    },[])
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -19,16 +46,15 @@ const Navbar = () =>{
 
     const handleLogout = () => {
         setAnchorEl(null)
-        storage.clearStorage()
+        storageService.clearStorage()
         return (
             <Alert severity="info">Déconnecté avec succès!</Alert>
         )
     }
 
     const profil = () => {
-        const user = storage.getUser()
-        if (user !== null) {
-            const alt = `${user.firstname} ${user.lastname}`
+        if (userFromStorage !== null) {
+            const alt = `${userFromStorage.firstname} ${userFromStorage.lastname}`
             return (
                 <>
             
@@ -39,11 +65,8 @@ const Navbar = () =>{
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
                 >
-                    <Avatar
-                    alt={alt}
-                    src={avatar}
-                    sx={{ width: 56, height: 56 }}
-                />
+                    {userAvatar}
+                
                 </Button>
                 <Menu
                     id="basic-menu"
