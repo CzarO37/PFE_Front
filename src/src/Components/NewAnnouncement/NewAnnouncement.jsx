@@ -11,7 +11,7 @@ import {
     FormControl,
     InputAdornment,
     InputLabel,
-    Input, MenuItem, RadioGroup, FormControlLabel, Radio
+    Input, MenuItem, RadioGroup, FormControlLabel, Radio, FormLabel
 } from '@mui/material'
 import announcementsService from "../../services/announcements";
 import categoriesService from "../../services/categories";
@@ -19,28 +19,6 @@ import categoriesService from "../../services/categories";
 
 const NewAnnouncement = () => {
 
-    const categories = [
-        {
-            categoryId: 1,
-            name: "Maison et jardin",
-        },
-        {
-            categoryId: 2,
-            name: "Famille",
-        },
-        {
-            categoryId: 3,
-            name: "Vêtements et accessoires",
-        },
-        {
-            categoryId: 4,
-            name: "Loisir - hobbys",
-        },
-        {
-            categoryId: 5,
-            name: "Electronique",
-        },
-    ];
     const [parentCategoryId, setParentCategoryId] = useState([])
     const [catList, setCatList] = useState([])
 
@@ -116,10 +94,16 @@ const NewAnnouncement = () => {
         setCategoryId(newCategory)
     }
 
-    const handleChangeDescription = (e) => {
+    const handleDescriptionChange = (e) => {
         e.preventDefault()
         const des = e.target.value
         setDescription(des)
+    }
+
+    const handleTagChange = (e) => {
+        e.preventDefault()
+        const newTag = e.target.value
+        setTag(newTag)
     }
 
 
@@ -184,7 +168,7 @@ const NewAnnouncement = () => {
                                        maxlength: 300
                                    }}
                                    helperText={`${description.length}/300`}
-                                   onChange={handleChangeDescription}
+                                   onChange={handleDescriptionChange}
                                    margin="normal"
                                    variant="outlined"
                                    style={{ width: 200 }}
@@ -223,18 +207,20 @@ const NewAnnouncement = () => {
                                     />
                                 </FormControl>
                                 <FormControl component="fieldset">
+                                    <FormLabel component="legend">Je désire: </FormLabel>
                                     <RadioGroup name="tag">
                                         <FormControlLabel value="BARTER" control={<Radio/>} label="Offre de troc"
-                                                          onChange={handleBooleanProductChange}/>
+                                                          onChange={handleTagChange}/>
                                         <FormControlLabel value="SELL" control={<Radio/>} label="Offre d'achat"
-                                                          onChange={handleBooleanProductChange}/>
+                                                          onChange={handleTagChange}/>
                                         <FormControlLabel value="BOTH" control={<Radio/>} label="Offre de troc/achat"
-                                                          onChange={handleBooleanProductChange}/>
+                                                          onChange={handleTagChange}/>
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
                             <Grid xs={12} sm={6} md={6} xl={6} align="center">
                                 <FormControl component="fieldset">
+                                    <FormLabel component="legend">Type: </FormLabel>
                                     <RadioGroup row name="type">
                                         <FormControlLabel value="True" control={<Radio/>} label="Objet"
                                                           onChange={handleBooleanProductChange}/>
@@ -251,7 +237,7 @@ const NewAnnouncement = () => {
                                            variant="standard"
                                            onChange={handleCategoryChange}
                                 >
-                                    {categories.map((cat) => (
+                                    {catList.filter(parentCategories => parentCategories.parentCategoryId == null).map((cat) => (
                                         <MenuItem key={cat.categoryId} value={cat.categoryId}>
                                             {cat.name}
                                         </MenuItem>
@@ -266,7 +252,7 @@ const NewAnnouncement = () => {
                                            maxlength: 300
                                        }}
                                        helperText={`${description.length}/300`}
-                                       onChange={handleChangeDescription}
+                                       onChange={handleDescriptionChange}
                                        margin="normal"
                                        variant="outlined"
                                        style={{ width: 200 }}
