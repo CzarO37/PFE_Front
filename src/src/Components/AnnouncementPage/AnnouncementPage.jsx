@@ -10,6 +10,7 @@ import { useParams, Link } from 'react-router-dom'
 import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
 import storageService from '../../services/storage.js'
+import mediasService from '../../services/medias.js'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -27,6 +28,8 @@ const AnnouncementPage = () => {
     let { id } = useParams()
     const token = storageService.getToken()
     const [announcement, setAnnouncement] = useState('')
+    const [announcementPhotos, setAnnouncementPhotos] = useState(new Array(noImage))
+    const [userPhoto, setUserPhoto] = useState(noImage)
     const [seller, setSeller] = useState('')
     const [campus, setCampus] = useState('')
     const [loading, setLoading] = useState('true')
@@ -45,10 +48,21 @@ const AnnouncementPage = () => {
         async function loadData() {
             await announcementsService.getById(id).then(response => {
                 setAnnouncement(response)
-                usersService.getById(response.sellerId).then(response => {
-                    setSeller(response)
-                    campusesService.getById(response.campusId).then(response => {
-                        setCampus(response)
+                mediasService.getAnnouncementPhotosByUserId(response.announcementId).then(responseAnnouncementPhotos => {
+                    if (responseAnnouncementPhotos.length !== 0) {
+                        responseAnnouncementPhotos = responseAnnouncementPhotos.map(media => "data:image/png;base64, " + media.content)
+                        setAnnouncementPhotos(responseAnnouncementPhotos)
+                    }
+                    usersService.getPhoto(response.sellerId).then(responseUserPhoto => {
+                        if (responseUserPhoto)
+                            setUserPhoto("data:image/png;base64, " + responseUserPhoto)
+                    }) 
+                    usersService.getById(response.sellerId).then(response => {
+                        setSeller(response)
+                        campusesService.getById(response.campusId).then(response => {
+                            setCampus(response)
+
+                        })
                     })
                 })
             })
@@ -133,7 +147,7 @@ const AnnouncementPage = () => {
                     <Paper style={sectionsStyle}>
                         <Grid container >
                             <Grid item xs={12} md={6} xl={6}>
-                                <Avatar src={noImage} style={noImageStyle}></Avatar>
+                                <Avatar src={announcementPhotos[0]} style={noImageStyle}></Avatar>
                                 <Button startIcon={<ErrorOutlinedIcon/>}>Signaler cette annonce</Button>
                             </Grid>
                             <Grid item xs={12} md={6} xl={6} style={{padding:"6vh"}}>
@@ -178,7 +192,7 @@ const AnnouncementPage = () => {
                                         <Typography>{campus.name}</Typography>
                                     </Grid>
                                     <Grid item xs={12} xl={4}>
-                                        <Avatar style={{width:'100%',height:'100%'}}>{seller.firstName.toUpperCase().charAt(0)}{seller.lastName.toUpperCase().charAt(0)}</Avatar>
+                                        <Avatar src={userPhoto} style={{width:'100%',height:'100%'}}></Avatar>
                                     </Grid>
                                 </Grid>
                                 <Grid padding='1vh'>

@@ -109,5 +109,10 @@ const unban = (userId, token) => {
         })
 }
 
+const getPhoto = (userId) => {
+    const request = axios.get(`http://localhost:3000/api/userPhoto/${userId}`)
+    return request.then(response => response.data)
+}
+
 export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe,
-     getById, signUpUser, addInterest, removeInterest, ban, unban}
+     getById, signUpUser, addInterest, removeInterest, ban, unban, getPhoto}
