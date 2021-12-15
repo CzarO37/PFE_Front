@@ -137,31 +137,6 @@ const ModerationPage = () => {
             <Link to="/"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
             <Paper style={borderStyle}>
                 <Paper style={backPaper}>
-                    <Typography variant='h4' textAlign={"center"} style={subTitleStyle}>Users</Typography>
-                    <Grid container>
-                        {userList.map((u)=> 
-                            <Grid container xs={12} style={{margin: '2vh'}}>
-                                <Grid item xs={3}>
-                                    <Typography textAlign={'left'}>{u.firstname} {u.lastname}</Typography>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <Typography textAlign={'left'}>{u.email}</Typography>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Typography textAlign={'left'}>Role: {u.role}</Typography>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Typography textAlign={'center'}>{getStatus(u.isBanned)}</Typography>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    {getButton(u)}
-                                </Grid>
-                            </Grid>)}
-                    </Grid>
-                </Paper>
-            </Paper>
-            <Paper style={borderStyle}>
-                <Paper style={backPaper}>
                     <Typography variant='h4' textAlign={"center"} style={subTitleStyle}>Reports</Typography>
                     <Grid container>
                         {reportList.map((r)=>
@@ -189,6 +164,31 @@ const ModerationPage = () => {
                             </Grid>
                         </Grid>
                         )}
+                    </Grid>
+                </Paper>
+            </Paper>
+            <Paper style={borderStyle}>
+                <Paper style={backPaper}>
+                    <Typography variant='h4' textAlign={"center"} style={subTitleStyle}>Users</Typography>
+                    <Grid container>
+                        {userList.map((u)=> 
+                            <Grid container xs={12} style={{margin: '2vh'}}>
+                                <Grid item xs={3}>
+                                    <Typography textAlign={'left'}>{u.firstname} {u.lastname}</Typography>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Typography textAlign={'left'}>{u.email}</Typography>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Typography textAlign={'left'}>Role: {u.role}</Typography>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Typography textAlign={'center'}>{getStatus(u.isBanned)}</Typography>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    {getButton(u)}
+                                </Grid>
+                            </Grid>)}
                     </Grid>
                 </Paper>
             </Paper>
