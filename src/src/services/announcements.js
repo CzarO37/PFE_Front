@@ -27,4 +27,9 @@ const getProductByCategoryId = (categoryId) =>{
     return request.then(response=>response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId}
+const getXFirst = (numberOfFirstProducts) =>{
+    const request = axios.get(baseUrl+'/number?number='+numberOfFirstProducts)
+    return request.then(response => response.data)
+}
+
+export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst}
