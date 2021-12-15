@@ -9,6 +9,7 @@ import SimpleMap from './GoogleMap';
 import { useParams, Link } from 'react-router-dom'
 import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
+import storageService from '../../services/storage.js'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -22,7 +23,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 const AnnouncementPage = () => {
 
     let { id } = useParams()
-    const token = localStorage.getItem('user')
+    const token = storageService.getToken()
     const [announcement, setAnnouncement] = useState('')
     const [seller, setSeller] = useState('')
     const [campus, setCampus] = useState('')
