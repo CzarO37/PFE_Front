@@ -1,4 +1,4 @@
-import { Button,Card, CardContent, CardMedia, Container, Grid, Paper, Typography } from '@mui/material'
+import { Button,Card, CardContent, CardMedia, Container, Grid, Pagination, Paper, Typography } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
 import house from '../../images/products/house.jpg'
@@ -31,6 +31,15 @@ const ProductsPage = (props) => {
     },[])
 
     setTimeout(()=>{categoryList.filter(category => category.categoryId == categoryId).map(category => setCategoryName(category.name))},10)
+
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const [productsPerPage, setProductsPerPage] = useState(9)
+
+
+    const indexOfLastProduct = currentPage*productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = productList.slice(indexOfFirstProduct, indexOfLastProduct)
 
 
     const titleStyle = {
@@ -67,8 +76,8 @@ const ProductsPage = (props) => {
         fontSize: '20px'
     }
 
-    const productsRender = () =>{
-        return productList.map(product => (
+    const productsRender = (slicedProductList) =>{
+        return slicedProductList.map(product => (
             
             <Grid item xs={12} md={6} xl={4} style={gridStyle}>
                 <Paper style={borderStyle}>
@@ -113,10 +122,11 @@ const ProductsPage = (props) => {
                         <Typography>Filtres</Typography>
                     </Grid>
                     <Grid container justifyContent="space-between" >
-                        {productsRender()}
+                        {productsRender(currentProducts)}
                     </Grid>
+                    
                 </Grid>
-                
+                <Pagination style={{display:'flex', justifyContent:'center'}} onChange={(event, value)=>setCurrentPage(value)} count={Math.ceil(productList.length/productsPerPage)} variant="outlined" color="primary" />
             </Container>
         </div>
     )
