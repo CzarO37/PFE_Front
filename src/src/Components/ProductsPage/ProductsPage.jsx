@@ -6,9 +6,10 @@ import './ProductPage.css'
 import { Link, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
+import Filtres from './Filtres.jsx'
 
 
-const ProductsPage = (props) => {
+const ProductsPage = () => {
 
     const [productList, setProductList] = useState([])
     const [categoryList, setCategoryList] = useState([])
@@ -17,6 +18,7 @@ const ProductsPage = (props) => {
     const search = useLocation().search;
     const categoryId = new URLSearchParams(search).get('categoryId')
 
+    const [campusFilter, setCampusFilter] = useState('')
 
     useEffect(()=>{
         
@@ -25,7 +27,8 @@ const ProductsPage = (props) => {
         }else{
             categorieService.getAll().then((response)=>setCategoryList(response))
             annoncementsService.getProductByCategoryId(categoryId).then((response)=> {
-                setProductList(response)
+                const list = response.filter((product)=>product.state != "CANCELLED" && product.state != "ACCEPTED")
+                setProductList(list)
             })
         }
     },[])
@@ -67,8 +70,14 @@ const ProductsPage = (props) => {
         fontSize: '20px'
     }
 
-    const productsRender = () =>{
-        return productList.map(product => (
+    useEffect(() => {
+        console.log(campusFilter)
+    }, [campusFilter])
+
+    const productsRender = (prodList) =>{
+        return prodList
+        .filter(product => campusFilter != "" ? product.seller.campusId == campusFilter : product)
+        .map(product => (
             
             <Grid item xs={12} md={6} xl={4} style={gridStyle}>
                 <Paper style={borderStyle}>
@@ -101,6 +110,12 @@ const ProductsPage = (props) => {
         ))
     }
 
+    // useEffect(()=>{
+    //     console.log("je vais filtrer")
+    //     productsRender(filteredList) 
+    //     console.log("j'ai filter")
+    // },[filteredList])
+
     return (
         <div>
             <Container maxWidth="xl">
@@ -111,9 +126,10 @@ const ProductsPage = (props) => {
                     <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>                    
                     <Grid item xs ={12} align="end">
                         <Typography>Filtres</Typography>
+                        <Filtres setCampusFilter={setCampusFilter}/>
                     </Grid>
                     <Grid container justifyContent="space-between" >
-                        {productsRender()}
+                        {productsRender(productList)}
                     </Grid>
                 </Grid>
                 
