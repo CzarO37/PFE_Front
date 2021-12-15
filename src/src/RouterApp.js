@@ -9,9 +9,7 @@ import AnnouncementPage from './Components/AnnouncementPage/AnnouncementPage';
 import CategoriePage from './Components/CategoriePage/CategoriePage';
 import Navbar from './Components/Navbar/Navbar';
 import UserProfile from './Components/UserProfile/UserProfile'
-import storageService from './services/storage.js';
-import usersService from './services/users';
-import {Paper} from '@mui/material'
+import ModerationPage from './Components/ModerationPage/ModerationPage';
 
 const RouterApp = () => {
     return (
@@ -38,6 +36,10 @@ const RouterApp = () => {
                 <Route path={"/myAccount"}>
                     <Navbar/>
                     <UserProfile/>
+                </Route>
+                <Route path={"/moderation"}>
+                    <Navbar/>
+                    <ModerationPage/>
                 </Route>
                 <Route path={"/"}>
                     <HomePage />

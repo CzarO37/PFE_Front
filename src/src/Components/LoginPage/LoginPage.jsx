@@ -6,8 +6,6 @@ import {Grid, Paper, Avatar, Container, Typography, TextField, Button, FormGroup
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import SchoolIcon from '@mui/icons-material/School';
 
 
 
@@ -16,7 +14,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rememberMe, setRememberMe] = useState(false)
-    let history = useHistory();
+    let history = useHistory()
 
     const handleEmailChange = (e) => {
         e.preventDefault()

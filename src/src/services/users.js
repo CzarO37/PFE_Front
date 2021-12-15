@@ -3,10 +3,10 @@ import storage from './storage.js'
 
 const baseUrl = 'http://localhost:3000/api/users'
 
-
-//Je laisse pour voir comment faire par apres, pour l'instant c'est pas fonctionnel
-const getAll = () => {
-    const request = axios.get(baseUrl)
+const getAll = (token) => {
+    const request = axios.get(baseUrl, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     return request.then(response => response.data)
 }
 
@@ -104,7 +104,7 @@ const removeInterest = (categoryId, token) => {
 }
 
 const ban = (userId, token) => {
-    const request = axios.put(`${baseUrl}/ban/${userId}`, {
+    const request = axios.put(`${baseUrl}/ban/${userId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
@@ -114,7 +114,7 @@ const ban = (userId, token) => {
 }
 
 const unban = (userId, token) => {
-    const request = axios.put(`${baseUrl}/unban/${userId}`, {
+    const request = axios.put(`${baseUrl}/unban/${userId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
