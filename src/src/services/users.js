@@ -86,5 +86,5 @@ const getPhoto = (userId) => {
     return request.then(response => response.data)
 }
 
-export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe,
+export default {getAll, getMe, loginUser, loginViaRememberMe,
      getById, signUpUser, addInterest, removeInterest, ban, unban, getPhoto}
