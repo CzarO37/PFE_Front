@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { Switch, Route, useRouteMatch, Link} from 'react-router-dom'
 
@@ -12,7 +11,7 @@ import Navbar from './Components/Navbar/Navbar';
 
 const RouterApp = () => {
 
-    
+
     return (
         <div>
             <Switch>
