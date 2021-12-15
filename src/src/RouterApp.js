@@ -33,6 +33,10 @@ const RouterApp = () => {
                     <Navbar/>
                     <CategoriePage/>
                 </Route>
+                <Route path={"/myAccount"}>
+                    <Navbar/>
+                    <UserProfile/>
+                </Route>
                 <Route path={"/"}>
                     <HomePage />
                 </Route>
