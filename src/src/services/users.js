@@ -1,4 +1,6 @@
 import axios from 'axios'
+import storage from './storage.js'
+
 const baseUrl = 'http://localhost:3000/api/users'
 
 
@@ -30,6 +32,18 @@ const loginViaRememberMe = (token) => {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
+}
+
+const loginRememberThenRefresh = (history) => {
+    let token = storage.getToken()
+    if(token !== undefined && !storage.getUser()) {
+        //remember me token found & no session user
+        loginViaRememberMe(token).then((response) => {
+            storage.storeUser(response.user)
+            storage.storeToken(response.token, true)
+            history.push(document.location.pathname)
+        })
+    }
 }
 
 const signUpUser = (user) => {
@@ -115,4 +129,5 @@ const getPhoto = (userId) => {
 }
 
 export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe,
-     getById, signUpUser, addInterest, removeInterest, ban, unban, getPhoto}
+    loginRememberThenRefresh, getById, signUpUser, addInterest, removeInterest, 
+    ban, unban, getPhoto}

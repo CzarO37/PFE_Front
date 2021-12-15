@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, useRouteMatch, Link} from 'react-router-dom'
+import { Switch, Route, useRouteMatch, Link, useHistory} from 'react-router-dom'
 
 import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
@@ -9,22 +9,11 @@ import AnnouncementPage from './Components/AnnouncementPage/AnnouncementPage';
 import CategoriePage from './Components/CategoriePage/CategoriePage';
 import Navbar from './Components/Navbar/Navbar';
 import UserProfile from './Components/UserProfile/UserProfile'
-import storageService from './services/storage';
+import storageService from './services/storage.js';
 import usersService from './services/users';
 import {Paper} from '@mui/material'
 
 const RouterApp = () => {
-    if(!sessionStorage.getItem('token')) {
-        let token = storageService.getToken()
-        if(token !== undefined) {
-            //remember me token found
-            usersService.loginViaRememberMe(token).then((response) => {
-                storageService.storeUser(response.user)
-                storageService.storeToken(response.token, true)
-            })
-        }
-    }
-
     return (
         <div>
             <Switch>

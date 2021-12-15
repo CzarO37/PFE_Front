@@ -43,7 +43,7 @@ const LoginPage = () => {
         usersService.loginUser(user, rememberMe)
             .then(response => {
                 storageService.storeUser(response.user)
-                storageService.storeToken(response.token)
+                storageService.storeToken(response.token, rememberMe)
                 console.log("push history");
                 history.push("/")
             }).catch((e) => {
