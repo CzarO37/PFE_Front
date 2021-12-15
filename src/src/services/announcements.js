@@ -20,6 +20,9 @@ const getDetails = (id,token) => {
     };
     const request = axios.get(`${baseUrl}/detail/${id}`,bodyParameters,config)
     return request.then(response => response.data)
+    .catch(err => {
+        console.log(err)
+    })
 }
 
 const getMe = (token) => {
@@ -27,6 +30,9 @@ const getMe = (token) => {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
+    .catch(err => {
+        console.log(err)
+    })
 }
 
 const getProductByCategoryId = (categoryId) =>{
@@ -34,4 +40,14 @@ const getProductByCategoryId = (categoryId) =>{
     return request.then(response=>response.data)
 }
 
-export default {getAll, getById, getDetails, getMe, getProductByCategoryId}
+const cancel = (announcementId, token) => {
+    const request = axios.delete(`${baseUrl}/cancel/${announcementId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+    .catch(err => {
+        console.log(err)
+    })
+}
+
+export default {getAll, getById, getDetails, getMe, getProductByCategoryId, cancel}

@@ -15,11 +15,11 @@ const getToken = () => {
 }
 
 const storeUser = (user) => {
-    sessionStorage.setItem("user", user)
+    sessionStorage.setItem("user", JSON.stringify(user))
 }
 
 const getUser = () => {
-    return sessionStorage.getItem("user")
+    return JSON.parse(sessionStorage.getItem("user"))
 }
 
 export default {storeToken, getToken, storeUser, getUser}
