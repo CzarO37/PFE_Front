@@ -8,6 +8,13 @@ const getAll = () => {
     return request.then(response => response.data)
 }
 
+const getMe = (token) => {
+    const request = axios.get(`${baseUrl}/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+}
+
 const loginUser = (user) => {
     const request = axios.post(`${baseUrl}/login`,user)
     return request.then(response => response.data)
@@ -50,4 +57,4 @@ const update = (id, newObject) => {
         })
 }
 
-export default {getAll, create, del, update, loginUser, getById, signUpUser}
+export default {getAll, getMe, create, del, update, loginUser, getById, signUpUser}

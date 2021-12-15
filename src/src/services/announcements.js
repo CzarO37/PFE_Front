@@ -22,9 +22,16 @@ const getDetails = (id,token) => {
     return request.then(response => response.data)
 }
 
+const getMe = (token) => {
+    const request = axios.get(`${baseUrl}/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+}
+
 const getProductByCategoryId = (categoryId) =>{
     const request = axios.get(baseUrl+'?category='+categoryId)
     return request.then(response=>response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId}
+export default {getAll, getById, getDetails, getMe, getProductByCategoryId}
