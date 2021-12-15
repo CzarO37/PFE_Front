@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import usersService from '../../services/users.js'
+import storageService from '../../services/storage.js'
 import {Grid, Paper, Avatar, Container, Typography, TextField, Button} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import 'fontsource-roboto';
@@ -31,7 +32,10 @@ const LoginPage = () => {
             password: password
         }
         usersService.loginUser(user)
-            .then(response => localStorage.setItem('user', response.token))
+            .then(response => {
+                storageService.storeIntoSession(response.user, 'user')
+                storageService.storeToken(response.token)
+            })
     }
 
     const containerStyle = {
