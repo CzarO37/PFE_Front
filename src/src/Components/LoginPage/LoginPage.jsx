@@ -6,8 +6,6 @@ import {Grid, Paper, Avatar, Container, Typography, TextField, Button} from '@mu
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
-import './login.css'
-import styled from 'styled-components'
 
 
 
@@ -42,16 +40,16 @@ const LoginPage = () => {
     }
 
 
-    const StyledBody = styled.div`
-        background: linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 68%, rgba(5,90,120,1) 100%);
-        position: fixed;
-        top: 0;
-        bottom:0;
-        left:0;
-        right:0;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    `
+    const bodyStyle = {
+        background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 68%, rgba(5,90,120,1) 100%)',
+        position: 'fixed',
+        top: 0,
+        bottom:0,
+        left:0,
+        right:0,
+        overflowY: 'scroll',
+        overflowX: 'hidden'
+    }
     
     const containerStyle = {
         height: '100%',
@@ -102,7 +100,7 @@ const LoginPage = () => {
 
     return (
 
-        <StyledBody>
+        <Paper style={bodyStyle}>
         <Container style={containerStyle}>
             <Paper>
                 <Grid container justifyContent="space-around" style={loginFormStyle}>
@@ -149,7 +147,7 @@ const LoginPage = () => {
             </Paper>
 
         </Container>
-    </StyledBody>
+        </Paper>
     )
 };
 
