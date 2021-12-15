@@ -15,8 +15,13 @@ const getMe = (token) => {
     return request.then(response => response.data)
 }
 
-const loginUser = (user) => {
-    const request = axios.post(`${baseUrl}/login`,user)
+const loginUser = (user, rememberMe) => {
+    let request
+    if(! rememberMe) {
+        request = axios.post(`${baseUrl}/login`,user)
+    } else {
+        request = axios.post(`${baseUrl}/login/remember`, user)
+    }
     return request.then(response => response.data)
 }
 
