@@ -3,7 +3,8 @@ import {Grid,Paper,Avatar,Container,Typography,Button,ButtonGroup} from '@mui/ma
 import { useParams, Link } from 'react-router-dom'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import noImage from '../../images/no-image.png'
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import usersService from '../../services/users.js'
 import announcementsService from '../../services/announcements.js'
 import offersService from '../../services/offers.js'
@@ -34,6 +35,13 @@ const UserProfile = () => {
     const [user, setUser] = useState({campus: '', interests: []})
     const [myAnnouncements, setMyAnnouncements] = useState([])
     const [myOffers, setMyOffers] = useState([])
+    const [loading, setLoading] = useState('true')
+
+    setTimeout(() => { 
+        if (myAnnouncements!==[]&&myOffers!==[]) {
+            setLoading(false) 
+        }
+    }, 1);
 
     useEffect(() => {
         async function loadData() {
@@ -50,6 +58,12 @@ const UserProfile = () => {
         }
         loadData()
     },[])
+
+    if (loading) {
+        return <Box sx={{ display: 'flex' }}>
+        <CircularProgress />
+      </Box>
+    }
 
     if(!token) {
         return <div>Please login first</div>

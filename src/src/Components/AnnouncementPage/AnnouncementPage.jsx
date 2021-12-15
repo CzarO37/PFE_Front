@@ -17,6 +17,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 
 const AnnouncementPage = () => {
@@ -121,6 +123,7 @@ const AnnouncementPage = () => {
       </Box>
     }
     return (
+        
             <Container>
                 <Typography variant="h3" textAlign={"center"} style={{color:'#7BA66C',fontWeight:'bold'}}>{announcement.name}</Typography>
                 <Link to="/products"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
@@ -211,6 +214,7 @@ const AnnouncementPage = () => {
                     </DialogActions>
                 </Dialog>
             </Container>
+            
     )
 }
 
