@@ -22,7 +22,7 @@ const ProductsPage = (props) => {
     const categoryId = new URLSearchParams(search).get('categoryId')
 
     useEffect(()=>{
-        
+        console.log("je suis le useEffect")
         if(categoryId === null){
             annoncementsService.getAll().then((response)=>setProductList(response))
         }else{
@@ -31,7 +31,7 @@ const ProductsPage = (props) => {
                 setProductList(response)
             })
         }
-    },[])
+    },[categoryId])
 
     setTimeout(()=>{categoryList.filter(category => category.categoryId == categoryId).map(category => setCategoryName(category.name))},10)
 
