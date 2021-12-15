@@ -69,4 +69,4 @@ const update = (id, newObject) => {
         })
 }
 
-export default {getAll, getMe, create, del, update, loginUser, getById, signUpUser}
+export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe, getById, signUpUser}

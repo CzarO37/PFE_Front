@@ -14,12 +14,12 @@ const getToken = () => {
     return token
 }
 
-const storeIntoSession = (item, name) => {
-    sessionStorage.setItem(name, item)
+const storeUser = (user) => {
+    sessionStorage.setItem("user", user)
 }
 
-const getFromSession = (name) => {
-    return sessionStorage.getItem(name)
+const getUser = () => {
+    return sessionStorage.getItem("user")
 }
 
-export default {storeToken, getToken, storeIntoSession, getFromSession}
+export default {storeToken, getToken, storeUser, getUser}
