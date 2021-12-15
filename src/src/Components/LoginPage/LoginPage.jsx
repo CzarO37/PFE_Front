@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import usersService from '../../services/users.js'
 import storageService from '../../services/storage.js'
 import {Grid, Paper, Avatar, Container, Typography, TextField, Button} from '@mui/material'
@@ -15,6 +15,7 @@ const LoginPage = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    let history = useHistory();
 
     const handleEmailChange = (e) => {
         e.preventDefault()
@@ -38,6 +39,10 @@ const LoginPage = () => {
             .then(response => {
                 storageService.storeUser(response.user)
                 storageService.storeToken(response.token)
+                console.log("push history");
+                history.push("/")
+            }).catch((e) => {
+                console.log(e);
             })
     }
 
