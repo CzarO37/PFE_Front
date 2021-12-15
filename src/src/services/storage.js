@@ -22,4 +22,10 @@ const getUser = () => {
     return JSON.parse(sessionStorage.getItem("user"))
 }
 
-export default {storeToken, getToken, storeUser, getUser}
+const clearStorage = () => {
+    sessionStorage.removeItem('user')
+    sessionStorage.removeItem('token')
+    localStorage.removeItem('token')
+}
+
+export default {storeToken, getToken, storeUser, getUser, clearStorage}
