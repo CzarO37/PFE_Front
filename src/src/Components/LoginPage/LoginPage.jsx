@@ -40,7 +40,7 @@ const LoginPage = () => {
             email: email,
             password: password
         }
-        usersService.loginUser(user)
+        usersService.loginUser(user, rememberMe)
             .then(response => {
                 storageService.storeUser(response.user)
                 storageService.storeToken(response.token)
