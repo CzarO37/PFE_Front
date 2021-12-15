@@ -38,9 +38,9 @@ const getAllUntreatedForAnnouncement = (token, announcementId) => {
 }
 
 const createOne = (token, report) => {
-    const request = axios.post(`${baseUrl}`, {
+    const request = axios.post(`${baseUrl}`, report, {
         headers: { Authorization: `Bearer ${token}` }
-    }, report)
+    })
     return request.then(response => response.data).catch(err => {
         console.log(err)
     })
