@@ -220,15 +220,15 @@ const NewAnnouncement = () => {
                                            variant="standard"
                                            onChange={handleNameChange}
                                 />
-                                <FormControl variant="standard" align="left">
-                                    <InputLabel htmlFor="price" required>Prix proposé</InputLabel>
-                                    <Input style={inputStyle}
+                                <TextField style={inputStyle}
                                            required
-                                           id = "price"
-                                           endAdornment={<InputAdornment position="end">€</InputAdornment>}
+                                           id="price"
+                                           label= "Prix proposé"
+                                           type="number"
+                                           inputProps={{ min: "0", max: "100000", step: "0.01" }}
+                                           variant="standard"
                                            onChange={handlePriceChange}
-                                    />
-                                </FormControl>
+                                />
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">Je désire: </FormLabel>
                                     <RadioGroup name="tag">
