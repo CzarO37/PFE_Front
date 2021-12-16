@@ -6,9 +6,13 @@ import './ProductPage.css'
 import { Link, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
+import Filtres from './Filtres.jsx'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
+
+const MAX_PRICE = 1000000
+const MIN_PRICE = 0
 
 const ProductsPage = (props) => {
 
@@ -21,6 +25,10 @@ const ProductsPage = (props) => {
     const search = useLocation().search;
     const categoryId = new URLSearchParams(search).get('categoryId')
 
+    const [campusFilter, setCampusFilter] = useState('')
+    const [minPrice, setMinPrice] = useState(MIN_PRICE)
+    const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
+
     useEffect(()=>{
         console.log("je suis le useEffect")
         if(categoryId === null){
@@ -28,7 +36,8 @@ const ProductsPage = (props) => {
         }else{
             categorieService.getAll().then((response)=>setCategoryList(response))
             annoncementsService.getProductByCategoryId(categoryId).then((response)=> {
-                setProductList(response)
+                const list = response.filter((product)=>product.state != "CANCELLED" && product.state != "ACCEPTED")
+                setProductList(list)
             })
         }
     },[categoryId])
@@ -79,8 +88,27 @@ const ProductsPage = (props) => {
         fontSize: '20px'
     }
 
-    const productsRender = (slicedProductList) =>{
-        return slicedProductList.map(product => (
+    useEffect(()=>{
+        console.log(minPrice)
+    },[minPrice])
+
+    const verfPrice = (product) =>{
+        let min = minPrice, max = maxPrice
+        if (minPrice === ""){
+            min = MIN_PRICE
+        }
+        if(maxPrice === ""){
+            max = MAX_PRICE
+        }
+        return product.price >= min && product.price <= max
+    }
+
+
+    const productsRender = (prodList) =>{
+        return prodList
+        .filter(product => campusFilter != "" ? product.seller.campusId == campusFilter : product)
+        .filter(product => verfPrice(product))
+        .map(product => (
             
             <Grid item xs={12} md={6} xl={4} style={gridStyle}>
                 <Paper style={borderStyle}>
@@ -148,10 +176,10 @@ const ProductsPage = (props) => {
                     </Grid>
                     <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>                    
                     <Grid item xs ={12} align="end">
-                        <Typography>Filtres</Typography>
+                        <Filtres setCampusFilter={setCampusFilter} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice}/>
                     </Grid>
                     <Grid container justifyContent="space-between" >
-                        {productsRender(currentProducts)}
+                        {productsRender(productList)}
                     </Grid>
                     
                 </Grid>
