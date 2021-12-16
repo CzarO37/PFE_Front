@@ -6,14 +6,21 @@ import loisir from '../../images/categories/loisir.jpg'
 import famille from '../../images/categories/famille.jpg'
 import electronique from '../../images/categories/electronics.jpg'
 import categorieService from '../../services/categories.js'
-import { useLocation, Link} from 'react-router-dom'
 import NewReleasesOutlinedIcon from '@mui/icons-material/NewReleasesOutlined';
+import { useLocation, Link, useHistory} from 'react-router-dom'
+import storage from '../../services/storage'
 
 const CategoriePage = () => {
 
     const [list, setList] = useState([])
     const search = new useLocation().search;
     const category = new URLSearchParams(search).get('category')
+    
+    const token = storage.getToken()
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")
+    }
 
     useEffect(() => {
         categorieService.getAll().then((response)=>setList(response))

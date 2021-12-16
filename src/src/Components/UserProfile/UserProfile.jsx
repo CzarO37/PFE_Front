@@ -51,6 +51,11 @@ const UserProfile = () => {
     const [loading, setLoading] = useState('true')
     const [userPhoto, setUserPhoto] = useState('')
 
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")
+    }
+
     setTimeout(() => { 
         if (myAnnouncements!==[]&&myOffers!==[]&&myPurchases!==[]) {
             setLoading(false) 
