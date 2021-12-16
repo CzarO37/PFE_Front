@@ -134,7 +134,6 @@ const ProductsPage = () => {
                     </Grid>
                     <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>                    
                     <Grid item xs ={12} align="end">
-                        <Typography>Filtres</Typography>
                         <Filtres setCampusFilter={setCampusFilter} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice}/>
                     </Grid>
                     <Grid container justifyContent="space-between" >
