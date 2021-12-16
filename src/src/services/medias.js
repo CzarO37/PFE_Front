@@ -6,4 +6,9 @@ const getAnnouncementPhotosByUserId = (id) => {
     return request.then(response => response.data)
 }
 
-export default {getAnnouncementPhotosByUserId}
+const uploadImage = (announcementId, image) => {
+    const request = axios.post(`${baseUrl}/announcement/${announcementId}`, image)
+    return request.then (response => response.data)
+}
+
+export default {getAnnouncementPhotosByUserId, uploadImage}

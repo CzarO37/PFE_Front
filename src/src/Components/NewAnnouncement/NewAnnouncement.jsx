@@ -16,10 +16,13 @@ import {
 import { DropzoneArea } from 'material-ui-dropzone';
 import announcementsService from "../../services/announcements";
 import categoriesService from "../../services/categories";
+import mediasService from "../../services/medias";
+import storage from "../../services/storage";
 
 
 const NewAnnouncement = () => {
 
+    const token = storage.getToken()
     const [parentCategoryId, setParentCategoryId] = useState([])
     const [catList, setCatList] = useState([])
 
@@ -29,6 +32,8 @@ const NewAnnouncement = () => {
     const [categoryId, setCategoryId] = useState('')
     const [tag, setTag] = useState('')
     const [description, setDescription] = useState('')
+
+    const [imageList, setImageList] = useState('')
 
     const maxFilesLimit = 3
 
@@ -110,6 +115,12 @@ const NewAnnouncement = () => {
     }
 
 
+    const handelImagesChange = (images) => {
+        setImageList(images)
+    }
+
+
+
 
     const handleNewAnnouncement = (event) => {
         event.preventDefault()
@@ -122,9 +133,16 @@ const NewAnnouncement = () => {
             tag: tag,
         }
         let res = ''
-        announcementsService.addNewAnnouncement(announcement)
+        announcementsService.addNewAnnouncement(announcement, token)
             .then(response => res = response)
-        console.log(res)
+        console.log("res: ", res)
+
+        const announcementId = res.announcementId
+        imageList.map((img) =>(
+            mediasService.uploadImage(announcementId, img)
+            )
+        )
+        console.log(">>>+ ", imageList)
     }
 
     const containerStyle = {
@@ -264,7 +282,7 @@ const NewAnnouncement = () => {
                                 <DropzoneArea
                                     acceptedFiles={['image/*']}
                                     dropzoneText={"Placez vos images ici ou cliquez"}
-                                    onChange={(files) => console.log('Files:', files)}
+                                    onChange={(files) => {handelImagesChange(files); console.log('Files:', files)}}
                                     showFileNames
                                     showAlerts={true}
                                     filesLimit={maxFilesLimit}

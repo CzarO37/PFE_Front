@@ -56,9 +56,11 @@ const getXFirst = (numberOfFirstProducts) =>{
     return request.then(response => response.data)
 }
 
-const addNewAnnouncement = (announcement) => {
+const addNewAnnouncement = (announcement, token) => {
     console.log("New Announcement: ", announcement)
-    const request = axios.post(baseUrl, announcement)
+    const request = axios.post(baseUrl, announcement, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     return request.then(response => response.data)
 }
 
