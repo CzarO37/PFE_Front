@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {
     Grid,
     Paper,
@@ -21,7 +21,7 @@ import storage from "../../services/storage";
 
 
 const NewAnnouncement = () => {
-
+    const history = useHistory()
     const token = storage.getToken()
     const [parentCategoryId, setParentCategoryId] = useState([])
     const [catList, setCatList] = useState([])
@@ -143,7 +143,9 @@ const NewAnnouncement = () => {
                         mediasService.uploadImage(announcementId, img, token)
                     )
                 )
-                console.log(">>>+ ", imageList)
+                history.push(`/announcement/${announcementId}`)
+
+
             })
     }
 
