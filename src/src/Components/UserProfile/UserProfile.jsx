@@ -41,7 +41,6 @@ const UserProfile = () => {
     const avatar = () => {
         return <Avatar>{userFromStorage.firstname.toUpperCase().charAt(0)}{userFromStorage.lastname.toUpperCase().charAt(0)}</Avatar>
     }
-    const history = useHistory()
     const userFromStorage = storageService.getUser()
     const token = storageService.getToken()
     const [user, setUser] = useState({campus: '', interests: []})
