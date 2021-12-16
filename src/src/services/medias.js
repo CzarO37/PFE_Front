@@ -6,8 +6,10 @@ const getAnnouncementPhotosByUserId = (id) => {
     return request.then(response => response.data)
 }
 
-const uploadImage = (announcementId, image) => {
-    const request = axios.post(`${baseUrl}/announcement/${announcementId}`, image)
+const uploadImage = (announcementId, image, token) => {
+    const request = axios.post(`${baseUrl}/announcement/${announcementId}`, image, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     return request.then (response => response.data)
 }
 

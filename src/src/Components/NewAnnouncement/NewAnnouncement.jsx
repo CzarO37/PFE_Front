@@ -134,15 +134,17 @@ const NewAnnouncement = () => {
         }
         let res = ''
         announcementsService.addNewAnnouncement(announcement, token)
-            .then(response => res = response)
-        console.log("res: ", res)
+            .then(response => {
+                res = response
+                console.log("res: ", res)
+                const announcementId = res.announcementId
 
-        const announcementId = res.announcementId
-        imageList.map((img) =>(
-            mediasService.uploadImage(announcementId, img)
-            )
-        )
-        console.log(">>>+ ", imageList)
+                imageList.map((img) =>(
+                        mediasService.uploadImage(announcementId, img, token)
+                    )
+                )
+                console.log(">>>+ ", imageList)
+            })
     }
 
     const containerStyle = {
