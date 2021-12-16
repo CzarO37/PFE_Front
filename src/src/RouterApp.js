@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, useRouteMatch, Link} from 'react-router-dom'
+import { Switch, Route, useRouteMatch, Link, useHistory} from 'react-router-dom'
 
 import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
@@ -9,10 +9,21 @@ import AnnouncementPage from './Components/AnnouncementPage/AnnouncementPage';
 import CategoriePage from './Components/CategoriePage/CategoriePage';
 import Navbar from './Components/Navbar/Navbar';
 import UserProfile from './Components/UserProfile/UserProfile'
-import {Paper} from '@mui/material'
+import ModerationPage from './Components/ModerationPage/ModerationPage';
+import storageService from './services/storage.js'
+import usersService from './services/users.js'
 
 const RouterApp = () => {
-
+    if(!sessionStorage.getItem('token')) {
+        let token = storageService.getToken()
+        if(token !== undefined) {
+            //remember me token found
+            usersService.loginViaRememberMe(token).then((response) => {
+                storageService.storeUser(response.user)
+                storageService.storeToken(response.token, true)
+            })
+        }
+    }
 
     return (
         <div>
@@ -38,6 +49,10 @@ const RouterApp = () => {
                 <Route path={"/myAccount"}>
                     <Navbar/>
                     <UserProfile/>
+                </Route>
+                <Route path={"/moderation"}>
+                    <Navbar/>
+                    <ModerationPage/>
                 </Route>
                 <Route path={"/"}>
                     <HomePage />

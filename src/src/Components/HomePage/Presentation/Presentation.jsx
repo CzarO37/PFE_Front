@@ -76,7 +76,7 @@ const Presentation = () => {
                 </Typography>
             </Grid>
             <Grid xs={12} sx={{display:'flex', justifyContent:'center', paddingBottom:'20px'}}>
-                <Button href={"/signup"} variant="contained" size="large" style={{background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}>Allons-y</Button>
+                <Button href={"/categories"} variant="contained" size="large" style={{background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}>Allons-y</Button>
             </Grid>
         </Grid>
         </Grid>
