@@ -65,7 +65,7 @@ const Carrousel = () =>{
                             <CardMedia
                                 component="img"
                                 height={300}
-                                image={house}
+                                image={"data:image/png;base64,"+product.photo}
                                 alt = "House and garden"
                             />
                             <CardContent>

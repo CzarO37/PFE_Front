@@ -10,6 +10,7 @@ import Filtres from './Filtres.jsx'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
+import mediasServices from '../../services/medias'
 
 const MAX_PRICE = 1000000
 const MIN_PRICE = 0
@@ -29,8 +30,8 @@ const ProductsPage = (props) => {
     const [minPrice, setMinPrice] = useState(MIN_PRICE)
     const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
 
+
     useEffect(()=>{
-        console.log("je suis le useEffect")
         if(categoryId === null){
             annoncementsService.getAll().then((response)=>setProductList(response))
         }else{
@@ -47,7 +48,6 @@ const ProductsPage = (props) => {
     //Pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [productsPerPage, setProductsPerPage] = useState(9)
-
 
     const indexOfLastProduct = currentPage*productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -103,7 +103,6 @@ const ProductsPage = (props) => {
         return product.price >= min && product.price <= max
     }
 
-
     const productsRender = (prodList) =>{
         return prodList
         .filter(product => campusFilter != "" ? product.seller.campusId == campusFilter : product)
@@ -117,9 +116,10 @@ const ProductsPage = (props) => {
                             <CardMedia
                                 component="img"
                                 height={340}
-                                image={house}
-                                alt = "House and garden"
+                                src={"data:image/png;base64,"+product.photo}
+                                alt = {"image de " + product.name}
                             />
+                            
                             <CardContent>
                                 <Grid container display="flex" justify="space-between">
                                     <Grid item xs={8}>
@@ -179,7 +179,7 @@ const ProductsPage = (props) => {
                         <Filtres setCampusFilter={setCampusFilter} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice}/>
                     </Grid>
                     <Grid container justifyContent="space-between" >
-                        {productsRender(productList)}
+                        {productsRender(currentProducts)}
                     </Grid>
                     
                 </Grid>
@@ -187,6 +187,7 @@ const ProductsPage = (props) => {
             </Container>
         </div>
     )
+   
 }
 
 export default ProductsPage
