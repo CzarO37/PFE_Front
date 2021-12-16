@@ -11,7 +11,7 @@ import {
     FormControl,
     InputAdornment,
     InputLabel,
-    Input, MenuItem, RadioGroup, FormControlLabel, Radio, FormLabel
+    Input, MenuItem, RadioGroup, FormControlLabel, Radio, FormLabel,Snackbar,Dialog
 } from '@mui/material'
 import { DropzoneArea } from 'material-ui-dropzone';
 import announcementsService from "../../services/announcements";
@@ -20,12 +20,17 @@ import mediasService from "../../services/medias";
 import storage from "../../services/storage";
 import KeyboardBackspaceOutlinedIcon from "@mui/icons-material/KeyboardBackspaceOutlined";
 
-
 const NewAnnouncement = () => {
     const history = useHistory()
     const token = storage.getToken()
+    
+    if (!token) {
+        history.push('/login')
+    }
+
     const [parentCategoryId, setParentCategoryId] = useState([])
     const [catList, setCatList] = useState([])
+    const [open, setOpen] = useState();
 
     const [booleanProduct, setBooleanProduct] = useState('')
     const [name, setName] = useState('')
@@ -122,12 +127,12 @@ const NewAnnouncement = () => {
 
 
 
-
     const handleNewAnnouncement = (event) => {
         event.preventDefault()
 
         if (imageList.length == 0) {
-            //TODO: add notification when no image loaded
+            return alert("Veuillez entrez au minimum une photo!")
+
         } else {
 
             const announcement = {
@@ -169,61 +174,30 @@ const NewAnnouncement = () => {
     const submitStyle = {
         'marginTop': '4vh',
         width: '45%',
-        'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'
+        'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
+        marginBottom:'2vh'
     }
 
     const inputStyle = {
         width: '70%'
     }
 
+    const signUpFormStyle = {
+        padding: 20,
+        marginTop: "14vh"
+    }
+
     return (
 
-        <Container style={containerStyle}>
-            <Paper elevation={10}>
-                <Grid container justifyContent={"space-between"}>
-                    <Grid xl={6} item padding={'10px'}>
-                        <Paper elevation={10}>TEST</Paper>
-                        <Paper elevation={10}>TEST</Paper>
-                        <Paper elevation={10}>TEST</Paper>
-                    </Grid>
-                    <Grid xl={6} item>
-                        <Paper elevation={10}>TEST</Paper>
-                    </Grid>
-
-                </Grid>
-                <Grid container>
-                    <Grid item xl={12}>
-                        <TextField align="center"
-                                   fullWidth
-                                   label="Description"
-                                   inputProps={{
-                                       maxlength: 300
-                                   }}
-                                   helperText={`${description.length}/300`}
-                                   onChange={handleDescriptionChange}
-                                   margin="normal"
-                                   variant="outlined"
-                                   style={{ width: 200 }}
-                        />
-                    </Grid>
-
-                </Grid>
-            </Paper>
-
-
-
-
-
-
-
-            <h1 align="center">Ajouter une nouvelle annonce</h1>
-            <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour aux catégories</Button></Link>
-            <Paper style={framesStyle}>
-                <Paper>
-                    <form onSubmit={handleNewAnnouncement}>
-                        <Grid container justifyContent="space-between">
-                            <Grid xs={12} sm={6} md={6} xl={6} align="center">
-                                <TextField style={inputStyle}
+            <Container>
+                <Typography variant="h4" fontWeight={'bold'} textAlign={'center'}>Ajouter une nouvelle annonce</Typography>
+                <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
+                <Paper style={framesStyle}>
+                    <Paper style={{background:'#e2efdc'}}>
+                        <form onSubmit={handleNewAnnouncement}>
+                        <Grid container justifyContent="space-around" >
+                            <Grid xs={12} sm={12} md={6} xl={6} align="center" style={{marginTop:'2vh'}}>
+                            <TextField style={inputStyle}
                                            required
                                            id="name"
                                            label="Nom de votre annonce"
@@ -239,28 +213,6 @@ const NewAnnouncement = () => {
                                            variant="standard"
                                            onChange={handlePriceChange}
                                 />
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">Je désire: </FormLabel>
-                                    <RadioGroup name="tag">
-                                        <FormControlLabel value="BARTER" control={<Radio/>} label="Offre de troc"
-                                                          onChange={handleTagChange}/>
-                                        <FormControlLabel value="SELL" control={<Radio/>} label="Offre d'achat"
-                                                          onChange={handleTagChange}/>
-                                        <FormControlLabel value="BOTH" control={<Radio/>} label="Offre de troc/achat"
-                                                          onChange={handleTagChange}/>
-                                    </RadioGroup>
-                                </FormControl>
-                            </Grid>
-                            <Grid xs={12} sm={6} md={6} xl={6} align="center">
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">Type: </FormLabel>
-                                    <RadioGroup row name="type">
-                                        <FormControlLabel value="True" control={<Radio/>} label="Objet"
-                                                          onChange={handleBooleanProductChange}/>
-                                        <FormControlLabel value="False" control={<Radio/>} label="Service"
-                                                          onChange={handleBooleanProductChange}/>
-                                    </RadioGroup>
-                                </FormControl>
                                 <TextField style={inputStyle}
                                            required
                                            id="category"
@@ -277,21 +229,57 @@ const NewAnnouncement = () => {
                                     ))}
                                 </TextField>
                                 {generateChildCatSelect()}
+                                
                             </Grid>
-                            <TextField align="center"
-                                       fullWidth
-                                       label="Description"
-                                       inputProps={{
-                                           maxlength: 300
-                                       }}
-                                       helperText={`${description.length}/300`}
-                                       onChange={handleDescriptionChange}
-                                       margin="normal"
-                                       variant="outlined"
-                                       style={{ width: 200 }}
-                            />
-                            <Grid>
-                                <DropzoneArea
+                            <Grid xs={12} sm={6} md={6} xl={6} align="center" marginTop={'4vh'}>
+                            <FormControl component="fieldset">
+                                    <FormLabel component="legend">Je désire: </FormLabel>
+                                    <RadioGroup name="tag">
+                                        <FormControlLabel value="BARTER" control={<Radio/>} label="Offre de troc"
+                                                          onChange={handleTagChange}/>
+                                        <FormControlLabel value="SELL" control={<Radio/>} label="Offre d'achat"
+                                                          onChange={handleTagChange}/>
+                                        <FormControlLabel value="BOTH" control={<Radio/>} label="Offre de troc/achat"
+                                                          onChange={handleTagChange}/>
+                                    </RadioGroup>
+                                </FormControl>
+                            <FormControl component="fieldset">
+                                <Grid container>
+                                    <Grid item xl={3}>
+                                        <FormLabel component="legend">Type: </FormLabel>
+                                    </Grid>
+                                    <Grid item xl={9}>
+                                    <RadioGroup row name="type">
+                                        <FormControlLabel value="True" control={<Radio/>} label="Objet"
+                                                          onChange={handleBooleanProductChange}/>
+                                        <FormControlLabel value="False" control={<Radio/>} label="Service"
+                                                          onChange={handleBooleanProductChange}/>
+                                    </RadioGroup>
+                                    </Grid>
+                                </Grid>
+                                    
+                                    
+                                </FormControl>
+                            </Grid>
+                            <Grid xs={11} sm={11} md={11} xl={11} align="center">
+                                <TextField align="center"
+                                    fullWidth
+                                    label="Description"
+                                    inputProps={{
+                                        maxlength: 300
+                                    }}
+                                    helperText={`${description.length}/300`}
+                                    onChange={handleDescriptionChange}
+                                    margin="normal"
+                                    variant="outlined"
+                                    multiline
+                                    maxRows={4}
+                                    minRows={4}
+                                        
+                                />
+                            </Grid>
+                            <Grid xs={11} sm={11} md={11} xl={11} align="center">
+                            <DropzoneArea
                                     acceptedFiles={['image/*']}
                                     dropzoneText={"Placez vos images ici ou cliquez"}
                                     onChange={(files) => {handelImagesChange(files); console.log('Files:', files)}}
@@ -307,10 +295,10 @@ const NewAnnouncement = () => {
                                 />
                                 <FormLabel>Maximum {maxFilesLimit} images</FormLabel>
                             </Grid>
-                            <Button type="submit" variant="contained" style={submitStyle}>Créer l'annonce</Button>
+                            <Button type="submit" variant="contained" style={submitStyle} padding='1vh'>Créer l'annonce</Button>
                         </Grid>
-                    </form>
-                </Paper>
+                        </form>
+                    </Paper>
             </Paper>
         </Container>
 

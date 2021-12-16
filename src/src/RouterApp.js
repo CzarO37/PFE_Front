@@ -42,6 +42,10 @@ const RouterApp = () => {
                     <Navbar/>
                     <UserProfile/>
                 </Route>
+                <Route path="/newAnnouncement">
+                    <Navbar/>
+                    <NewAnnouncement></NewAnnouncement>
+                </Route>
                 <Route path={"/"}>
                     <HomePage />
                 </Route>
