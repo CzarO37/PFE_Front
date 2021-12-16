@@ -8,7 +8,6 @@ import 'fontsource-roboto';
 import logo from '../../images/vinci2ndhand.png'
 
 
-
 const LoginPage = () => {
 
     const [email, setEmail] = useState('')

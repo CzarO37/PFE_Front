@@ -44,6 +44,7 @@ const RouterApp = () => {
                     <SignUpPage />
                 </Route>
                 <Route path={"/newAnnouncement"}>
+                    <Navbar/>
                     <NewAnnouncement />
                 </Route>
                 <Route path={`/announcement/:id`}>
@@ -61,10 +62,6 @@ const RouterApp = () => {
                 <Route path={"/myAccount"}>
                     <Navbar/>
                     <UserProfile/>
-                </Route>
-                <Route path="/newAnnouncement">
-                    <Navbar/>
-                    <NewAnnouncement/>
                 </Route>
                 <Route path={"/moderation"}>
                     <Navbar/>
