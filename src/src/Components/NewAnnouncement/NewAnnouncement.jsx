@@ -13,6 +13,7 @@ import {
     InputLabel,
     Input, MenuItem, RadioGroup, FormControlLabel, Radio, FormLabel
 } from '@mui/material'
+import { DropzoneArea } from 'material-ui-dropzone';
 import announcementsService from "../../services/announcements";
 import categoriesService from "../../services/categories";
 
@@ -28,6 +29,8 @@ const NewAnnouncement = () => {
     const [categoryId, setCategoryId] = useState('')
     const [tag, setTag] = useState('')
     const [description, setDescription] = useState('')
+
+    const maxFilesLimit = 3
 
     useEffect(() => {
         categoriesService.getAll().then((response)=>setCatList(response))
@@ -257,6 +260,23 @@ const NewAnnouncement = () => {
                                        variant="outlined"
                                        style={{ width: 200 }}
                             />
+                            <Grid>
+                                <DropzoneArea
+                                    acceptedFiles={['image/*']}
+                                    dropzoneText={"Placez vos images ici ou cliquez"}
+                                    onChange={(files) => console.log('Files:', files)}
+                                    showFileNames
+                                    showAlerts={true}
+                                    filesLimit={maxFilesLimit}
+                                    // maxFileSize={3000000}
+                                    previewText={"max"}
+                                    getFileLimitExceedMessage={(filesLimit => `Vous ne pouvez ajouter que maximum ${filesLimit} images.`)}
+                                    getFileAddedMessage={(fileName => `La photo ${fileName} a bien été ajoutée.`)}
+                                    getFileRemovedMessage={(fileName => `La photo ${fileName} a bien été retirée.`)}
+                                    getDropRejectMessage={rejectedFile => `Le fichier ${rejectedFile.name} ne peut pas être ajouté. Le type de ce fichier n'est pas accepté.`}
+                                />
+                                <FormLabel>Maximum {maxFilesLimit} images</FormLabel>
+                            </Grid>
                             <Button type="submit" variant="contained" style={submitStyle}>Créer l'annonce</Button>
                         </Grid>
                     </form>
