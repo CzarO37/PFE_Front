@@ -1,7 +1,6 @@
 import { Button,Card, CardContent, CardMedia, Container, Drawer, Grid, List, Paper, Typography, Pagination } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
-import house from '../../images/products/house.jpg'
 import './ProductPage.css'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
@@ -11,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
 import storage from '../../services/storage.js'
+
 
 const MAX_PRICE = 1000000
 const MIN_PRICE = 0
@@ -36,7 +36,6 @@ const ProductsPage = (props) => {
         history.push("/login")    }
 
     useEffect(()=>{
-        console.log("je suis le useEffect")
         if(categoryId === null){
             annoncementsService.getAll().then((response)=>setProductList(response))
         }else{
@@ -53,7 +52,6 @@ const ProductsPage = (props) => {
     //Pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [productsPerPage, setProductsPerPage] = useState(9)
-
 
     const indexOfLastProduct = currentPage*productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -109,7 +107,6 @@ const ProductsPage = (props) => {
         return product.price >= min && product.price <= max
     }
 
-
     const productsRender = (prodList) =>{
         return prodList
         .filter(product => campusFilter != "" ? product.seller.campusId == campusFilter : product)
@@ -123,9 +120,10 @@ const ProductsPage = (props) => {
                             <CardMedia
                                 component="img"
                                 height={340}
-                                image={house}
-                                alt = "House and garden"
+                                src={"data:image/png;base64,"+product.photo}
+                                alt = {"image de " + product.name}
                             />
+                            {/* <img src={`data:image/png;base64,`+product.photo} alt = {"image de " + product.name} height={340}/> */}
                             <CardContent>
                                 <Grid container display="flex" justify="space-between">
                                     <Grid item xs={8}>
@@ -159,8 +157,6 @@ const ProductsPage = (props) => {
 
     return (
         <div>
-            
-            
             <Container maxWidth="xl">
             <Button onClick={openCloseMenu(true)} style={{size:'large', background:'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}><MenuIcon style={{color:'white'}}/></Button>
             <Drawer
@@ -185,7 +181,7 @@ const ProductsPage = (props) => {
                         <Filtres setCampusFilter={setCampusFilter} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice}/>
                     </Grid>
                     <Grid container justifyContent="space-between" >
-                        {productsRender(productList)}
+                        {productsRender(currentProducts)}
                     </Grid>
                     
                 </Grid>
@@ -193,6 +189,7 @@ const ProductsPage = (props) => {
             </Container>
         </div>
     )
+   
 }
 
 export default ProductsPage

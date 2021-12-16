@@ -2,7 +2,7 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3000/api/announcements'
 
 const getAll = () => {
-    const request = axios.get(baseUrl)
+    const request = axios.get(baseUrl+'/withPhotos')
     return request.then(response => response.data)
 }
 
@@ -36,7 +36,7 @@ const getMe = (token) => {
 }
 
 const getProductByCategoryId = (categoryId) =>{
-    const request = axios.get(baseUrl+'?category='+categoryId)
+    const request = axios.get(baseUrl+'/withPhotos?category='+categoryId)
     return request.then(response=>response.data)
 }
 
@@ -52,7 +52,7 @@ const cancel = (announcementId, token) => {
 }
 
 const getXFirst = (numberOfFirstProducts) =>{
-    const request = axios.get(baseUrl+'/number?number='+numberOfFirstProducts)
+    const request = axios.get(baseUrl+'/number/withPhotos?number='+numberOfFirstProducts)
     return request.then(response => response.data)
 }
 
