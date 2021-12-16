@@ -8,7 +8,8 @@ import categorieService from '../../services/categories.js'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import Filtres from './Filtres.jsx'
 
-
+const MAX_PRICE = 1000000
+const MIN_PRICE = 0
 const ProductsPage = () => {
 
     const [productList, setProductList] = useState([])
@@ -19,8 +20,8 @@ const ProductsPage = () => {
     const categoryId = new URLSearchParams(search).get('categoryId')
 
     const [campusFilter, setCampusFilter] = useState('')
-    const [maxPrice, setMaxPrice] = useState(0)
-    const [priceFilter, setPriceFilter] = useState([0,1000])
+    const [minPrice, setMinPrice] = useState(MIN_PRICE)
+    const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
 
     useEffect(()=>{
         
@@ -72,16 +73,26 @@ const ProductsPage = () => {
         fontSize: '20px'
     }
 
-    useEffect(() => {
-        console.log(campusFilter)
-    }, [campusFilter])
+    useEffect(()=>{
+        console.log(minPrice)
+    },[minPrice])
 
-    
+    const verfPrice = (product) =>{
+        let min = minPrice, max = maxPrice
+        if (minPrice === ""){
+            min = MIN_PRICE
+        }
+        if(maxPrice === ""){
+            max = MAX_PRICE
+        }
+        return product.price >= min && product.price <= max
+    }
+
 
     const productsRender = (prodList) =>{
         return prodList
         .filter(product => campusFilter != "" ? product.seller.campusId == campusFilter : product)
-        
+        .filter(product => verfPrice(product))
         .map(product => (
             
             <Grid item xs={12} md={6} xl={4} style={gridStyle}>
@@ -124,7 +135,7 @@ const ProductsPage = () => {
                     <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>                    
                     <Grid item xs ={12} align="end">
                         <Typography>Filtres</Typography>
-                        <Filtres setCampusFilter={setCampusFilter}/>
+                        <Filtres setCampusFilter={setCampusFilter} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice}/>
                     </Grid>
                     <Grid container justifyContent="space-between" >
                         {productsRender(productList)}

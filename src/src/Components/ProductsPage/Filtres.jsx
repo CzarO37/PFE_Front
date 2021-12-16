@@ -1,4 +1,4 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select, Slider, Typography } from '@mui/material'
+import { FormControl, Grid, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import campusesService from '../../services/campuses'
 
@@ -15,6 +15,20 @@ const Filtres = ({setCampusFilter, setMinPrice, setMaxPrice}) => {
         return campusList.map((campus)=>
             <MenuItem key={campus.campusId} value={campus.campusId}>{campus.name}</MenuItem>
     )
+    }
+
+    const handleMinPrice = (e) =>{
+        e.preventDefault()
+        const minPrice = e.target.value
+        setMinPrice(minPrice)
+        console.log(minPrice)
+    }
+
+    const handleMaxPrice = (e) =>{
+        e.preventDefault()
+        const maxPrice = e.target.value
+        setMaxPrice(maxPrice)
+        console.log(maxPrice)
     }
 
     return (
@@ -34,16 +48,9 @@ const Filtres = ({setCampusFilter, setMinPrice, setMaxPrice}) => {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xl={4} md={6} xs={6} paddingLeft="2vh">
-                <Typography align="left">Prix :</Typography>
-                <Slider
-                    getAriaLabel={() => 'Minimum distance'}
-                    //value={value1}
-                    //onChange={handleChange1}
-                    valueLabelDisplay="auto"
-                    //getAriaValueText={valuetext}
-                    disableSwap
-                    />
+                <Grid item xl={4} md={6} xs={6} paddingLeft="3vh" align="left">
+                <TextField  onChange={handleMinPrice} style={{paddingRight:"2vh"}} id="standard-basic" label="Min prix" variant="standard" />
+                <TextField onChange={handleMaxPrice} id="standard-basic" label="Max prix" variant="standard" />
                 </Grid>
             </Grid>
         </div>
