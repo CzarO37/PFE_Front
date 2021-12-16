@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './announcement.css'
-import {Grid,Paper,Avatar,Container,Typography,Button,ButtonGroup} from '@mui/material'
+import {Grid,Paper,Avatar,Container,Typography,Button} from '@mui/material'
 import announcementsService from '../../services/announcements.js'
 import noImage from '../../images/no-image.png'
 import ErrorOutlinedIcon from '@mui/icons-material/ErrorOutlined';
@@ -11,15 +11,20 @@ import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
 import storageService from '../../services/storage.js'
 import mediasService from '../../services/medias.js'
+import offersService from '../../services/offers'
+import reportsService from '../../services/reports'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import CssBaseline from '@mui/material/CssBaseline';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 
@@ -33,10 +38,14 @@ const AnnouncementPage = () => {
     const [seller, setSeller] = useState('')
     const [campus, setCampus] = useState('')
     const [loading, setLoading] = useState('true')
-    const [dialogOpening, setDialogOpening] = useState(false)
-    const [title, setTitle] = useState('')
-    const [subtitle, setSubtitle] = useState('')
-    const [field, setField] = useState('')
+    const [isPopupOpened, setPopupState] = useState(false)
+    const [popupTitle, setPopupTitle] = useState('')
+    const [popupContent, setPopupContent] = useState('')
+    const [lastAction, setLastAction] = useState('')
+    const [proposedPrice, setProposedPrice] = useState(0)
+    const [reportContent, setReportContent] = useState('')
+    const [reportCategory, setReportCategory] = useState('')
+    const categories = ["Illegal", "Innapropriate", "Spam"]
 
     setTimeout(() => { 
         if (announcement!==''&&seller!==''&&campus!=='') {
@@ -61,7 +70,6 @@ const AnnouncementPage = () => {
                         setSeller(response)
                         campusesService.getById(response.campusId).then(response => {
                             setCampus(response)
-
                         })
                     })
                 })
@@ -70,35 +78,6 @@ const AnnouncementPage = () => {
         loadData()
     },[])
 
-    const handleDialogOpening = () => {
-        if (dialogOpening){
-            setDialogOpening(false)
-        } else {
-            setDialogOpening(true)
-        }
-    }
-
-    const handleTrocOpening = () => {
-        setTitle("Proposition de troc")
-        setSubtitle("Le champ texte en-dessous est à ta disposition! Espérons que ta proposition plaira au vendeur.Bonne chance!")
-        setField("Salut! Ton produit me plait. Il se trouve que j'ai un autre produit qui pourrait te plaire. Serais-tu intéressé par un échange? [INFORMATIONS SUR LE PRODUITS]")
-        handleDialogOpening()
-    }
-
-    const handleBuyOpening = () => {
-        setTitle("Proposition d'achat")
-        setSubtitle("Le champ texte en-dessous est à ta disposition! Espérons que ta proposition plaira au vendeur.Bonne chance!")
-        setField("Salut! Ton produit me plait. J'aimerais l'acheter. Quand est-ce que nous pouvons nous voir?")
-        handleDialogOpening()
-    }
-
-    
-
-
-    const mapStyles = {
-        width: '100%',
-        height: '100%'
-      }
 
     const framesStyle = {
         'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
@@ -121,22 +100,124 @@ const AnnouncementPage = () => {
         'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
     }
 
-    const loadType = (price) => {
-        if (price === 0) {
-            return "A donner!"
-        }
-        return `Prix proposé: ${price}€`
+
+
+
+    
+
+    const handleBuyOpening = () => {
+        setLastAction("BUY")
+        setPopupTitle("Proposition d'achat")
+        setPopupContent(
+            <>
+                <p>Prix proposé</p>
+                <TextField
+                    id="filled-number"
+                    label="Number"
+                    type="number"
+                    InputLabelProps={{shrink: true,}}
+                    variant="filled"
+                    onChange={e => setProposedPrice(e.target.value)}
+                />
+            </>
+        )
+        setPopupState(!isPopupOpened)
     }
 
-    const loadInterests = () => {
+    const handleTrocOpening = () => {
+        setLastAction("TROC")
+        setPopupTitle("Proposition de troc")
+        setPopupContent(
+            <TextField
+                fullWidth
+                id="outlined-multiline-static"
+                multiline
+                rows={8}
+                cols={10}
+                defaultValue="Salut! Ton produit me plait. Il se trouve que j'ai un autre produit qui pourrait te plaire. Serais-tu intéressé par un échange? [INFORMATIONS SUR LE PRODUITS]"
+            />
+        )
+        setPopupState(!isPopupOpened)
+    }
+
+    
+    const handleReportOpening = () => {
+        setLastAction("REPORT")
+        setPopupTitle("Signaler l'annonce")
+        setPopupContent(
+            <>
+                <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel>Catégorie</InputLabel>
+                    <Select
+                        label="Catégorie *"
+                        onChange={e => setReportCategory(e.target.value)}
+                    >
+                        <MenuItem value={categories[0]}>Contenu illegal</MenuItem>
+                        <MenuItem value={categories[1]}>Contenu inapproprié</MenuItem>
+                        <MenuItem value={categories[2]}>Spam</MenuItem>
+                    </Select>
+                    <FormHelperText>Required</FormHelperText>
+                </FormControl>
+                <TextField
+                    fullWidth
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={8}
+                    cols={10}
+                    onChange={e => setReportContent(e.target.value)}
+                />
+            </>
+        )
+        setPopupState(!isPopupOpened)
+    }
+
+    const handleAction = () => {
+        switch (lastAction) {
+            case 'BUY':
+                handleBuy()
+                break
+
+            case 'TROC':
+                handleTroc()
+                break
         
+            case 'REPORT':
+                handleReport()
+                break
+
+            default:
+                break
+        }
+        setPopupState(!isPopupOpened)
     }
 
-    if (loading) {
-        return <Box sx={{ display: 'flex' }}>
-        <CircularProgress />
-      </Box>
+
+    const handleBuy = () => {
+        if (parseInt(proposedPrice) < 0)
+            return alert("Le prix ne peut pas être négatif")
+        offersService.postOffer(token, {price:parseInt(proposedPrice), announcementId: announcement.announcementId})
+        alert("Offre envoyée")
     }
+
+    const handleTroc = () => {
+
+        // TODO notif
+    }
+
+
+    const handleReport = () => {
+        if (!reportCategory)
+            return alert("Mauvaise catégorie de signalement")
+        reportsService.createOne(token, {content: reportContent, announcementId: announcement.announcementId, category: reportCategory})
+        alert("Signalement envoyé")
+    }
+
+
+
+
+    if (loading) 
+        return <Box sx={{ display: 'flex' }}> <CircularProgress /> </Box>
+    
     return (
         
             <Container>
@@ -148,11 +229,11 @@ const AnnouncementPage = () => {
                         <Grid container >
                             <Grid item xs={12} md={6} xl={6}>
                                 <Avatar src={announcementPhotos[0]} style={noImageStyle}></Avatar>
-                                <Button startIcon={<ErrorOutlinedIcon/>}>Signaler cette annonce</Button>
+                                <Button startIcon={<ErrorOutlinedIcon/>} onClick={handleReportOpening}>Signaler cette annonce</Button>
                             </Grid>
                             <Grid item xs={12} md={6} xl={6} style={{padding:"6vh"}}>
                                 <Typography key={announcement.announcementId}>{announcement.description}</Typography>
-                                <Typography variant="h6" style={{marginTop:"10vh", marginBottom:"2vh"}}>{loadType(announcement.price)}</Typography>
+                                <Typography variant="h6" style={{marginTop:"10vh", marginBottom:"2vh"}}>{announcement.price === 0 ? "A donner" : `Prix proposé: ${announcement.price}€`}</Typography>
                                 <Grid container align="center">
                                     <Grid item xs={6}>
                                         <Button variant="contained" style={buttonStyle} onClick={handleTrocOpening}>Proposer un troc</Button>
@@ -178,7 +259,7 @@ const AnnouncementPage = () => {
                         </Paper>
                     </Grid>
                     <Grid item xl={0.2}></Grid>
-                    <Grid item item xs={12} md={6} xl={4.9}>
+                    <Grid item xs={12} md={6} xl={4.9}>
                         <Paper style={framesStyle} elevation={6}>
                             <Paper style={sectionsStyle}>
                                 <Grid padding='1vh'>
@@ -209,23 +290,15 @@ const AnnouncementPage = () => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Dialog open={dialogOpening} onClose={handleDialogOpening}>
-                    <DialogTitle>{title}</DialogTitle>
+
+                <Dialog open={isPopupOpened} onClose={() => setPopupState(!isPopupOpened)}>
+                    <DialogTitle>{popupTitle}</DialogTitle>
                     <DialogContent>
-                    <DialogContentText>
-                        {subtitle}
-                    </DialogContentText>
-                    <TextField
-                        fullWidth
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={7}
-                        defaultValue={field}
-                    />
+                        {popupContent}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleDialogOpening}>Retour</Button>
-                        <Button onClick={handleDialogOpening}>Envoyer</Button>
+                        <Button onClick={() => setPopupState(!isPopupOpened)}>Retour</Button>
+                        <Button onClick={handleAction}>Envoyer</Button>
                     </DialogActions>
                 </Dialog>
             </Container>

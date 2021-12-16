@@ -29,11 +29,13 @@ const getByAnnouncement = (token, announcementId) => {
     return request.then(response => response.data)
 }
 
-const postAnnouncement = (token, offer) => {
-    const request = axios.post(baseUrl, {
-        headers: { Authorization: `Bearer ${token}` }
-    }, offer)
-    return request.then(response => response.data)
+const postOffer = (token, offer) => {
+    console.log(token);
+    console.log(offer)
+    const request = axios.post(baseUrl, offer, {
+        headers: { 'Authorization': `Bearer ${token}` }   
+    })
+    return request.then(response => response.data).catch((e) => alert(e.response.statusText))
 }
 
 const acceptOffer = (token, offerId) => {
@@ -50,4 +52,4 @@ const refuseOffer = (token, offerId) => {
     return request.then(response => response.data)
 }
 
-export default {getFromMe, getForMe, getOffer, getByAnnouncement, postAnnouncement, acceptOffer, refuseOffer}
+export default {getFromMe, getForMe, getOffer, getByAnnouncement, postOffer, acceptOffer, refuseOffer}
