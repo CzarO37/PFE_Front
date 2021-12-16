@@ -125,29 +125,35 @@ const NewAnnouncement = () => {
 
     const handleNewAnnouncement = (event) => {
         event.preventDefault()
-        const announcement = {
-            name: name,
-            description: description,
-            price: price,
-            categoryId: categoryId,
-            isProduct: booleanProduct,
-            tag: tag,
-        }
-        let res = ''
-        announcementsService.addNewAnnouncement(announcement, token)
-            .then(response => {
-                res = response
-                console.log("res: ", res)
-                const announcementId = res.announcementId
 
-                imageList.map((img) =>(
-                        mediasService.uploadImage(announcementId, img, token)
+        if (imageList.length == 0) {
+            //TODO: add notification when no image loaded
+        } else {
+
+            const announcement = {
+                name: name,
+                description: description,
+                price: price,
+                categoryId: categoryId,
+                isProduct: booleanProduct,
+                tag: tag,
+            }
+            let res = ''
+            announcementsService.addNewAnnouncement(announcement, token)
+                .then(response => {
+                    res = response
+                    console.log("res: ", res)
+                    const announcementId = res.announcementId
+
+                    imageList.map((img) =>(
+                            mediasService.uploadImage(announcementId, img, token)
+                        )
                     )
-                )
-                history.push(`/announcement/${announcementId}`)
+                    history.push(`/announcement/${announcementId}`)
 
+                })
+        }
 
-            })
     }
 
     const containerStyle = {
