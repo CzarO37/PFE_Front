@@ -9,7 +9,6 @@ import Filtres from './Filtres.jsx'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
-import Carousel from 'flat-carousel';
 
 
 const MAX_PRICE = 1000000
