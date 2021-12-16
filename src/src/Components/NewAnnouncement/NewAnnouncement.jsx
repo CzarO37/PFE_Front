@@ -164,7 +164,7 @@ const NewAnnouncement = () => {
     const framesStyle = {
         'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
         padding:"0.3vh",
-        marginTop: '14vh',
+        marginTop: '2vh',
     }
 
     const submitStyle = {
