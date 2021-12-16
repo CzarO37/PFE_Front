@@ -3,15 +3,10 @@ import storage from './storage.js'
 
 const baseUrl = 'http://localhost:3000/api/users'
 
-<<<<<<< HEAD
 const getAll = (token) => {
     const request = axios.get(baseUrl, {
         headers: { Authorization: `Bearer ${token}` }
     })
-=======
-const getAll = () => {
-    const request = axios.get(baseUrl)
->>>>>>> 118fedc5bebf0e106c8bcd8f5be1ac34a6030271
     return request.then(response => response.data)
 }
 
