@@ -3,10 +3,15 @@ import storage from './storage.js'
 
 const baseUrl = 'http://localhost:3000/api/users'
 
+<<<<<<< HEAD
 const getAll = (token) => {
     const request = axios.get(baseUrl, {
         headers: { Authorization: `Bearer ${token}` }
     })
+=======
+const getAll = () => {
+    const request = axios.get(baseUrl)
+>>>>>>> 118fedc5bebf0e106c8bcd8f5be1ac34a6030271
     return request.then(response => response.data)
 }
 
@@ -56,33 +61,6 @@ const getById = (id) => {
     return request.then(response => response.data)
 }
 
-//Je laisse pour voir comment faire par apres, pour l'instant c'est pas fonctionnel
-const create = (newObject) => {
-    const request = axios.post(baseUrl, newObject)
-    return request.then(response => response.data)
-        .catch(err => {
-            console.log(err)
-        })
-}
-
-//Je laisse pour voir comment faire par apres, pour l'instant c'est pas fonctionnel
-const del = (id) => {
-    const request = axios.delete(`${baseUrl}/${id}`)
-    return request.then(response => response.data)
-        .catch(err => {
-            console.log(err)
-        })
-}
-
-//Je laisse pour voir comment faire par apres, pour l'instant c'est pas fonctionnel
-const update = (id, newObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, newObject)
-    return request.then(response => response.data)
-        .catch(err => {
-            console.log(err)
-        })
-}
-
 const addInterest = (categoryId, token) => {
     const request = axios.post(`${baseUrl}/me/interests/${categoryId}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -128,6 +106,5 @@ const getPhoto = (userId) => {
     return request.then(response => response.data)
 }
 
-export default {getAll, getMe, create, del, update, loginUser, loginViaRememberMe,
-    loginRememberThenRefresh, getById, signUpUser, addInterest, removeInterest, 
-    ban, unban, getPhoto}
+export default {getAll, getMe, loginUser, loginViaRememberMe,
+     getById, signUpUser, addInterest, removeInterest, ban, unban, getPhoto}
