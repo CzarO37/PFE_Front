@@ -48,6 +48,9 @@ const MenuCategory = () => {
 
     return (
         <List>
+            <ListItem style={textStyle}>
+                <Link style={textStyle} to ={`/products`}>Tous les produits</Link>
+            </ListItem>
             {generateCategoryList()}
         </List>
     )
