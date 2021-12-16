@@ -23,6 +23,7 @@ const getUser = () => {
 }
 
 const clearStorage = () => {
+    console.log('clear sotrage')
     sessionStorage.removeItem('user')
     sessionStorage.removeItem('token')
     localStorage.removeItem('token')
