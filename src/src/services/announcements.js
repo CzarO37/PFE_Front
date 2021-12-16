@@ -42,7 +42,7 @@ const getProductByCategoryId = (categoryId) =>{
 
 
 const cancel = (announcementId, token) => {
-    const request = axios.delete(`${baseUrl}/cancel/${announcementId}`, {
+    const request = axios.delete(`${baseUrl}/${announcementId}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
@@ -56,4 +56,12 @@ const getXFirst = (numberOfFirstProducts) =>{
     return request.then(response => response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst, cancel, getMe}
+const addNewAnnouncement = (announcement, token) => {
+    console.log("New Announcement: ", announcement)
+    const request = axios.post(baseUrl, announcement, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return request.then(response => response.data)
+}
+
+export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst, cancel, addNewAnnouncement, getMe}

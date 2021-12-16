@@ -10,33 +10,6 @@ const Navbar = () =>{
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const userFromStorage = storageService.getUser()
-    const [userPhoto, setUserPhoto] = useState('')
-    const [userAvatar, setUserAvatar] = useState('')
-
-    const avatar = (photoPresent) => {
-        if (photoPresent) {
-            return <Avatar src={userPhoto} sx={{ width: 70, height: 70 }}></Avatar>
-        }
-        return <Avatar sx={{ width: 70, height: 70 }}>{userFromStorage.firstname.toUpperCase().charAt(0)}{userFromStorage.lastname.toUpperCase().charAt(0)}</Avatar>
-    }
-
-    useEffect(() => {
-        if (userFromStorage !== null && userFromStorage !== undefined) {
-            async function loadImage() {
-                await usersService.getPhoto(userFromStorage.userId).then(responseUserPhoto => {
-                    if (responseUserPhoto) {
-                        setUserPhoto("data:image/png;base64, " + responseUserPhoto)
-                        setUserAvatar(avatar(true))
-                        
-                    } 
-                }).catch(err => {
-                    console.log("No image found")
-                    setUserAvatar(avatar(false))
-                }) 
-            }
-            loadImage()
-        }
-    },[])
 
     let history = useHistory()
     let token = storageService.getToken()
@@ -65,6 +38,10 @@ const Navbar = () =>{
         )
     }
 
+    const profilStyle = {
+        background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'
+    }
+
     const profil = () => {
         if (userFromStorage !== null) {
             const alt = `${userFromStorage.firstname} ${userFromStorage.lastname}`
@@ -72,11 +49,7 @@ const Navbar = () =>{
                 case "MODERATOR":
                     return (
                         <>
-                            <Button 
-                                href={"/moderation"} 
-                                variant="contained" 
-                                style={{background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}
-                            >Modération</Button>
+                        <Button href="/categories" variant="contained" style={profilStyle}>Catégories</Button>
                         <Button
                             id="basic-button"
                             aria-controls="basic-menu"
@@ -84,7 +57,7 @@ const Navbar = () =>{
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}
                         >
-                            {userAvatar}
+                            <Button variant="contained" style={profilStyle}>Mon profil</Button>
                         
                         </Button>
                         <Menu
@@ -97,12 +70,14 @@ const Navbar = () =>{
                             }}
                         >
                             <MenuItem onClick={handleClose}><Link to="/myAccount" style={{textDecoration:'none',color:'black'}}>Mon profil</Link></MenuItem>
+                            <MenuItem onClick={handleClose}><Link to="/moderation" style={{textDecoration:'none',color:'black'}}>Modération</Link></MenuItem>
                             <MenuItem onClick={handleLogout}><Link to="/" style={{textDecoration:'none',color:'black'}}>Déconnexion</Link></MenuItem>
                         </Menu>
                         </>)
                 default:
                     return (
                     <>
+                    <Button href="/categories" variant="contained" style={profilStyle}>Catégories</Button>
                     <Button
                         id="basic-button"
                         aria-controls="basic-menu"
@@ -110,7 +85,7 @@ const Navbar = () =>{
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleClick}
                     >
-                        {userAvatar}
+                            <Button variant="contained" style={profilStyle}>Mon profil</Button>
                     </Button>
                     <Menu
                         id="basic-menu"

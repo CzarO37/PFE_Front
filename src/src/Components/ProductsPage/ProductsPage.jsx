@@ -2,13 +2,14 @@ import { Button,Card, CardContent, CardMedia, Container, Drawer, Grid, List, Pap
 import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
 import './ProductPage.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import Filtres from './Filtres.jsx'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
+import storage from '../../services/storage.js'
 
 
 const MAX_PRICE = 1000000
@@ -29,6 +30,13 @@ const ProductsPage = (props) => {
     const [minPrice, setMinPrice] = useState(MIN_PRICE)
     const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
 
+<<<<<<< HEAD
+=======
+    const token = storage.getToken()
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")    }
+>>>>>>> dc96b86921bc9f2b86327bd1009211adb800e455
 
     useEffect(()=>{
         if(categoryId === null){

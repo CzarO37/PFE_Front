@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Switch, Route, useRouteMatch, Link, useHistory} from 'react-router-dom'
+import {Avatar} from '@mui/material'
 
 import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
@@ -9,11 +10,17 @@ import AnnouncementPage from './Components/AnnouncementPage/AnnouncementPage';
 import CategoriePage from './Components/CategoriePage/CategoriePage';
 import Navbar from './Components/Navbar/Navbar';
 import UserProfile from './Components/UserProfile/UserProfile'
+import NewAnnouncement from "./Components/NewAnnouncement/NewAnnouncement";
 import ModerationPage from './Components/ModerationPage/ModerationPage';
 import storageService from './services/storage.js'
 import usersService from './services/users.js'
 
+
 const RouterApp = () => {
+    const [userPhoto, setUserPhoto] = useState('')
+    const [userAvatar, setUserAvatar] = useState('')
+
+
     if(!sessionStorage.getItem('token')) {
         let token = storageService.getToken()
         if(token !== undefined) {
@@ -23,7 +30,9 @@ const RouterApp = () => {
                 storageService.storeToken(response.token, true)
             })
         }
+        
     }
+    
 
     return (
         <div>
@@ -33,6 +42,10 @@ const RouterApp = () => {
                 </Route>
                 <Route path={"/signup"}>
                     <SignUpPage />
+                </Route>
+                <Route path={"/newAnnouncement"}>
+                    <Navbar/>
+                    <NewAnnouncement />
                 </Route>
                 <Route path={`/announcement/:id`}>
                     <Navbar/>
@@ -55,7 +68,7 @@ const RouterApp = () => {
                     <ModerationPage/>
                 </Route>
                 <Route path={"/"}>
-                    <HomePage />
+                    <HomePage/>
                 </Route>
             </Switch>
         </div>
@@ -63,4 +76,3 @@ const RouterApp = () => {
 }
 
 export default RouterApp
-

@@ -117,8 +117,7 @@ const Carrousel = () =>{
             transitionDuration={5000}
             containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile"]}
-            dotListClass="custom-dot-list-style"
-            additionalTransfrom={-20 * 5} 
+            dotListClass="custom-dot-list-style" 
         >
             {generationProductsToCarrousel()}
       </Carousel>

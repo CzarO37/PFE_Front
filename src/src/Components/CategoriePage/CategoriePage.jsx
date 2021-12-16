@@ -6,13 +6,21 @@ import loisir from '../../images/categories/loisir.jpg'
 import famille from '../../images/categories/famille.jpg'
 import electronique from '../../images/categories/electronics.jpg'
 import categorieService from '../../services/categories.js'
-import { useLocation, Link} from 'react-router-dom'
+import NewReleasesOutlinedIcon from '@mui/icons-material/NewReleasesOutlined';
+import { useLocation, Link, useHistory} from 'react-router-dom'
+import storage from '../../services/storage'
 
 const CategoriePage = () => {
 
     const [list, setList] = useState([])
     const search = new useLocation().search;
     const category = new URLSearchParams(search).get('category')
+    
+    const token = storage.getToken()
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")
+    }
 
     useEffect(() => {
         categorieService.getAll().then((response)=>setList(response))
@@ -179,7 +187,7 @@ const CategoriePage = () => {
 
                         </Grid>
                         <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
-                            <Typography style={sousTextStyle}>Tu ne sait pas ce que tu cherche ? Decouvre nos produits les plus récents </Typography>
+                            <Typography style={sousTextStyle}><NewReleasesOutlinedIcon/> Tu ne sais pas ce que tu cherches? Découvre nos produits les plus récents <NewReleasesOutlinedIcon/></Typography>
                             <Button href={"/products"} variant="contained" size="large" style={{marginTop:'2vh',background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}>Vers les plus récents</Button>
                         </Grid>
                     </Grid>
