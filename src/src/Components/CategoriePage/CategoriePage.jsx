@@ -61,6 +61,12 @@ const CategoriePage = () => {
         console.log("My category is : " + category)
     }
 
+    const sousTextStyle = {
+        color : '#7BA66C',
+        fontSize: '20px',
+        fontWeight: 'bold'
+    }
+
     return (
         <div>
             <Container maxWidth="xl">
@@ -171,6 +177,10 @@ const CategoriePage = () => {
                         </Grid>
                         <Grid item xs={12} md={6} xl={4} style={gridStyle}>
 
+                        </Grid>
+                        <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
+                            <Typography style={sousTextStyle}>Tu ne sait pas ce que tu cherche ? Decouvre nos produits les plus récents </Typography>
+                            <Button href={"/products"} variant="contained" size="large" style={{marginTop:'2vh',background: 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}>Vers les plus récents</Button>
                         </Grid>
                     </Grid>
                     

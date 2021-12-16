@@ -38,16 +38,16 @@ const getAllUntreatedForAnnouncement = (token, announcementId) => {
 }
 
 const createOne = (token, report) => {
-    const request = axios.post(`${baseUrl}`, {
+    const request = axios.post(`${baseUrl}`, report, {
         headers: { Authorization: `Bearer ${token}` }
-    }, report)
+    })
     return request.then(response => response.data).catch(err => {
         console.log(err)
     })
 }
 
 const block = (token, reportId) => {
-    const request = axios.put(`${baseUrl}/block/${reportId}`, {
+    const request = axios.put(`${baseUrl}/block/${reportId}`,  {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data).catch(err => {
@@ -56,7 +56,7 @@ const block = (token, reportId) => {
 }
 
 const close = (token, reportId) => {
-    const request = axios.put(`${baseUrl}/unblock/${reportId}`, {
+    const request = axios.put(`${baseUrl}/close/${reportId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data).catch(err => {

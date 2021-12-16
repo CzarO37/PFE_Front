@@ -1,9 +1,12 @@
 import axios from 'axios'
+import storage from './storage.js'
+
 const baseUrl = 'http://localhost:3000/api/users'
 
-
-const getAll = () => {
-    const request = axios.get(baseUrl)
+const getAll = (token) => {
+    const request = axios.get(baseUrl, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     return request.then(response => response.data)
 }
 
@@ -29,6 +32,18 @@ const loginViaRememberMe = (token) => {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
+}
+
+const loginRememberThenRefresh = (history) => {
+    let token = storage.getToken()
+    if(token !== undefined && !storage.getUser()) {
+        //remember me token found & no session user
+        loginViaRememberMe(token).then((response) => {
+            storage.storeUser(response.user)
+            storage.storeToken(response.token, true)
+            history.push(document.location.pathname)
+        })
+    }
 }
 
 const signUpUser = (user) => {
@@ -62,7 +77,7 @@ const removeInterest = (categoryId, token) => {
 }
 
 const ban = (userId, token) => {
-    const request = axios.put(`${baseUrl}/ban/${userId}`, {
+    const request = axios.put(`${baseUrl}/ban/${userId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
@@ -72,7 +87,7 @@ const ban = (userId, token) => {
 }
 
 const unban = (userId, token) => {
-    const request = axios.put(`${baseUrl}/unban/${userId}`, {
+    const request = axios.put(`${baseUrl}/unban/${userId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)

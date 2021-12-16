@@ -1,25 +1,29 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {Link, useHistory} from 'react-router-dom'
 import usersService from '../../services/users.js'
-import {Grid, Paper, Avatar, Container, Typography, TextField, Button, FormGroup, FormControlLabel, Checkbox, FormControl, RadioGroup, FormLabel, Radio} from '@mui/material'
+import {Grid, Paper, Avatar, Container, Typography, TextField, Button, FormControl, MenuItem,InputLabel,Select,Alert} from '@mui/material'
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import 'fontsource-roboto';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import SchoolIcon from '@mui/icons-material/School';
 import logo from '../../images/vinci2ndhand.png'
 import './signup.css'
-import styled from 'styled-components'
+import campusesService from '../../services/campuses.js'
 
 
 const SignUpPage = () => {
-
+    const history = useHistory()
     const [name, setName] = useState('')
     const [firstname, setFirstname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [checkPassword, setCheckPassword] = useState('')
+    const [campusList, setCampusList] = useState([])
     const [campus, setCampus] = useState('')
 
+    useEffect(() => {
+        campusesService.getAll().then((response)=>(setCampusList(response)))
+    },[])
 
     const handleNameChange = (e) => {
         e.preventDefault()
@@ -57,6 +61,12 @@ const SignUpPage = () => {
         setCampus(newCampus)
     }
 
+    const generateCampusFilter = () =>{
+        return campusList.map((campus)=>
+            <MenuItem key={campus.campusId} value={campus.campusId}>{campus.name}</MenuItem>
+    )
+    }
+
     const handleSignUp = (event) => {
         event.preventDefault()
         const user = {
@@ -66,10 +76,10 @@ const SignUpPage = () => {
             password: password,
             campusId: campus
         }
-        let res = ''
-        usersService.signUpUser(user)
-            .then(response => res = response)
-        console.log(res)
+        let alert = ''
+        usersService.signUpUser(user).then(
+            history.push('login')
+        )
     }
 
 
@@ -168,23 +178,19 @@ const SignUpPage = () => {
                                            variant="standard"
                                            onChange={handleCheckPasswordChange}
                                 />
-                                <FormControl component="fieldset">
-                                    <RadioGroup row aria-label="campus" name="campus">
-                                        <FormControlLabel value="1" control={<Radio/>} label="Woluwe"
-                                                          onChange={handleCampusChange}/>
-                                        <FormControlLabel value="2" control={<Radio/>} label="Ixelles"
-                                                          onChange={handleCampusChange}/>
-                                        <FormControlLabel value="3" control={<Radio/>} label="Louvain-la-Neuve"
-                                                          onChange={handleCampusChange}/>
-                                    </RadioGroup>
+                                <FormControl style={{width: '70%', marginTop:'2vh'}}>
+                                    <InputLabel>Campus</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Campus"
+                                        value={campus}
+                                        onChange={handleCampusChange}
+                                    >
+                                        <MenuItem value=""><em>Tous</em></MenuItem>
+                                        {generateCampusFilter()}
+                                    </Select>
                                 </FormControl>
-                                {/* <FormGroup>
-                                        <Grid>
-                                            <FormControlLabel control={<Checkbox icon={<SchoolOutlinedIcon />} checkedIcon={<SchoolIcon/>} onChange={handleCampusChange} value="Woluwe"/>} label="Woluwe" />
-                                            <FormControlLabel control={<Checkbox icon={<SchoolOutlinedIcon />} checkedIcon={<SchoolIcon/>} onChange={handleCampusChange} value="Ixelles"/>} label="Ixelles" />
-                                            <FormControlLabel control={<Checkbox icon={<SchoolOutlinedIcon />} checkedIcon={<SchoolIcon/>} onChange={handleCampusChange}/>} value="Louvain-la-Neuve" label="Louvain-la-Neuve" />
-                                        </Grid> 
-                                    </FormGroup> */}
                                 <Button type="submit" variant="contained" style={submitStyle}>S'inscrire</Button>
                             </Grid>
                         </form>
