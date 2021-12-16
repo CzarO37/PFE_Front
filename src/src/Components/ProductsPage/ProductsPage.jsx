@@ -1,4 +1,4 @@
-import { Button,Card, CardContent, CardMedia, Container, Grid, Paper, Typography } from '@mui/material'
+import { Button,Card, CardContent, CardMedia, Container, Drawer, Grid, List, Paper, Typography, Pagination } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
 import house from '../../images/products/house.jpg'
@@ -7,14 +7,20 @@ import { Link, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import Filtres from './Filtres.jsx'
+import MenuIcon from '@mui/icons-material/Menu';
+import { Box } from '@mui/system'
+import MenuCategory from './MenuCategory/MenuCategory.jsx'
 
 const MAX_PRICE = 1000000
 const MIN_PRICE = 0
-const ProductsPage = () => {
+
+const ProductsPage = (props) => {
 
     const [productList, setProductList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const [categoryName, setCategoryName] = useState('Les produits')
+
+    const [buttonState, setButtonState] = useState(false)
 
     const search = useLocation().search;
     const categoryId = new URLSearchParams(search).get('categoryId')
@@ -24,7 +30,7 @@ const ProductsPage = () => {
     const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
 
     useEffect(()=>{
-        
+        console.log("je suis le useEffect")
         if(categoryId === null){
             annoncementsService.getAll().then((response)=>setProductList(response))
         }else{
@@ -34,9 +40,18 @@ const ProductsPage = () => {
                 setProductList(list)
             })
         }
-    },[])
+    },[categoryId])
 
     setTimeout(()=>{categoryList.filter(category => category.categoryId == categoryId).map(category => setCategoryName(category.name))},10)
+
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const [productsPerPage, setProductsPerPage] = useState(9)
+
+
+    const indexOfLastProduct = currentPage*productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = productList.slice(indexOfFirstProduct, indexOfLastProduct)
 
 
     const titleStyle = {
@@ -125,9 +140,36 @@ const ProductsPage = () => {
             
         ))
     }
+
+    const openCloseMenu = (open) => (event) => {
+        if (
+          event.type === "keydown" &&
+          (event.key === "Tab" || event.key === "Shift")
+        ) {
+          return;
+        }
+        setButtonState(open);
+    };
+
     return (
         <div>
+            
+            
             <Container maxWidth="xl">
+            <Button onClick={openCloseMenu(true)} style={{size:'large', background:'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)'}}><MenuIcon style={{color:'white'}}/></Button>
+            <Drawer
+            anchor="left"
+            open={buttonState}
+            onClose={openCloseMenu(false)}
+            >
+                <Box
+                    sx={{width:"30vh"}}
+                    onClick={openCloseMenu(false)}
+                >
+                    <MenuCategory/>
+                </Box>
+                
+            </Drawer>
                 <Grid container>
                     <Grid item xs={12} align="center" style={{paddingBottom:'3vh'}}>
                         <Typography style={titleStyle}>{categoryName}</Typography>
@@ -139,8 +181,9 @@ const ProductsPage = () => {
                     <Grid container justifyContent="space-between" >
                         {productsRender(productList)}
                     </Grid>
+                    
                 </Grid>
-                
+                <Pagination style={{display:'flex', justifyContent:'center'}} onChange={(event, value)=>setCurrentPage(value)} count={Math.ceil(productList.length/productsPerPage)} variant="outlined" color="primary" />
             </Container>
         </div>
     )
