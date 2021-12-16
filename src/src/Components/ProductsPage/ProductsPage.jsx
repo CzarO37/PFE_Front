@@ -3,13 +3,14 @@ import React, {useState, useEffect} from 'react'
 import annoncementsService from '../../services/announcements.js'
 import house from '../../images/products/house.jpg'
 import './ProductPage.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import categorieService from '../../services/categories.js'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import Filtres from './Filtres.jsx'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
+import storage from '../../services/storage.js'
 
 const MAX_PRICE = 1000000
 const MIN_PRICE = 0
@@ -28,6 +29,11 @@ const ProductsPage = (props) => {
     const [campusFilter, setCampusFilter] = useState('')
     const [minPrice, setMinPrice] = useState(MIN_PRICE)
     const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
+
+    const token = storage.getToken()
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")    }
 
     useEffect(()=>{
         console.log("je suis le useEffect")

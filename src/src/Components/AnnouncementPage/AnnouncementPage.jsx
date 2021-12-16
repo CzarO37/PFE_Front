@@ -6,7 +6,7 @@ import noImage from '../../images/no-image.png'
 import ErrorOutlinedIcon from '@mui/icons-material/ErrorOutlined';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import SimpleMap from './GoogleMap';
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import campusesService from '../../services/campuses.js'
 import usersService from '../../services/users.js'
 import storageService from '../../services/storage.js'
@@ -47,6 +47,11 @@ const AnnouncementPage = () => {
     const [reportContent, setReportContent] = useState('')
     const [reportCategory, setReportCategory] = useState('')
     const categories = ["Illegal", "Innapropriate", "Spam"]
+
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")
+    }
 
     setTimeout(() => { 
         if (announcement!==''&&seller!==''&&campus!=='') {

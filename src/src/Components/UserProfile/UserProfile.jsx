@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {Grid,Paper,Avatar,Container,Typography,Button,ButtonGroup,Card,CardActions,CardContent,CardMedia} from '@mui/material'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -48,6 +48,11 @@ const UserProfile = () => {
     const [myPurchases, setMyPurchases] = useState([])
     const [loading, setLoading] = useState('true')
     const [userPhoto, setUserPhoto] = useState('')
+
+    let history = useHistory()
+    if(!token) {
+        history.push("/login")
+    }
 
     setTimeout(() => { 
         if (myAnnouncements!==[]&&myOffers!==[]&&userPhoto!==''&&myPurchases!==[]) {
