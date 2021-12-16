@@ -18,6 +18,7 @@ import announcementsService from "../../services/announcements";
 import categoriesService from "../../services/categories";
 import mediasService from "../../services/medias";
 import storage from "../../services/storage";
+import KeyboardBackspaceOutlinedIcon from "@mui/icons-material/KeyboardBackspaceOutlined";
 
 
 const NewAnnouncement = () => {
@@ -210,6 +211,7 @@ const NewAnnouncement = () => {
 
 
             <h1 align="center">Ajouter une nouvelle annonce</h1>
+            <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour aux catégories</Button></Link>
             <Paper style={framesStyle}>
                 <Paper>
                     <form onSubmit={handleNewAnnouncement}>
