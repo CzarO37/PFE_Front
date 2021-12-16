@@ -140,8 +140,8 @@ const ModerationPage = () => {
         return (
             reportList.map((r)=>
             <Grid container xs={12} style={{margin: '2vh'}}>
-                <Grid item xs={4}>
-                    <Link to={`/announcement/${r.announcementId}`}><Typography textAlign={'left'}>{r.announcement.name}</Typography></Link>
+                <Grid item xs={3}>
+                    <Link to={`/announcement/${r.announcementId}`} style={{color:'black', textDecoration:'none'}}><Typography textAlign={'left'}>{r.announcement.name}</Typography></Link>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography textAlign={'left'}>{r.category}</Typography>
@@ -203,18 +203,18 @@ const ModerationPage = () => {
             <Link to="/"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
             <Paper style={borderStyle}>
                 <Paper style={backPaper}>
-                    <Typography variant='h4' textAlign={"center"} style={subTitleStyle} padding={'2vh'}>Reports</Typography>
+                    <Typography variant='h4' textAlign={"center"} style={subTitleStyle} padding={'2vh'}>Signalements</Typography>
                     <Grid container padding={'4vh'}>
                         <Grid item xl={12}>
                             <Paper>
-                            <Grid container>
-                            <Grid item xs={12} xl={3}>
+                            <Grid container style={{margin: '2vh'}}>
+                            <Grid item xs={3} xl={3}>
                                     <Typography variant="h6" textAlign={'left'} fontWeight={'bold'}>Nom de l'annonce</Typography>
                                 </Grid>
-                                <Grid item xs={12} xl={4}>
+                                <Grid item xs={2} xl={2}>
                                     <Typography variant="h6" textAlign={'left'} fontWeight={'bold'}>Catégorie</Typography>
                                 </Grid>
-                                <Grid item xs={12} xl={2}>
+                                <Grid item xs={2} xl={2}>
                                     <Typography variant="h6" textAlign={'left'} fontWeight={'bold'}>Commentaire</Typography>
                                 </Grid>
                                 <Grid item xl={12}>
@@ -226,30 +226,11 @@ const ModerationPage = () => {
                         </Grid>
 
                     </Grid>
-                    {/* <Grid container padding={'4vh'}>
-                        <Paper>
-                            <Grid container style={{margin: '2vh'}}>
-                                <Grid item xl={3}>
-                                    <Typography variant="h6" textAlign={'left'} fontWeight={'bold'}>Nom de l'annonce</Typography>
-                                </Grid>
-                                <Grid item xl={4}>
-                                    <Typography variant="h6" textAlign={'left'} fontWeight={'bold'}>Catégorie</Typography>
-                                </Grid>
-                                <Grid item xl={2}>
-                                    <Typography variant="h6" textAlign={'left'} fontWeight={'bold'}>Commentaire</Typography>
-                                </Grid>
-                                <Grid item xl={12}>
-                                    {renderReport()}
-                                </Grid>
-                                
-                            </Grid>
-                        </Paper>
-                    </Grid> */}
                 </Paper>
             </Paper>
             <Paper style={borderStyle}>
                 <Paper style={backPaper}>
-                    <Typography variant='h4' textAlign={"center"} style={subTitleStyle} padding={'2vh'}>Users</Typography>
+                    <Typography variant='h4' textAlign={"center"} style={subTitleStyle} padding={'2vh'}>Utilisateurs</Typography>
                     <Grid container padding={'4vh'}>
                         <Paper>
                         <Grid container xs={12} style={{margin: '2vh'}}>
