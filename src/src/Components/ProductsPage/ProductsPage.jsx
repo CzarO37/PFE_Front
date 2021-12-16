@@ -30,13 +30,10 @@ const ProductsPage = (props) => {
     const [minPrice, setMinPrice] = useState(MIN_PRICE)
     const [maxPrice, setMaxPrice] = useState(MAX_PRICE)
 
-<<<<<<< HEAD
-=======
     const token = storage.getToken()
     let history = useHistory()
     if(!token) {
         history.push("/login")    }
->>>>>>> dc96b86921bc9f2b86327bd1009211adb800e455
 
     useEffect(()=>{
         if(categoryId === null){
