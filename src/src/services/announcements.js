@@ -64,4 +64,4 @@ const addNewAnnouncement = (announcement, token) => {
     return request.then(response => response.data)
 }
 
-export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst, cancel, addNewAnnouncement}
+export default {getAll, getById, getDetails, getProductByCategoryId, getXFirst, cancel, addNewAnnouncement, getMe}
