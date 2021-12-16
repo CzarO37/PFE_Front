@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/api/reports'
+const baseUrl = '/api/reports'
 
 const getAll = (token) => {
     const request = axios.get(`${baseUrl}`, {

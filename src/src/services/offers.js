@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/api/offers'
+const baseUrl = '/api/offers'
 
 const getFromMe = (token) => {
     const request = axios.get(`${baseUrl}/me`, {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 const FormData = require('form-data');
-const baseUrl = 'http://localhost:3000/api/medias'
+const baseUrl = '/api/medias'
 
 const getAnnouncementPhotosByUserId = (id) => {
     const request = axios.get(`${baseUrl}/announcement/${id}`)

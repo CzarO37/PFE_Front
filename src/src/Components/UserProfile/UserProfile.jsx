@@ -9,7 +9,6 @@ import announcementsService from '../../services/announcements.js'
 import offersService from '../../services/offers.js'
 import storageService from '../../services/storage.js'
 import velo from '../../images/products/velo.jpg'
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
@@ -59,7 +58,7 @@ const UserProfile = () => {
         if (myAnnouncements!==[]&&myOffers!==[]&&myPurchases!==[]) {
             setLoading(false) 
         }
-    }, 1);
+    }, 100);
 
     useEffect(() => {
         async function loadData() {
@@ -240,93 +239,94 @@ const UserProfile = () => {
         width: '25%',
     }
 
+
     if (loading) {
-        return <Box sx={{ display: 'flex' }}>
-        <CircularProgress />
-      </Box>
+        return (
+            <Box sx={{ display: 'flex' }}>
+                <CircularProgress />
+            </Box>
+        )
     }
-
-    if(!token) {
-        return <div>Please login first</div>
-    }
-
-    return (
-        <Container>
-            <Typography variant="h3" textAlign={"center"} style={{color:'#7BA66C',fontWeight:'bold'}}>Mon profil</Typography>
-            <Link to="/products"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
-            <Grid container>
-                <Grid item xs={12} xl={12}>
-                    <Paper elevation={6} style={framesStyle}>
-                        <Paper style={sectionsStyle}>
-                            <Grid container padding={3}>
-                                <Grid item xs={5} xl={3} align={"center"}>
-                                    <Avatar src={userPhoto} style={noImageStyle}/>
-                                </Grid>
-                                <Grid item xs={7} xl={4}>
-                                    <Typography variant="h6" style={{fontWeight:'bold'}}>Compte: </Typography>
-                                    <Typography style={{marginTop:'1vh'}}>{user.firstname}</Typography>
-                                    <Typography>{user.lastname}</Typography>
-                                    <Typography>{user.email}</Typography>
-                                    <Typography>Campus: {user.campus.name}</Typography>
-                                </Grid>
-                                <Grid item xs={12} xl={5}>
-                                    <Typography variant="h6" style={{fontWeight:'bold'}}>Mes préférences:</Typography>
-                                    <Grid container>
-                                    {user.interests.map(
-                                        (interest) => (
-                                            <Paper elevation={2} style={{margin:'1vh', padding:'0.2vh'}}>
-                                                <Typography textAlign={"center"} key={interest.id}>{interest.name}</Typography>
-                                            </Paper>
-                                    ))}
+    else {
+        return (
+            <Container>
+                <Typography variant="h3" textAlign={"center"} style={{color:'#7BA66C',fontWeight:'bold'}}>Mon profil</Typography>
+                <Link to="/products"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
+                <Grid container>
+                    <Grid item xs={12} xl={12}>
+                        <Paper elevation={6} style={framesStyle}>
+                            <Paper style={sectionsStyle}>
+                                <Grid container padding={3}>
+                                    <Grid item xs={5} xl={3} align={"center"}>
+                                        <Avatar src={userPhoto} style={noImageStyle}/>
+                                    </Grid>
+                                    <Grid item xs={7} xl={4}>
+                                        <Typography variant="h6" style={{fontWeight:'bold'}}>Compte: </Typography>
+                                        <Typography style={{marginTop:'1vh'}}>{user.firstname}</Typography>
+                                        <Typography>{user.lastname}</Typography>
+                                        <Typography>{user.email}</Typography>
+                                        <Typography>Campus: {user.campus.name}</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} xl={5}>
+                                        <Typography variant="h6" style={{fontWeight:'bold'}}>Mes préférences:</Typography>
+                                        <Grid container>
+                                        {user.interests.map(
+                                            (interest) => (
+                                                <Paper elevation={2} style={{margin:'1vh', padding:'0.2vh'}}>
+                                                    <Typography textAlign={"center"} key={interest.id}>{interest.name}</Typography>
+                                                </Paper>
+                                        ))}
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                            </Paper>
                         </Paper>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} xl={12} marginTop={'2vh'}>
-                    <Paper elevation={6} style={framesStyle}>
-                        <Paper style={sectionsStyle}>
-                            <Grid container padding={3}>
-                                <Typography variant="h5" style={{fontWeight:'bold'}}>Offres en attente:</Typography>
-                                <Grid container justifyContent={"space-between"}>
-                                    {renderMyOffers()}
+                    </Grid>
+                    <Grid item xs={12} xl={12} marginTop={'2vh'}>
+                        <Paper elevation={6} style={framesStyle}>
+                            <Paper style={sectionsStyle}>
+                                <Grid container padding={3}>
+                                    <Typography variant="h5" style={{fontWeight:'bold'}}>Offres en attente:</Typography>
+                                    <Grid container justifyContent={"space-between"}>
+                                        {renderMyOffers()}
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </Paper>
                         </Paper>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} xl={12} marginTop={'2vh'}>
-                    <Paper elevation={6} style={framesStyle}>
-                        <Paper style={sectionsStyle}>
-                            <Grid container padding={3}>
-                                <Grid item xs={12} xl={6}>
-                                    <Typography variant="h5" style={{fontWeight:'bold'}}>Mes annonces:</Typography>
+                    </Grid>
+                    <Grid item xs={12} xl={12} marginTop={'2vh'}>
+                        <Paper elevation={6} style={framesStyle}>
+                            <Paper style={sectionsStyle}>
+                                <Grid container padding={3}>
+                                    <Grid item xs={12} xl={6}>
+                                        <Typography variant="h5" style={{fontWeight:'bold'}}>Mes annonces:</Typography>
+                                    </Grid>
+                                    <Grid container justifyContent={"space-between"}>
+                                        {renderMyAnnouncements()}
+                                    </Grid>
+                                    
                                 </Grid>
-                                <Grid container justifyContent={"space-between"}>
-                                    {renderMyAnnouncements()}
-                                </Grid>
-                                
-                            </Grid>
+                            </Paper>
                         </Paper>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} xl={12} marginTop={'2vh'}>
-                    <Paper elevation={6} style={framesStyle}>
-                        <Paper style={sectionsStyle}>
-                            <Grid container padding={3}>
-                                <Typography variant="h5" style={{fontWeight:'bold'}}>Achats</Typography>
-                                <Grid container justifyContent={"space-between"}>
-                                    {renderMyPurchases()}
+                    </Grid>
+                    <Grid item xs={12} xl={12} marginTop={'2vh'}>
+                        <Paper elevation={6} style={framesStyle}>
+                            <Paper style={sectionsStyle}>
+                                <Grid container padding={3}>
+                                    <Typography variant="h5" style={{fontWeight:'bold'}}>Achats</Typography>
+                                    <Grid container justifyContent={"space-between"}>
+                                        {renderMyPurchases()}
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </Paper>
                         </Paper>
-                    </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
-            
-        </Container>
-    )
+                
+            </Container>
+        )
+    }
+    
 
 }
 

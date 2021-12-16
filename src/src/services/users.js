@@ -1,7 +1,7 @@
 import axios from 'axios'
 import storage from './storage.js'
 
-const baseUrl = 'http://localhost:3000/api/users'
+const baseUrl = '/api/users'
 
 const getAll = (token) => {
     const request = axios.get(baseUrl, {

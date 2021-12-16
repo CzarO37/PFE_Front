@@ -30,12 +30,11 @@ const Navbar = () =>{
       setAnchorEl(null);
     };
 
-    const handleLogout = () => {
+    const handleLogout = (e) => {
+        e.preventDefault()
         setAnchorEl(null)
         storageService.clearStorage()
-        return (
-            <Alert severity="info">Déconnecté avec succès!</Alert>
-        )
+        history.push("/")
     }
 
     const profilStyle = {
@@ -71,7 +70,8 @@ const Navbar = () =>{
                         >
                             <MenuItem onClick={handleClose}><Link to="/myAccount" style={{textDecoration:'none',color:'black'}}>Mon profil</Link></MenuItem>
                             <MenuItem onClick={handleClose}><Link to="/moderation" style={{textDecoration:'none',color:'black'}}>Modération</Link></MenuItem>
-                            <MenuItem onClick={handleLogout}><Link to="/" style={{textDecoration:'none',color:'black'}}>Déconnexion</Link></MenuItem>
+                            <MenuItem onClick={handleClose}><Link to="/newAnnouncement" style={{textDecoration:'none',color:'black'}}>Ajouter une annonce</Link></MenuItem>
+                            <MenuItem onClick={handleLogout}>Déconnexion</MenuItem>
                         </Menu>
                         </>)
                 default:
@@ -97,7 +97,8 @@ const Navbar = () =>{
                         }}
                     >
                         <MenuItem onClick={handleClose}><Link to="/myAccount" style={{textDecoration:'none',color:'black'}}>Mon profil</Link></MenuItem>
-                        <MenuItem onClick={handleClose}>Déconnexion</MenuItem>
+                        <MenuItem onClick={handleClose}><Link to="/newAnnouncement" style={{textDecoration:'none',color:'black'}}>Ajouter une annonce</Link></MenuItem>
+                        <MenuItem onClick={handleLogout}>Déconnexion</MenuItem>
                     </Menu>  
                 </>)
             }

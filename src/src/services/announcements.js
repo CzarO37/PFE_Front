@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/api/announcements'
+const baseUrl = '/api/announcements'
 
 const getAll = () => {
     const request = axios.get(baseUrl+'/withPhotos')
