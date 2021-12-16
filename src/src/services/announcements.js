@@ -42,7 +42,7 @@ const getProductByCategoryId = (categoryId) =>{
 
 
 const cancel = (announcementId, token) => {
-    const request = axios.delete(`${baseUrl}/cancel/${announcementId}`, {
+    const request = axios.delete(`${baseUrl}/${announcementId}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
