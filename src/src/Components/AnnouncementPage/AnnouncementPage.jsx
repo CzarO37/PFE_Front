@@ -32,6 +32,7 @@ const AnnouncementPage = () => {
 
     let { id } = useParams()
     const token = storageService.getToken()
+    const user = storageService.getUser()
     const [announcement, setAnnouncement] = useState('')
     const [announcementPhotos, setAnnouncementPhotos] = useState(new Array(noImage))
     const [userPhoto, setUserPhoto] = useState(noImage)
@@ -195,13 +196,36 @@ const AnnouncementPage = () => {
     const handleBuy = () => {
         if (parseInt(proposedPrice) < 0)
             return alert("Le prix ne peut pas être négatif")
-        offersService.postOffer(token, {price:parseInt(proposedPrice), announcementId: announcement.announcementId})
+        const offer = {price:parseInt(proposedPrice), announcementId: announcement.announcementId}
+        offersService.postOffer(token, offer)
         alert("Offre envoyée")
+        sendEmailBuy(offer)
+    }
+
+    const sendEmailBuy = ({price, announcementId}) => {
+        const subject = `Vinci2ndHand - Offre pour ${announcement.name}`
+        const body = `Salut! Ton annonce "${announcement.name}" m'intéresse. J'aimerais te l'acheter pour ${price}€. Quand est-ce que nous pouvons nous voir? ${user.firstname} ${user.lastname}`
+        const to = announcement.seller.email
+        console.log({subject, body, to});
+
+        const mailto = `mailto:${to}?subject=${subject}&body=${body}`
+        window.location.href = mailto
+    }
+    
+    const sendEmailBarter = (announcementId) => {
+        const subject = `Vinci2ndHand - Offre pour ${announcement.name}`
+        const body = `Salut! Ton annonce "${announcement.name}" m'intéresse. Il se trouve que j'ai un autre objet qui pourrait te plaire. Serais-tu intéressé par un échange? [Decris l'objet que tu veux echanger ici!]`
+        const to = announcement.seller.email
+        console.log({subject, body, to});
+        const mailto = `mailto:${to}?subject=${subject}&body=${body}`
+        window.location.href = mailto
     }
 
     const handleTroc = () => {
-
-        // TODO notif
+        const offer = {price:0, announcementId: announcement.announcementId}
+        offersService.postOffer(token, offer)
+        alert("Offre envoyée")
+        sendEmailBarter(announcement.announcementId)
     }
 
 
@@ -236,7 +260,7 @@ const AnnouncementPage = () => {
                                 <Typography variant="h6" style={{marginTop:"10vh", marginBottom:"2vh"}}>{announcement.price === 0 ? "A donner" : `Prix proposé: ${announcement.price}€`}</Typography>
                                 <Grid container align="center">
                                     <Grid item xs={6}>
-                                        <Button variant="contained" style={buttonStyle} onClick={handleTrocOpening}>Proposer un troc</Button>
+                                        <Button variant="contained" style={buttonStyle} onClick={handleTroc}>Proposer un troc</Button>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Button variant="contained" style={buttonStyle} onClick={handleBuyOpening}>Acheter</Button>
