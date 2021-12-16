@@ -28,4 +28,3 @@ package-lock.json
 src/package-lock.json
 *.idea
 src/.env
-src/package-lock.json

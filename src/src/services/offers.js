@@ -39,14 +39,14 @@ const postOffer = (token, offer) => {
 }
 
 const acceptOffer = (token, offerId) => {
-    const request = axios.put(`${baseUrl}/accept/${offerId}`, {
+    const request = axios.put(`${baseUrl}/accept/${offerId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
 }
 
 const refuseOffer = (token, offerId) => {
-    const request = axios.put(`${baseUrl}/refuse/${offerId}`, {
+    const request = axios.put(`${baseUrl}/refuse/${offerId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     })
     return request.then(response => response.data)
