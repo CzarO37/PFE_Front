@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
-import tondeuse from "../../../images/products/tondeuse.jpg"
-import velo from "../../../images/products/velo.jpg"
-import vetements from "../../../images/products/vetements.jpg"
-import house from "../../../images/products/house.jpg"
 import { Card, CardContent, CardMedia, Grid, Paper, Typography } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { fontSize, minHeight } from "@mui/system";
 import announcementsService from "../../../services/announcements";
 import { Link } from "react-router-dom";
 
@@ -66,7 +61,7 @@ const Carrousel = () =>{
                                 component="img"
                                 height={300}
                                 image={"data:image/png;base64,"+product.photo}
-                                alt = "House and garden"
+                                alt = {product.name}
                             />
                             <CardContent>
                                 <Grid container display="flex" justify="space-between">
@@ -113,7 +108,7 @@ const Carrousel = () =>{
             draggable={false}
             showDots={true}
             responsive={responsive}
-            ssr={true} // means to render carousel on server-side.
+            ssr={false} // means to render carousel on server-side.
             infinite={true}
             autoPlay={true}
             autoPlaySpeed={8000}
