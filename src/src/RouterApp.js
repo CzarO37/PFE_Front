@@ -28,7 +28,7 @@ const RouterApp = () => {
             usersService.loginViaRememberMe(token).then((response) => {
                 storageService.storeUser(response.user)
                 storageService.storeToken(response.token, true)
-            })
+            }).catch(e => console.log(e))
         }
         
     }
