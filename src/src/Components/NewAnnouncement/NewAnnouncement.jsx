@@ -161,14 +161,10 @@ const NewAnnouncement = () => {
 
     }
 
-    const containerStyle = {
-        height: '100%',
-    }
-
     const framesStyle = {
         'background': 'linear-gradient(129deg, rgba(152,200,100,1) 0%, rgba(5,138,174,1) 84%, rgba(5,90,120,1) 100%)',
         padding:"0.3vh",
-        marginTop: '14vh',
+        marginTop: '2vh',
     }
 
     const submitStyle = {
@@ -182,15 +178,16 @@ const NewAnnouncement = () => {
         width: '70%'
     }
 
-    const signUpFormStyle = {
-        padding: 20,
-        marginTop: "14vh"
+    const titleStyle = {
+        color : '#7BA66C',
+        fontSize: '30px',
+        fontWeight: 'bold'
     }
 
     return (
 
             <Container>
-                <Typography variant="h4" fontWeight={'bold'} textAlign={'center'}>Ajouter une nouvelle annonce</Typography>
+                <Typography style={titleStyle} variant="h4" fontWeight={'bold'} textAlign={'center'}>Ajouter une nouvelle annonce</Typography>
                 <Link to="/categories"><Button startIcon={<KeyboardBackspaceOutlinedIcon/>}>Retour</Button></Link>
                 <Paper style={framesStyle}>
                     <Paper style={{background:'#e2efdc'}}>

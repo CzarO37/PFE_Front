@@ -58,7 +58,7 @@ const UserProfile = () => {
         if (myAnnouncements!==[]&&myOffers!==[]&&myPurchases!==[]) {
             setLoading(false) 
         }
-    }, 100);
+    }, 2000);
 
     useEffect(() => {
         async function loadData() {
@@ -90,12 +90,12 @@ const UserProfile = () => {
             return myOffers.map(offer => (
                 <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                     <Card sx={{ maxWidth: 345 }} key={offer.id}>
-                        <CardMedia
-                            component="img"
-                            height="190"
-                            image={velo}
-                            alt="image"
-                        />
+                        {/*<CardMedia*/}
+                        {/*    component="img"*/}
+                        {/*    height="190"*/}
+                        {/*    image={velo}*/}
+                        {/*    alt="image"*/}
+                        {/*/>*/}
                         <CardContent>
                             <Grid container>
                                 <Grid item xs={6} xl={6}>
@@ -132,12 +132,12 @@ const UserProfile = () => {
             return myAnnouncements.map(announcement => (
                 <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                 <Card sx={{ maxWidth: 345 }} key={announcement.announcementId}>
-                <CardMedia
-                    component="img"
-                    height="190"
-                    image={velo}
-                    alt="image"
-                />
+                {/*<CardMedia*/}
+                {/*    component="img"*/}
+                {/*    height="190"*/}
+                {/*    image={velo}*/}
+                {/*    alt="image"*/}
+                {/*/>*/}
                 <CardContent>
                     <Grid container>
                         <Grid item xs={6} xl={6}>
@@ -178,12 +178,12 @@ const UserProfile = () => {
             return myPurchases.map(purchase => (
                 <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                 <Card sx={{ maxWidth: 345 }} key={purchase.offerId}>
-                    <CardMedia
-                        component="img"
-                        height="190"
-                        image={velo}
-                        alt="image"
-                    />
+                    {/*<CardMedia*/}
+                    {/*    component="img"*/}
+                    {/*    height="190"*/}
+                    {/*    image={velo}*/}
+                    {/*    alt="image"*/}
+                    {/*/>*/}
                     <CardContent>
                         <Grid container>
                             <Grid item xs={6} xl={6}>
@@ -205,19 +205,19 @@ const UserProfile = () => {
 
     const handleCancel = (id,token) => {
         announcementsService.cancel(id,token).then(
-            history.push('/')
+            history.push('/myAccount')
         )
     }
 
     const handleAccept = (token,id) => {
         offersService.acceptOffer(token,id).then(
-            history.push('/')
+            history.push('/myAccount')
         )
     }
 
     const handleRefuse = (token,id) => {
         offersService.refuseOffer(token,id).then(
-            history.push('/')
+            history.push('/myAccount')
         )
     }
 
