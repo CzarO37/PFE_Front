@@ -35,7 +35,7 @@ const postOffer = (token, offer) => {
     const request = axios.post(baseUrl, offer, {
         headers: { 'Authorization': `Bearer ${token}` }   
     })
-    return request.then(response => response.data).catch((e) => alert(e.response.statusText))
+    return request.then(response => response.data).catch((e) => console.log(e.response.statusText))
 }
 
 const acceptOffer = (token, offerId) => {

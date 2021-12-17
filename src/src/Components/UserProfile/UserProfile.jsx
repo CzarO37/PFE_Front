@@ -65,15 +65,18 @@ const UserProfile = () => {
             await usersService.getMe(token).then(response => {
                 setUser(response)
                 console.log("user",response)
-                announcementsService.getMe(token).then(response => {
-                    setMyAnnouncements(response)
-                    console.log("annonces",response)
-                    offersService.getForMe(token).then(response => {
-                        setMyOffers(response)
-                        console.log("mes offres",response)
-                        offersService.getFromMe(token).then(response => {
-                            setMyPurchases(response)
-                            console.log("mes achats",response)
+                usersService.getPhoto(response.userId).then(responseUserPhoto => {
+                    setUserPhoto("data:image/png;base64, " + responseUserPhoto)
+                    announcementsService.getMe(token).then(response => {
+                        setMyAnnouncements(response)
+                        console.log("annonces",response)
+                        offersService.getForMe(token).then(response => {
+                            setMyOffers(response)
+                            console.log("mes offres",response)
+                            offersService.getFromMe(token).then(response => {
+                                setMyPurchases(response)
+                                console.log("mes achats",response)
+                            })
                         })
                     })
                 })
@@ -228,7 +231,7 @@ const UserProfile = () => {
             )
             
         }
-        else {
+        else if (state === 'ACCEPTED') {
             return <Typography variant="h5" color={'red'}>Vendu</Typography>
         }
         
