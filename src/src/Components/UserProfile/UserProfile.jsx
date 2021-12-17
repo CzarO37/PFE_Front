@@ -87,12 +87,12 @@ const UserProfile = () => {
             return myOffers.map(offer => (
                 <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                     <Card sx={{ maxWidth: 345 }} key={offer.id}>
-                        <CardMedia
-                            component="img"
-                            height="190"
-                            image={velo}
-                            alt="image"
-                        />
+                        {/*<CardMedia*/}
+                        {/*    component="img"*/}
+                        {/*    height="190"*/}
+                        {/*    image={velo}*/}
+                        {/*    alt="image"*/}
+                        {/*/>*/}
                         <CardContent>
                             <Grid container>
                                 <Grid item xs={6} xl={6}>
@@ -129,12 +129,12 @@ const UserProfile = () => {
             return myAnnouncements.map(announcement => (
                 <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                 <Card sx={{ maxWidth: 345 }} key={announcement.announcementId}>
-                <CardMedia
-                    component="img"
-                    height="190"
-                    image={velo}
-                    alt="image"
-                />
+                {/*<CardMedia*/}
+                {/*    component="img"*/}
+                {/*    height="190"*/}
+                {/*    image={velo}*/}
+                {/*    alt="image"*/}
+                {/*/>*/}
                 <CardContent>
                     <Grid container>
                         <Grid item xs={6} xl={6}>
@@ -175,12 +175,12 @@ const UserProfile = () => {
             return myPurchases.map(purchase => (
                 <Grid item xs={12} md={6} xl={4} marginTop={'1vh'}>
                 <Card sx={{ maxWidth: 345 }} key={purchase.offerId}>
-                    <CardMedia
-                        component="img"
-                        height="190"
-                        image={velo}
-                        alt="image"
-                    />
+                    {/*<CardMedia*/}
+                    {/*    component="img"*/}
+                    {/*    height="190"*/}
+                    {/*    image={velo}*/}
+                    {/*    alt="image"*/}
+                    {/*/>*/}
                     <CardContent>
                         <Grid container>
                             <Grid item xs={6} xl={6}>
