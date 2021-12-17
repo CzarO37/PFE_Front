@@ -58,7 +58,7 @@ const UserProfile = () => {
         if (myAnnouncements!==[]&&myOffers!==[]&&myPurchases!==[]) {
             setLoading(false) 
         }
-    }, 100);
+    }, 2000);
 
     useEffect(() => {
         async function loadData() {
@@ -74,6 +74,7 @@ const UserProfile = () => {
                         offersService.getFromMe(token).then(response => {
                             setMyPurchases(response)
                             console.log("mes achats",response)
+                            
                         })
                     })
                 })
@@ -202,19 +203,19 @@ const UserProfile = () => {
 
     const handleCancel = (id,token) => {
         announcementsService.cancel(id,token).then(
-            history.push('/')
+            history.push('/myAccount')
         )
     }
 
     const handleAccept = (token,id) => {
         offersService.acceptOffer(token,id).then(
-            history.push('/')
+            history.push('/myAccount')
         )
     }
 
     const handleRefuse = (token,id) => {
         offersService.refuseOffer(token,id).then(
-            history.push('/')
+            history.push('/myAccount')
         )
     }
 
