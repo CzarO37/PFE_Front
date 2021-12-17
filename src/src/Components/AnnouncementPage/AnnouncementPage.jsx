@@ -56,7 +56,7 @@ const AnnouncementPage = () => {
         if (announcement!==''&&seller!==''&&campus!=='') {
             setLoading(false) 
         }
-    }, 1);
+    }, 2000);
 
     useEffect(() => {
         async function loadData() {

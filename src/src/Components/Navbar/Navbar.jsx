@@ -19,7 +19,7 @@ const Navbar = () =>{
             storageService.storeUser(response.user)
             storageService.storeToken(response.token, true)
             history.push(document.location.pathname)
-        })
+        }).catch(e=>console.log(e))
     }
 
     const handleClick = (event) => {

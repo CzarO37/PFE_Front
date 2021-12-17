@@ -31,7 +31,7 @@ const loginViaRememberMe = (token) => {
     const request = axios.get(`${baseUrl}/login`,{
         headers: { Authorization: `Bearer ${token}` }
     })
-    return request.then(response => response.data)
+    return request.then(response => response.data).catch(e=>console.log(e))
 }
 
 const loginRememberThenRefresh = (history) => {

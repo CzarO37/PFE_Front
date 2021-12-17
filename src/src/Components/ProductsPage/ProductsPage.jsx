@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/system'
 import MenuCategory from './MenuCategory/MenuCategory.jsx'
 import storage from '../../services/storage.js'
+import usersService from '../../services/users.js'
 
 
 const MAX_PRICE = 1000000
@@ -37,12 +38,33 @@ const ProductsPage = (props) => {
 
     useEffect(()=>{
         if(categoryId === null){
-            annoncementsService.getAll().then((response)=>setProductList(response))
+            annoncementsService.getAll().then((response)=> {
+                let list = response
+                if(token) {
+                    usersService.getMe(token).then((response) => {
+                        console.log(list);
+                        list = list.filter((product) => product.sellerId !== response.userId)
+                        console.log(list);
+                        setProductList(list)
+                    })
+                }
+                setProductList(response)
+            })
+            
         }else{
             categorieService.getAll().then((response)=>setCategoryList(response))
             annoncementsService.getProductByCategoryId(categoryId).then((response)=> {
-                const list = response.filter((product)=>product.state != "CANCELLED" && product.state != "ACCEPTED")
-                setProductList(list)
+                let list = response.filter((product)=>product.state != "CANCELLED" && product.state != "ACCEPTED")
+                if(token) {
+                    usersService.getMe(token).then((response) => {
+                        console.log(list);
+                        list = list.filter((product) => product.sellerId !== response.userId)
+                        console.log(list);
+                        setProductList(list)
+                    })
+                }
+
+                
             })
         }
     },[categoryId])
